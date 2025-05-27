@@ -48,6 +48,52 @@ const MemberForm = () => {
             </div>
 
             <div className="flex flex-col gap-1">
+              <label htmlFor="adress">Adress</label>
+              <input
+                type="text"
+                className="rounded-md bg-white px-2 py-1 text-black outline-none"
+                placeholder="e.g. Dar es Salaam, Shinyanga"
+                id="adress"
+                {...register("adress")}
+              />
+            </div>
+
+            <div className="flex flex-col gap-1">
+              <label htmlFor="course">Course</label>
+              <input
+                type="text"
+                className="rounded-md bg-white px-2 py-1 text-black outline-none"
+                placeholder="e.g. MD, DDS, BMLS"
+                id="course"
+                {...register("course")}
+              />
+            </div>
+
+            <div className="flex flex-col gap-1">
+              <label htmlFor="year_of_study">Current year of study</label>
+              <input
+                type="text"
+                className="rounded-md bg-white px-2 py-1 text-black outline-none"
+                placeholder="e.g. 1,2"
+                id="year_of_study"
+                {...register("year_of_study")}
+              />
+            </div>
+
+            <div className="flex flex-col gap-1">
+              <label htmlFor="Baptism_status">Baptism status</label>
+              <select
+                required
+                className="rounded-md bg-white px-2 py-1 text-black outline-none"
+                id="Baptism_status"
+                {...register("Baptism_status")}
+              >
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+              </select>
+            </div>
+
+            <div className="flex flex-col gap-1">
               <label htmlFor="email">Email</label>
               <input
                 type="email"
@@ -86,7 +132,34 @@ const MemberForm = () => {
               />
             </div>
 
-            <div className="flex flex-col gap-1">
+            <div>
+              <label className="block text-sm font-medium text-white mb-1">
+                Profile picture
+              </label>
+              <input
+                type="file"
+                {...register("file", { required: true })}
+                className="block w-full text-sm text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm file:mr-4 file:py-2 file:px-4 file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-gray-500 hover:file:bg-blue-100"
+              />
+            </div>
+
+            <button
+              type="submit"
+              className=" mx-auto block px-4 py-1 rounded-md text-white capitalize mt-4 cursor-pointer border-primary-light border-[1px]"
+            >
+              Sign up
+            </button>
+          </form>
+        </Fade>
+      </div>
+    </>
+  );
+};
+
+export default MemberForm;
+
+/*
+ <div className="flex flex-col gap-1">
               <label htmlFor="course">Course</label>
               <select
                 className="rounded-md bg-white px-2 py-1 text-black outline-none"
@@ -106,18 +179,4 @@ const MemberForm = () => {
                 <option value="OT">OT</option>
               </select>
             </div>
-
-            <button
-              type="submit"
-              className=" mx-auto block px-4 py-1 rounded-md text-white capitalize mt-4 cursor-pointer border-primary-light border-[1px]"
-            >
-              Sign up
-            </button>
-          </form>
-        </Fade>
-      </div>
-    </>
-  );
-};
-
-export default MemberForm;
+*/

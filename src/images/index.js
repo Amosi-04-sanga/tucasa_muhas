@@ -17,6 +17,7 @@ const images = {
   muhasso_loundry: "./assets/logo/muhaso_loundry.svg",
   hope_in_ict: "./assets/logo/hope_in_ict.svg",
   projects_bg: "./assets/bg/projects_bg.png",
+  logo: "./assets/logo/logo.svg",
 };
 
 

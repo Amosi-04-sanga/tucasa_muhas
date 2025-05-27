@@ -10,13 +10,21 @@ const Navbar = () => {
   const [isMenuOpened, setIsMenuOpened] = useState(false);
   const [isSubmenuOpened, setIsSubmenuOpened] = useState(false);
 
-  const { menu, location, right_arrow, close, hope_in_ict } = images;
+  const { menu, logo, location, right_arrow, close, hope_in_ict } = images;
 
   return (
     <>
       <div className="sticky left-0 top-0 z-50 flex justify-between items-center px-8 h-[10vh] bg-primary-dark text-white">
         <div className="text-white">
-          LOGO
+          <Link href="/">
+            <Image
+              src={logo}
+              alt={`logo`}
+              width={90}
+              height={30}
+              className="block mx-auto"
+            />
+          </Link>
         </div>
         <div>
           <Image
@@ -61,20 +69,7 @@ const Navbar = () => {
                 </Slide>
               ))}
             </div>
-            <Slide direction="up">
-              <div
-                onClick={() => setIsMenuOpened(false)}
-                className="text-white flex gap-2"
-              >
-                <Link href="/register" className="inline-block">
-                  Register
-                </Link>
-                <span>|</span>
-                <Link href="/sign-in" className="inline-block">
-                  sign-in
-                </Link>
-              </div>
-            </Slide>
+           
           </div>
         </div>
       )}
@@ -85,11 +80,5 @@ const Navbar = () => {
 export default Navbar;
 
 /*
-<Image
-            src={hope_in_ict}
-            alt={`logo`}
-            width={90}
-            height={70}
-            className="block mx-auto"
-          />
+
 */

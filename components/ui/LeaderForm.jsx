@@ -80,24 +80,25 @@ const LeaderForm = () => {
             </div>
 
             <div className="flex flex-col gap-1">
-              <label htmlFor="email">Email</label>
+              <label htmlFor="position">Position</label>
               <input
-                type="email"
+                type="text"
+                placeholder="eg: chairman of tucasa"
                 required
-                className="rounded-md bg-white px-2 py-1 text-black outline-none"
-                id="email"
-                {...register("email")}
+                className="rounded-md px-2 py-1 bg-white text-black outline-none"
+                id="position"
+                {...register("position")}
               />
             </div>
 
             <div className="flex flex-col gap-1">
-              <label htmlFor="password">Password</label>
+              <label htmlFor="course">Course</label>
               <input
-                type="password"
-                required
+                type="text"
                 className="rounded-md bg-white px-2 py-1 text-black outline-none"
-                id="password"
-                {...register("password")}
+                placeholder="e.g. MD, DDS, BMLS"
+                id="course"
+                {...register("course")}
               />
             </div>
 
@@ -120,54 +121,35 @@ const LeaderForm = () => {
             </div>
 
             <div className="flex flex-col gap-1">
-              <label htmlFor="course">Course</label>
-              <select
-                className="rounded-md bg-white px-2 py-1 text-black outline-none"
+              <label htmlFor="email">Email</label>
+              <input
+                type="email"
                 required
-                id="course"
-                {...register("course")}
-              >
-                <option value="MD">MD</option>
-                <option value="DDS">DDS</option>
-                <option value="BMLS">BMLS</option>
-                <option value="PHARMACY">PHARMACY</option>
-                <option value="RADIOLOGY">RADIOLOGY</option>
-                <option value="NURSING">NURSING</option>
-                <option value="PHYSIOTHERAPY">PHYSIOTHERAPY</option>
-                <option value="ENVIRONMENTAL HEALTH">
-                  ENVIRONMENTAL HEALTH
-                </option>
-                <option value="OT">OT</option>
-              </select>
+                className="rounded-md bg-white px-2 py-1 text-black outline-none"
+                id="email"
+                {...register("email")}
+              />
             </div>
 
             <div className="flex flex-col gap-1">
-              <label htmlFor="position">Leadership position</label>
-              <select
-                className="rounded-md bg-white px-2 py-1 text-black outline-none"
+              <label htmlFor="password">Password</label>
+              <input
+                type="password"
                 required
-                id="position"
-                {...register("leadership_position")}
-              >
-                <option value="charman of tucasa">Charman of tucasa</option>
-                <option value="secretary of tucasa">Secretary of tucasa</option>
-                <option value="treasure of tucasa">Treasure of tucasa</option>
-                <option value="ICT chairman">ICT chairman</option>
-                <option value="ICT secretary">ICT secretary</option>
-              </select>
+                className="rounded-md bg-white px-2 py-1 text-black outline-none"
+                id="password"
+                {...register("password")}
+              />
             </div>
 
-            <div className="flex flex-col gap-1">
-              <label htmlFor="duration_of_leadership">
-                Duration of leadership
+            <div>
+              <label className="block text-sm font-medium text-white mb-1">
+                Profile picture
               </label>
               <input
-                type="text"
-                required
-                className="rounded-md bg-white px-2 py-1 text-black outline-none"
-                id="duration_of_leadership"
-                placeholder="2025-2026"
-                {...register("duration_of_leadership")}
+                type="file"
+                {...register("file", { required: true })}
+                className="block w-full text-sm text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm file:mr-4 file:py-2 file:px-4 file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-gray-500 hover:file:bg-blue-100"
               />
             </div>
 

@@ -7,7 +7,7 @@ import Link from "next/link";
 
 const page = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const userStatus = ["Member", "Leader", "Associate"];
+  const userStatus = ["Member", "Leader", "Associate | Alumni"];
   const { register, handleSubmit } = useForm();
 
   const onSubmit = (data) => console.log(data);

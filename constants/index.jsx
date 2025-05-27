@@ -119,6 +119,18 @@ export const project_content = [
 
 export const nav_links = [
   {
+    path: "/",
+    link_text: "Home",
+  },
+  {
+    path: "/about",
+    link_text: "About us",
+  },
+  {
+    path: "/register",
+    link_text: "Register",
+  },
+  {
     path: "/news",
     link_text: "News and events",
   },
@@ -127,12 +139,8 @@ export const nav_links = [
     link_text: "Articles",
   },
   {
-    path: "/about",
-    link_text: "About",
-  },
-  {
-    path: "/contacts",
-    link_text: "Contacts",
+    path: "/gallery",
+    link_text: "Gallery",
   },
 ];
 
