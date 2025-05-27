@@ -31,18 +31,9 @@ const About = () => {
         ))}
       </div>
 
-      <button className="bg-primary-dark mx-auto block px-2 py-1 rounded-md text-white capitalize mt-8 cursor-pointer border-white border-[1px]">
-        <Link href="#">
-          <div className="flex gap-2">
-            <p>Read More</p>
-            <Image
-              src={right_arrow}
-              alt="icon"
-              width={20}
-              height={20}
-              className="object-cove"
-            />
-          </div>
+      <button className="mt-16 mx-auto block">
+        <Link href="/about" className="capitalize text-red-700 font-bold">
+          Read More
         </Link>
       </button>
     </div>

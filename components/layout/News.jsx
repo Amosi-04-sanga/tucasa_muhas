@@ -1,8 +1,30 @@
+"use client";
 import { anouncenmnts_content, upcoming_events_content } from "@/constants";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
+import { Fade } from "react-awesome-reveal";
 
 const News = () => {
+  const [initialNewsLoad, setInitialNewsLoad] = useState(2);
+  const [hasMore, SetHasMore] = useState(true);
+
+  const loadMoreHandler = () => {
+    if (initialNewsLoad < upcoming_events_content.length) {
+      console.log("running...");
+      setInitialNewsLoad((prev) => {
+        const newsLoad = prev + 2;
+        if (newsLoad == upcoming_events_content.length) {
+          SetHasMore(false);
+        }
+
+        return newsLoad;
+      });
+    } else {
+      setInitialNewsLoad(2);
+      SetHasMore(true);
+    }
+  };
+
   return (
     <div className="mt-16 mb-8 px-8 sm:px-16">
       <div className="text-center pt-16">
@@ -10,7 +32,7 @@ const News = () => {
           News and Events
         </h1>
       </div>
-      <p className="mt-4">
+      <p className="mt-4 sm:max-w-[500px] mx-auto">
         Stay updated with the latest news, announcements, and upcoming events.
         Here you'll find everything happening in and around our organization
       </p>
@@ -20,39 +42,44 @@ const News = () => {
         upcoming <span className="text-primary-dark"> events </span>{" "}
       </h1>
 
-      <div className="flex flex-col gap-8 md:flex md:gap-8 mt-4">
-        {upcoming_events_content.map((content, index) => (
-          <div className="max-w-[400px] shadow-md rounded-md" key={index}>
-            <div className="max-h-[500px]">
-              <img
-                src={content.poster}
-                alt={`poster_${content.poster}`}
-                className="object-cover w-full h-full rounded-tl-md rounded-tr-md"
-              />
-            </div>
-            <div className="px-2 pb-4">
-              <p className="mt-4 text-primary-dark font-bold">
-                {" "}
-                {content.remainder} to Go!{" "}
-              </p>
-              <p className="mt-4">
-                {content.excerpt} {"..."}{" "}
-              </p>
+      <div className="flex flex-col gap-8 justify-center items-center  md:flex md:flex-row md:flex-wrap md:gap-8 mt-4">
+        {upcoming_events_content
+          .slice(0, initialNewsLoad)
+          .map((content, index) => (
+            <Fade key={index}>
+              <div className="max-w-[400px] shadow-md rounded-md">
+                <div className="max-h-[500px]">
+                  <img
+                    src={content.poster}
+                    alt={`poster_${content.poster}`}
+                    className="object-cover w-full h-full rounded-tl-md rounded-tr-md"
+                  />
+                </div>
+                <div className="px-2 pb-4">
+                  <p className="mt-4 text-primary-dark font-bold">
+                    {" "}
+                    {content.remainder} to Go!{" "}
+                  </p>
+                  <p className="mt-4">
+                    {content.excerpt} {"..."}{" "}
+                  </p>
 
-              <button className=" mx-auto block px-2 py-1 rounded-md text-primary-dark capitalize mt-8 cursor-pointer border-primary-light border-[1px]">
-                <Link href="#">
-                  <p>Read More</p>
-                </Link>
-              </button>
-            </div>
-          </div>
-        ))}
+                  <button className=" mx-auto block px-2 py-1 rounded-md text-primary-dark capitalize mt-8 cursor-pointer border-primary-light border-[1px]">
+                    <Link href="#">
+                      <p>Read More</p>
+                    </Link>
+                  </button>
+                </div>
+              </div>
+            </Fade>
+          ))}
       </div>
 
-      <button className="mt-8 mx-auto block">
-        <Link href="#" className="capitalize text-red-700 font-bold">
-          view all
-        </Link>
+      <button
+        onClick={loadMoreHandler}
+        className="mt-8 text-red-800 font-bold cursor-pointer mx-auto block"
+      >
+        {hasMore ? "Load More" : "View Less"}
       </button>
 
       <div className="mt-16">
@@ -61,9 +88,10 @@ const News = () => {
           <span className="text-primary-dark"> Announcements </span>{" "}
         </h1>
 
-        <div className="mt-4 flex flex-col gap-2">
+        <div className="mt-4 flex flex-col gap-2 w-fit mx-auto">
           {anouncenmnts_content.map((content, index) => (
-            <div key={index}>
+            <div className="flex gap-x-2 items-start" key={index}>
+              <div className="w-2 h-2 mt-1  bg-primary-light" />
               <Link className="text-red-500" href="#">
                 {content.text} {"..."}
               </Link>

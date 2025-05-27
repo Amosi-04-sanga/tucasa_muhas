@@ -4,25 +4,41 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { Fade } from "react-awesome-reveal";
 
-const Blog = () => {
+const page = () => {
+  const [postsLoad, setPostsLoad] = useState(4);
+  const [hasMore, SetHasMore] = useState(true);
+
+  const loadMoreHandler = () => {
+    if (postsLoad < blog_content.length) {
+      setPostsLoad((prev) => {
+        const newsLoad = prev + 2;
+        if (newsLoad == blog_content.length) {
+          SetHasMore(false);
+        }
+
+        return newsLoad;
+      });
+    } else {
+      setPostsLoad(2);
+      SetHasMore(true);
+    }
+  };
+
+
   return (
-    <div className="mt-16 px-8 sm:px-16 md:px-24 lg:px-32 xl:px-40">
+    <div className="mt-16 mb-16 px-8 sm:px-16 md:px-24 lg:px-32 xl:px-40">
       <div className="text-center">
         <h1 className="relative inline-block before:absolute before:left-0 before:bottom-0 before:w-[40%] before:h-[4px] before:bg-primary-dark before:opacity-50 pb-1 text-3xl font-bold">
-          Articles and Sermons
+          All Articles
         </h1>
       </div>
 
-      <p className="mt-4 sm:max-w-[500px] mx-auto">
-        Explore inspiring sermons and thought-provoking articles that offer
-        spiritual guidance, personal growth, and deeper understanding of faith."
-      </p>
 
-      <div className="mt-8 flex flex-col gap-4 justify-center items-center md:flex-row flex-wrap">
-        {blog_content.slice(0, 4).map((content, index) => (
+      <div className="mt-8 flex flex-col gap-4 justify-center items-center md:flex-row md:justify-start flex-wrap">
+        {blog_content.slice(0, postsLoad).map((content, index) => (
           <Fade key={index}>
-            <div className="max-w-[400px] shadow-md rounded-md">
-              <div className="max-h-[500px]">
+            <div className="max-w-[300px] shadow-md rounded-md">
+              <div className="max-h-[400px]">
                 <img
                   src={content.featured_image}
                   alt={`poster_${content.title}`}
@@ -35,7 +51,7 @@ const Blog = () => {
                   {content.title}
                 </p>
                 <p className="mt-4">
-                  {content.exerpt} {"..."}{" "}
+                  {content.exerpt.slice(0, 120)} {"..."}{" "}
                 </p>
 
                 <button className=" mx-auto block px-2 py-1 rounded-md text-primary-dark capitalize mt-8 cursor-pointer border-primary-light border-[1px]">
@@ -49,13 +65,14 @@ const Blog = () => {
         ))}
       </div>
 
-      <button className="mt-8 mx-auto block cursor-pointer">
-        <Link href="/blog">
-          <p className="capitalize text-red-700 font-bold"> {"View All"} </p>
-        </Link>
+      <button
+        onClick={loadMoreHandler}
+        className="mt-8 text-red-800 font-bold cursor-pointer mx-auto relative block before:absolute before:left-[100px] before:bottom-[10px] before:w-[70%] before:h-[3px] before:bg-red-300"
+      >
+        {hasMore ? "Load More" : "View Less"}
       </button>
     </div>
   );
 };
 
-export default Blog;
+export default page;

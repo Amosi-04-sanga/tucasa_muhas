@@ -7,5 +7,21 @@ import Blog from "./layout/Blog";
 import BlogCard from "./ui/BlogCard";
 import Button from "./ui/Button";
 import Form from "./ui/Form";
+import MemberForm from "./ui/MemberForm";
+import LeaderForm from "./ui/LeaderForm";
+import AssociateForm from "./ui/AssociateForm";
 
-export { Navbar, Hero, Button, BlogCard, About, News, Projects, Blog, Form };
+export {
+  Navbar,
+  Hero,
+  Button,
+  BlogCard,
+  About,
+  News,
+  Projects,
+  Blog,
+  Form,
+  MemberForm,
+  LeaderForm,
+  AssociateForm,
+};

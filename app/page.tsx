@@ -1,9 +1,8 @@
-import { About, Blog, Form, Hero, Navbar, News, Projects } from "../components";
+import { About, Blog, Form, Hero, News, Projects } from "../components";
 
 export default function Home() {
   return (
     <div>
-      <Navbar />
       <Hero />
       <About />
       <div className="bg-news_bg_color mb-16">

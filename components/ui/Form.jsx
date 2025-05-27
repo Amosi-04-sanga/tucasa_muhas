@@ -5,21 +5,22 @@ import { useForm } from "react-hook-form";
 
 const Form = () => {
   const [messageSend, setMessageSend] = useState(false);
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
 
   const onSubmit = (data) => {
-    return console.log(data);
+    console.log(data);
+    reset();
   };
 
   return (
-    <div className="bg-form_bg mt-32 px-8 sm:px-16 md:px-24 lg:px-32 xl:px-40">
+    <div className="bg-form_bg mt-16 pb-1 px-8 sm:px-16 md:px-24 lg:px-32 xl:px-40">
       <h1 className="text-center pt-16 font-bold text-3xl">Contact us</h1>
 
       <div className="max-w-[350px] mt-4 mb-32 mx-auto">
         <p className="mt-4">Send us a message</p>
         <Fade>
           <form
-            className="flex flex-col gap-4 mt-4 w-full bg-primary-dark rounded-md px-4 py-8 text-white"
+            className="flex flex-col gap-4 mt-4  w-full bg-primary-dark rounded-md px-4 py-8 text-white"
             onSubmit={handleSubmit(onSubmit)}
           >
             <div className="flex flex-col gap-1">

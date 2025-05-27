@@ -4,7 +4,7 @@ import Image from "next/image";
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { hero_slideshow } from "../../constants";
-import { Slide } from "react-awesome-reveal";
+import { Fade, Slide } from "react-awesome-reveal";
 
 const Hero = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -55,13 +55,13 @@ const Hero = () => {
           />
         </div>
         <div className="flex flex-col justify-center items-center absolute left-[50%] -translate-x-2/4 top-[50%] -translate-y-2/4 z-20 h-[90vh] max-w-[350px] max-sm:w-auto text-center w-full text-white">
-          <Slide direction="down">
-            <h1 className="text-4xl"> {hero_slideshow[currentIndex].title} </h1>
-            <p className="mt-4 font-bold">
+          <Fade>
+            <h1 className="text-4xl md:text-5xl capitalize"> {hero_slideshow[currentIndex].title} </h1>
+            <p className="mt-4 text-xl md:text-2xl">
               {" "}
               {hero_slideshow[currentIndex].description}{" "}
             </p>
-          </Slide>
+          </Fade>
           <Slide direction="up">
             {hero_slideshow[currentIndex].btn && (
               <button className="bg-primary-dark px-2 py-1 rounded-md text-white capitalize mt-8 cursor-pointer border-primary-light border-[1px]">

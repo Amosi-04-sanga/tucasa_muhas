@@ -21,18 +21,23 @@ const Projects = () => {
           </h1>
         </div>
 
-        <div className="mt-4 pb-4 flex flex-col gap-8 md:flex md:gap-8">
+        <div className="mt-8  pb-4 flex flex-col gap-4 md:flex md:flex-row md:flex-wrap md:justify-center md:gap-8">
           {project_content.map((content, index) => (
-            <Fade direction="" delay={index * 50} cascade={true} key={index}>
+            <Fade cascade={true} key={index}>
               <div className="max-w-[300px] mt-4 mx-auto shadow-md pb-4 px-4 rounded-md">
-                <Image
-                  src={content.logo}
-                  alt={`image_${content.logo}`}
-                  width={170}
-                  height={170}
-                  className="block mx-auto"
-                />
-                <p className="mt-2"> {content.text} </p>
+                <div className="min-h-[130px] flex items-center">
+                  <Image
+                    src={content.logo}
+                    alt={`image_${content.logo}`}
+                    width={`${index === 1 ? 90 : 170}`}
+                    height={`${index === 1 ? 90 : 170}`}
+                    className="block mx-auto mb-4"
+                  />
+                </div>
+                <p className="mt-2">
+                  {" "}
+                  {content.text.slice(0, 150)} {"..."}{" "}
+                </p>
                 <button className="mt-8 mx-auto block">
                   <Link href="#" className="capitalize text-red-700 font-bold">
                     More

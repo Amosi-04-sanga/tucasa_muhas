@@ -8,6 +8,7 @@ const {
   kai,
   hope_in_ict,
   muhasso_loundry,
+  mission
 } = images;
 
 export const hero_slideshow = [
@@ -39,7 +40,7 @@ export const about_content = [
     text: "To be a Christ-centered community that empowers students to grow in faith, lead with integrity, and transform their world through love, service, and spiritual excellence.",
   },
   {
-    logo: vision,
+    logo: mission,
     title: "Our Mission",
     text: "To be a Christ-centered community that empowers students to grow in faith, lead with integrity, and transform their world through love, service, and spiritual excellence.",
   },
@@ -51,6 +52,24 @@ export const about_content = [
 ];
 
 export const upcoming_events_content = [
+  {
+    poster: worship1,
+    remainder: "5 days",
+    excerpt:
+      "Catch up on the latest updates, stories, and events. From important news to exciting happenings, this is your go-to source for",
+  },
+  {
+    poster: worship1,
+    remainder: "5 days",
+    excerpt:
+      "Catch up on the latest updates, stories, and events. From important news to exciting happenings, this is your go-to source for",
+  },
+  {
+    poster: worship1,
+    remainder: "5 days",
+    excerpt:
+      "Catch up on the latest updates, stories, and events. From important news to exciting happenings, this is your go-to source for",
+  },
   {
     poster: worship1,
     remainder: "5 days",
@@ -86,7 +105,7 @@ export const anouncenmnts_content = [
 export const project_content = [
   {
     logo: hope_in_ict,
-    text: "Hope in ICT is a youth-driven initiative that offers creative digital solutions including graphic design, photography, and event branding to support and enhance other people’s projects and businesses.",
+    text: "Hope in ICT is a youth-driven initiative that offers creative digital solutions including graphic design, photography, and event branding to support and enhance other people’s projects and businesses",
   },
   {
     logo: kai,
@@ -100,56 +119,118 @@ export const project_content = [
 
 export const nav_links = [
   {
-    path: "/projects",
-    link_text: "Projects",
+    path: "/news",
+    link_text: "News and events",
   },
   {
-    path: "/news-events",
-    link_text: "News and events",
+    path: "/blog",
+    link_text: "Articles",
   },
   {
     path: "/about",
     link_text: "About",
   },
   {
-    path: "/",
-    link_text: "Register",
-    register_as: [
-      {
-        path: "/register/member",
-        status: 'member',
-        link_text: "Member",
-      },
-      {
-        path: "/register/leader",
-        status: 'leader',
-        link_text: "Leader",
-      },
-      {
-        path: "/register/associate",
-        status: 'associate',
-        link_text: "Associate",
-      },
-    ],
+    path: "/contacts",
+    link_text: "Contacts",
   },
 ];
-
-
 
 export const blog_content = [
   {
     featured_image: worship1,
-    title: 'Ukombozi wa Mwanadamu',
-    exerpt: 'Ukombozi wa mwanadamu uliletwa kwa njia ya damu ya Yesu Kristo iliyomwagika msalabani. Mwanadamu aliingia katika utumwa wa dhambi baada ya kuasi, lakini kwa upendo wa Mungu, Yesu alik'
+    title: "Ukombozi wa Mwanadamu",
+    exerpt:
+      "Ukombozi wa mwanadamu uliletwa kwa njia ya damu ya Yesu Kristo iliyomwagika msalabani. Mwanadamu aliingia katika utumwa wa dhambi baada ya kuasi, lakini kwa upendo wa Mungu, Yesu alik",
   },
   {
     featured_image: worship1,
-    title: 'Ukombozi wa Mwanadamu',
-    exerpt: 'Ukombozi wa mwanadamu uliletwa kwa njia ya damu ya Yesu Kristo iliyomwagika msalabani. Mwanadamu aliingia katika utumwa wa dhambi baada ya kuasi, lakini kwa upendo wa Mungu, Yesu alik'
+    title: "Ukombozi wa Mwanadamu",
+    exerpt:
+      "Ukombozi wa mwanadamu uliletwa kwa njia ya damu ya Yesu Kristo iliyomwagika msalabani. Mwanadamu aliingia katika utumwa wa dhambi baada ya kuasi, lakini kwa upendo wa Mungu, Yesu alik",
   },
   {
     featured_image: worship1,
-    title: 'Ukombozi wa Mwanadamu',
-    exerpt: 'Ukombozi wa mwanadamu uliletwa kwa njia ya damu ya Yesu Kristo iliyomwagika msalabani. Mwanadamu aliingia katika utumwa wa dhambi baada ya kuasi, lakini kwa upendo wa Mungu, Yesu alik'
+    title: "Ukombozi wa Mwanadamu",
+    exerpt:
+      "Ukombozi wa mwanadamu uliletwa kwa njia ya damu ya Yesu Kristo iliyomwagika msalabani. Mwanadamu aliingia katika utumwa wa dhambi baada ya kuasi, lakini kwa upendo wa Mungu, Yesu alik",
   },
-]
+  {
+    featured_image: worship1,
+    title: "Ukombozi wa Mwanadamu",
+    exerpt:
+      "Ukombozi wa mwanadamu uliletwa kwa njia ya damu ya Yesu Kristo iliyomwagika msalabani. Mwanadamu aliingia katika utumwa wa dhambi baada ya kuasi, lakini kwa upendo wa Mungu, Yesu alik",
+  },
+  {
+    featured_image: worship1,
+    title: "Ukombozi wa Mwanadamu",
+    exerpt:
+      "Ukombozi wa mwanadamu uliletwa kwa njia ya damu ya Yesu Kristo iliyomwagika msalabani. Mwanadamu aliingia katika utumwa wa dhambi baada ya kuasi, lakini kwa upendo wa Mungu, Yesu alik",
+  },
+  {
+    featured_image: worship1,
+    title: "Ukombozi wa Mwanadamu",
+    exerpt:
+      "Ukombozi wa mwanadamu uliletwa kwa njia ya damu ya Yesu Kristo iliyomwagika msalabani. Mwanadamu aliingia katika utumwa wa dhambi baada ya kuasi, lakini kwa upendo wa Mungu, Yesu alik",
+  },
+  {
+    featured_image: worship1,
+    title: "Ukombozi wa Mwanadamu",
+    exerpt:
+      "Ukombozi wa mwanadamu uliletwa kwa njia ya damu ya Yesu Kristo iliyomwagika msalabani. Mwanadamu aliingia katika utumwa wa dhambi baada ya kuasi, lakini kwa upendo wa Mungu, Yesu alik",
+  },
+  {
+    featured_image: worship1,
+    title: "Ukombozi wa Mwanadamu",
+    exerpt:
+      "Ukombozi wa mwanadamu uliletwa kwa njia ya damu ya Yesu Kristo iliyomwagika msalabani. Mwanadamu aliingia katika utumwa wa dhambi baada ya kuasi, lakini kwa upendo wa Mungu, Yesu alik",
+  },
+  {
+    featured_image: worship1,
+    title: "Ukombozi wa Mwanadamu",
+    exerpt:
+      "Ukombozi wa mwanadamu uliletwa kwa njia ya damu ya Yesu Kristo iliyomwagika msalabani. Mwanadamu aliingia katika utumwa wa dhambi baada ya kuasi, lakini kwa upendo wa Mungu, Yesu alik",
+  },
+  {
+    featured_image: worship1,
+    title: "Ukombozi wa Mwanadamu",
+    exerpt:
+      "Ukombozi wa mwanadamu uliletwa kwa njia ya damu ya Yesu Kristo iliyomwagika msalabani. Mwanadamu aliingia katika utumwa wa dhambi baada ya kuasi, lakini kwa upendo wa Mungu, Yesu alik",
+  },
+  {
+    featured_image: worship1,
+    title: "Ukombozi wa Mwanadamu",
+    exerpt:
+      "Ukombozi wa mwanadamu uliletwa kwa njia ya damu ya Yesu Kristo iliyomwagika msalabani. Mwanadamu aliingia katika utumwa wa dhambi baada ya kuasi, lakini kwa upendo wa Mungu, Yesu alik",
+  },
+  {
+    featured_image: worship1,
+    title: "Ukombozi wa Mwanadamu",
+    exerpt:
+      "Ukombozi wa mwanadamu uliletwa kwa njia ya damu ya Yesu Kristo iliyomwagika msalabani. Mwanadamu aliingia katika utumwa wa dhambi baada ya kuasi, lakini kwa upendo wa Mungu, Yesu alik",
+  },
+  {
+    featured_image: worship1,
+    title: "Ukombozi wa Mwanadamu",
+    exerpt:
+      "Ukombozi wa mwanadamu uliletwa kwa njia ya damu ya Yesu Kristo iliyomwagika msalabani. Mwanadamu aliingia katika utumwa wa dhambi baada ya kuasi, lakini kwa upendo wa Mungu, Yesu alik",
+  },
+  {
+    featured_image: worship1,
+    title: "Ukombozi wa Mwanadamu",
+    exerpt:
+      "Ukombozi wa mwanadamu uliletwa kwa njia ya damu ya Yesu Kristo iliyomwagika msalabani. Mwanadamu aliingia katika utumwa wa dhambi baada ya kuasi, lakini kwa upendo wa Mungu, Yesu alik",
+  },
+  {
+    featured_image: worship1,
+    title: "Ukombozi wa Mwanadamu",
+    exerpt:
+      "Ukombozi wa mwanadamu uliletwa kwa njia ya damu ya Yesu Kristo iliyomwagika msalabani. Mwanadamu aliingia katika utumwa wa dhambi baada ya kuasi, lakini kwa upendo wa Mungu, Yesu alik",
+  },
+  {
+    featured_image: worship1,
+    title: "Ukombozi wa Mwanadamu",
+    exerpt:
+      "Ukombozi wa mwanadamu uliletwa kwa njia ya damu ya Yesu Kristo iliyomwagika msalabani. Mwanadamu aliingia katika utumwa wa dhambi baada ya kuasi, lakini kwa upendo wa Mungu, Yesu alik",
+  },
+];

@@ -1,6 +1,8 @@
 const images = {
   menu: "/assets/icons/menu.svg",
   location: "./assets/icons/location.svg",
+  close: "./assets/icons/close.svg",
+  mission: "/assets/icons/mission.png",
   email: "./assets/icons/newsletter.svg",
   right_arrow: "./assets//icons/right_arrow.svg",
   values: "./assets/icons/values.svg",
