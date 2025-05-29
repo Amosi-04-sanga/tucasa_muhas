@@ -8,7 +8,7 @@ const {
   kai,
   hope_in_ict,
   muhasso_loundry,
-  mission
+  mission,
 } = images;
 
 export const hero_slideshow = [
@@ -242,3 +242,84 @@ export const blog_content = [
       "Ukombozi wa mwanadamu uliletwa kwa njia ya damu ya Yesu Kristo iliyomwagika msalabani. Mwanadamu aliingia katika utumwa wa dhambi baada ya kuasi, lakini kwa upendo wa Mungu, Yesu alik",
   },
 ];
+
+export const gallery_content = [
+  {
+    "id": "event1",
+    "title": "Charity Outreach in Buguruni",
+    "date": "2025-05-15",
+    "coverImage": worship1,
+    "photos": [
+      worship1,
+      worship2,
+      worship3
+    ]
+  },
+  {
+    "id": "event1",
+    "title": "Charity Outreach in Buguruni",
+    "date": "2025-05-15",
+    "coverImage": worship1,
+    "photos": [
+      worship1,
+      worship2,
+      worship3
+    ]
+  },
+  {
+    "id": "event1",
+    "title": "Charity Outreach in Buguruni",
+    "date": "2025-05-15",
+    "coverImage": worship1,
+    "photos": [
+      worship1,
+      worship2,
+      worship3
+    ]
+  },
+  {
+    "id": "event1",
+    "title": "Charity Outreach in Buguruni",
+    "date": "2025-05-15",
+    "coverImage": worship1,
+    "photos": [
+      worship1,
+      worship2,
+      worship3
+    ]
+  },
+  {
+    "id": "event1",
+    "title": "Charity Outreach in Buguruni",
+    "date": "2025-05-15",
+    "coverImage": worship1,
+    "photos": [
+      worship1,
+      worship2,
+      worship3
+    ]
+  },
+  {
+    "id": "event1",
+    "title": "Charity Outreach in Buguruni",
+    "date": "2025-05-15",
+    "coverImage": worship1,
+    "photos": [
+      worship1,
+      worship2,
+      worship3
+    ]
+  },
+  {
+    "id": "event1",
+    "title": "Charity Outreach in Buguruni",
+    "date": "2025-05-15",
+    "coverImage": worship1,
+    "photos": [
+      worship1,
+      worship2,
+      worship3
+    ]
+  },
+];
+ 
