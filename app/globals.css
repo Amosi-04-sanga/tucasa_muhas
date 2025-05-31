@@ -11,4 +11,6 @@
   --color-form_bg: #E9FFFF;
 }
 
-
+body {
+  font-size: 16px;
+}

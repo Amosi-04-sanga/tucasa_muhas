@@ -5,11 +5,15 @@ export default function Home() {
     <div>
       <Hero />
       <About />
-      <div className="bg-news_bg_color mb-16">
+      <div className="bg-news_bg_color">
         <News />
         <Projects />
       </div>
+
+      <div className="bg-form_bg">
       <Blog />
+
+      </div>
       <Form />
     </div>
   );

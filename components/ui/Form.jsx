@@ -13,7 +13,7 @@ const Form = () => {
   };
 
   return (
-    <div className="bg-form_bg mt-16 pb-1 px-8 sm:px-16 md:px-24 lg:px-32 xl:px-40">
+    <div className="mt-16 pb-1 px-8 sm:px-16 md:px-24 lg:px-32 xl:px-40">
       <h1 className="text-center pt-16 font-bold text-3xl">Contact us</h1>
 
       <div className="max-w-[350px] mt-4 mb-32 mx-auto">

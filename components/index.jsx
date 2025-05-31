@@ -2,6 +2,7 @@ import Navbar from "./layout/Navbar";
 import Hero from "./layout/Hero";
 import About from "./layout/About";
 import News from "./layout/News";
+import Footer from "./layout/Footer";
 import Projects from "./layout/Projects";
 import Blog from "./layout/Blog";
 import BlogCard from "./ui/BlogCard";
@@ -13,6 +14,7 @@ import AssociateForm from "./ui/AssociateForm";
 
 export {
   Navbar,
+  Footer,
   Hero,
   Button,
   BlogCard,

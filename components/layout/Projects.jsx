@@ -24,8 +24,8 @@ const Projects = () => {
         <div className="mt-8  pb-4 flex flex-col gap-4 md:flex md:flex-row md:flex-wrap md:justify-center md:gap-8">
           {project_content.map((content, index) => (
             <Fade cascade={true} key={index}>
-              <div className="max-w-[300px] mt-4 mx-auto shadow-md pb-4 px-4 rounded-md">
-                <div className="min-h-[130px] flex items-center">
+              <div className="max-w-[350px] mt-4 mx-auto shadow-md pb-4 px-4 rounded-md">
+                <div className="min-h-[130px]  bg-news_bg_color flex items-center">
                   <Image
                     src={content.logo}
                     alt={`image_${content.logo}`}
@@ -34,9 +34,9 @@ const Projects = () => {
                     className="block mx-auto mb-4"
                   />
                 </div>
-                <p className="mt-2">
+                <p className="mt-2 min-h-[100px]">
                   {" "}
-                  {content.text.slice(0, 150)} {"..."}{" "}
+                  {content.text.slice(0, 100)} {"..."}{" "}
                 </p>
                 <button className="mt-8 mx-auto block">
                   <Link href="#" className="capitalize text-red-700 font-bold">

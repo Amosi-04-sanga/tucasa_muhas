@@ -9,6 +9,11 @@ const {
   hope_in_ict,
   muhasso_loundry,
   mission,
+  facebook,
+  instagram,
+  tiktok,
+  youtube,
+
 } = images;
 
 export const hero_slideshow = [
@@ -92,13 +97,16 @@ export const upcoming_events_content = [
 
 export const anouncenmnts_content = [
   {
-    text: "Stay informed with the recent news and official announcements from",
+    title: "Stay informed with the recent news and official announcements from",
+    description: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias aspernatur et, cupiditate ipsum, dolorum officiis deleniti dolore sapiente quisquam minima unde. Eum eos exercitationem commodi delectus facilis ex molestiae aliquam voluptatum? Saepe aperiam quasi quaerat maxime, sint et rerum fuga doloribus voluptate cum quam! Ipsam temporibus, voluptates repellat deserunt placeat eligendi rem veritatis? Consectetur modi sapiente eveniet asperiores natus voluptatibus necessitatibus aut esse aspernatur assumenda, aliquid consequuntur quaerat eaque. Sit facere eveniet, maxime consectetur odit reiciendis in unde beatae nobis nisi illum nemo. Laborum repellat eaque cupiditate, consequatur ea sunt sequi aut, eum, dolor assumenda eius explicabo. Obcaecati impedit exercitationem aliquam magnam minus consequatur rerum ut accusantium",
   },
-  {
-    text: "lorem in.. Stay informed with the recent news and official announcements from",
+   {
+    title: "Stay informed with the recent news and official announcements from",
+    description: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias aspernatur et, cupiditate ipsum, dolorum officiis deleniti dolore sapiente quisquam minima unde. Eum eos exercitationem commodi delectus facilis ex molestiae aliquam voluptatum? Saepe aperiam quasi quaerat maxime, sint et rerum fuga doloribus voluptate cum quam! Ipsam temporibus, voluptates repellat deserunt placeat eligendi rem veritatis? Consectetur modi sapiente eveniet asperiores natus voluptatibus necessitatibus aut esse aspernatur assumenda, aliquid consequuntur quaerat eaque. Sit facere eveniet, maxime consectetur odit reiciendis in unde beatae nobis nisi illum nemo. Laborum repellat eaque cupiditate, consequatur ea sunt sequi aut, eum, dolor assumenda eius explicabo. Obcaecati impedit exercitationem aliquam magnam minus consequatur rerum ut accusantium",
   },
-  {
-    text: "Stay informed with the recent news and official announcements from",
+   {
+    title: "Stay informed with the recent news and official announcements from",
+    description: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Molestias aspernatur et, cupiditate ipsum, dolorum officiis deleniti dolore sapiente quisquam minima unde. Eum eos exercitationem commodi delectus facilis ex molestiae aliquam voluptatum? Saepe aperiam quasi quaerat maxime, sint et rerum fuga doloribus voluptate cum quam! Ipsam temporibus, voluptates repellat deserunt placeat eligendi rem veritatis? Consectetur modi sapiente eveniet asperiores natus voluptatibus necessitatibus aut esse aspernatur assumenda, aliquid consequuntur quaerat eaque. Sit facere eveniet, maxime consectetur odit reiciendis in unde beatae nobis nisi illum nemo. Laborum repellat eaque cupiditate, consequatur ea sunt sequi aut, eum, dolor assumenda eius explicabo. Obcaecati impedit exercitationem aliquam magnam minus consequatur rerum ut accusantium",
   },
 ];
 
@@ -259,9 +267,30 @@ export const gallery_content = [
     "id": "event1",
     "title": "Charity Outreach in Buguruni",
     "date": "2025-05-15",
-    "coverImage": worship1,
+    "coverImage": worship2,
     "photos": [
       worship1,
+      worship2,
+      worship2,
+      worship2,
+      worship3
+    ]
+  },
+  {
+    "id": "event1",
+    "title": "Charity Outreach in Buguruni",
+    "date": "2025-05-15",
+    "coverImage": worship3,
+    "photos": [
+      worship1,
+      worship2,
+      worship2,
+      worship2,
+      worship2,
+      worship2,
+      worship2,
+      worship2,
+      worship2,
       worship2,
       worship3
     ]
@@ -292,18 +321,7 @@ export const gallery_content = [
     "id": "event1",
     "title": "Charity Outreach in Buguruni",
     "date": "2025-05-15",
-    "coverImage": worship1,
-    "photos": [
-      worship1,
-      worship2,
-      worship3
-    ]
-  },
-  {
-    "id": "event1",
-    "title": "Charity Outreach in Buguruni",
-    "date": "2025-05-15",
-    "coverImage": worship1,
+    "coverImage": worship2,
     "photos": [
       worship1,
       worship2,
@@ -323,3 +341,40 @@ export const gallery_content = [
   },
 ];
  
+export const footer_links = [
+  {
+    text: 'Resources',
+    path: '/'
+  },
+  {
+    text: 'Articles',
+    path: '/'
+  },
+  {
+    text: 'Hope channel',
+    path: '/'
+  },
+  {
+    text: 'Adventist church',
+    path: '/'
+  },
+]
+
+export const sociomedia_icons = [
+ {
+    icon: facebook,
+    path: '/'
+  },
+  {
+    icon: instagram,
+    path: '/'
+  },
+  {
+    icon: youtube,
+    path: '/'
+  },
+  {
+    icon: tiktok,
+    path: '/'
+  },
+]

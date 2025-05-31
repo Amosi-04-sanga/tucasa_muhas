@@ -19,16 +19,17 @@ const page = () => {
         return newsLoad;
       });
     } else {
-      setPostsLoad(2);
+      setPostsLoad(4);
       SetHasMore(true);
     }
   };
 
 
   return (
-    <div className="mt-16 mb-16 px-8 sm:px-16 md:px-24 lg:px-32 xl:px-40">
-      <div className="text-center">
-        <h1 className="relative inline-block before:absolute before:left-0 before:bottom-0 before:w-[40%] before:h-[4px] before:bg-primary-dark before:opacity-50 pb-1 text-3xl font-bold">
+    <div className="mt-16 mb-16 px-8 sm:px-16 flex flex-col ">
+       <div className="flex items-center gap-4">
+        <div className="w-[4px] h-[25px] shadow-lg bg-primary-dark "/>
+        <h1 className=" text-3xl font-bold text-primary-dark">
           All Articles
         </h1>
       </div>
@@ -36,8 +37,8 @@ const page = () => {
 
       <div className="mt-8 flex flex-col gap-4 justify-center items-center md:flex-row md:justify-start flex-wrap">
         {blog_content.slice(0, postsLoad).map((content, index) => (
-          <Fade key={index}>
-            <div className="max-w-[300px] shadow-md rounded-md">
+          <Fade delay={index * 150} key={index}>
+            <div className="max-w-[350px] shadow-md rounded-md">
               <div className="max-h-[400px]">
                 <img
                   src={content.featured_image}
@@ -51,7 +52,7 @@ const page = () => {
                   {content.title}
                 </p>
                 <p className="mt-4">
-                  {content.exerpt.slice(0, 120)} {"..."}{" "}
+                  {content.exerpt.slice(0, 100)} {"..."}{" "}
                 </p>
 
                 <button className=" mx-auto block px-2 py-1 rounded-md text-primary-dark capitalize mt-8 cursor-pointer border-primary-light border-[1px]">
@@ -67,7 +68,7 @@ const page = () => {
 
       <button
         onClick={loadMoreHandler}
-        className="mt-8 text-red-800 font-bold cursor-pointer mx-auto relative block before:absolute before:left-[100px] before:bottom-[10px] before:w-[70%] before:h-[3px] before:bg-red-300"
+        className="mt-8 text-red-800 font-bold cursor-pointer mx-auto "
       >
         {hasMore ? "Load More" : "View Less"}
       </button>
