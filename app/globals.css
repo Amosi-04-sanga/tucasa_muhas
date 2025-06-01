@@ -11,6 +11,15 @@
   --color-form_bg: #E9FFFF;
 }
 
-body {
-  font-size: 16px;
+html {
+  scroll-behavior: smooth;
 }
+
+body {
+  font-size: 18px;
+  font-family: "Roboto", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+

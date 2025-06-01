@@ -5,6 +5,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import { hero_slideshow } from "../../constants";
 import { Fade, Slide } from "react-awesome-reveal";
+import Link from "next/link";
 
 const Hero = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -43,7 +44,7 @@ const Hero = () => {
   return (
     <>
       <div className="relative overflow-hidden">
-        <div className="bg-overlay absolute left-0 top-0 z-10 h-[100vh] w-full opacity-60" />
+        <div className="bg-[#333] absolute left-0 top-0 z-10 h-[100vh] w-full opacity-[.6]" />
         <div className={``}>
           <img
             src={hero_slideshow[currentIndex].url}
@@ -54,28 +55,29 @@ const Hero = () => {
             }`}
           />
         </div>
-        <div className="flex flex-col justify-center items-center absolute left-[50%] -translate-x-2/4 top-[50%] -translate-y-2/4 z-20 h-[90vh] max-w-[350px] max-sm:w-auto text-center w-full text-white">
-          <Fade>
-            <h1 className="text-4xl md:text-5xl capitalize"> {hero_slideshow[currentIndex].title} </h1>
-            <p className="mt-4 text-xl md:text-2xl">
+        <div className="flex flex-col justify-center items-center absolute left-[50%] -translate-x-2/4 top-[50%] -translate-y-2/4 z-20 h-[90vh] max-sm:w-auto text-center text-white">
+          <Fade className="sm:w-[450px] max-sm:w-[300px]">
+            <h1 className="text-xl md:text-2xl uppercase"> {hero_slideshow[currentIndex].title} </h1>
+            <div className="mt-4 font-bold text-5xl md:text-6xl ">
               {" "}
-              {hero_slideshow[currentIndex].description}{" "}
-            </p>
+              <span>{hero_slideshow[currentIndex].description}</span> {" "} {currentIndex === 2 &&  <span className="text-primary-light text-[22px] italic">Hebrews 13:1</span> }
+            </div>
           </Fade>
           <Slide direction="up">
             {hero_slideshow[currentIndex].btn && (
-              <button className="bg-primary-dark px-2 py-1 rounded-md text-white capitalize mt-8 cursor-pointer border-primary-light border-[1px]">
+             <Link href='#about'>
+              <button className={`p-4 rounded-md text-white capitalize mt-16 cursor-pointer border-gray-500 border-[1px]`}>
                 <div className="flex gap-2">
-                  <p>{hero_slideshow[currentIndex].btn}</p>
                   <Image
                     src={right_arrow}
                     alt="icon"
                     width={20}
                     height={20}
-                    className="object-cove"
+                    className="rotate-90"
                   />
                 </div>
               </button>
+             </Link>
             )}
           </Slide>
         </div>

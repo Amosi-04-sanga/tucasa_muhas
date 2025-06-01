@@ -17,57 +17,56 @@ const Navbar = () => {
       <div className="sticky left-0 top-0 z-50 flex justify-between items-center px-8 h-[10vh] bg-primary-dark text-white">
         <div className="text-white">
           <Link href="/">
-            <Image
-              src={logo}
-              alt={`logo`}
-              width={90}
-              height={30}
-              className="block mx-auto"
-            />
+            {logo && (
+              <Image
+                src={logo}
+                alt={`logo`}
+                width={90}
+                height={30}
+                className="block mx-auto "
+              />
+            )}
           </Link>
         </div>
         <div>
-
           <div className="md:hidden">
-          <Image
-            src={isMenuOpened ? close : menu}
-            alt="menu"
-            width={35}
-            height={35}
-            onClick={() => setIsMenuOpened(!isMenuOpened)}
-            className="cursor-pointer"
-          />
-          
+            <Image
+              src={isMenuOpened ? close : menu}
+              alt="menu"
+              width={35}
+              height={35}
+              onClick={() => setIsMenuOpened(!isMenuOpened)}
+              className="cursor-pointer"
+            />
           </div>
           <div className="flex gap-4 max-md:hidden">
             {nav_links.map((item, index) => (
-          <Fade key={item.link_text} delay={index * 100}>
-                  <div className="flex gap-4">
-                    <Link
-                      className="inline-block hover:text-black transition duration-200"
-                      href={item.path}
+              <Fade key={item.link_text} delay={index * 100}>
+                <div className="flex gap-4">
+                  <Link
+                    className="inline-block hover:text-black transition duration-200"
+                    href={item.path}
+                  >
+                    <div
+                      onClick={() => setIsMenuOpened(false)}
+                      className="flex gap-2"
                     >
-                      <div
-                        onClick={() => setIsMenuOpened(false)}
-                        className="flex gap-2"
-                      >
-                        <p>{item.link_text}</p>
-                        {item.register_as && (
-                          <Image
-                            src={right_arrow}
-                            alt="icon"
-                            width={15}
-                            height={20}
-                            className="cursor-pointer"
-                          />
-                        )}
-                      </div>
-                    </Link>
-                  </div>
-                </Fade>
-                  ))}
+                      <p>{item.link_text}</p>
+                      {item.register_as && (
+                        <Image
+                          src={right_arrow}
+                          alt="icon"
+                          width={15}
+                          height={20}
+                          className="cursor-pointer"
+                        />
+                      )}
+                    </div>
+                  </Link>
+                </div>
+              </Fade>
+            ))}
           </div>
-
         </div>
       </div>
 
@@ -102,7 +101,6 @@ const Navbar = () => {
                 </Slide>
               ))}
             </div>
-           
           </div>
         </div>
       )}

@@ -3,21 +3,19 @@ import { images } from "@/src/images";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { Fade } from "react-awesome-reveal";
 
 const About = () => {
   const { right_arrow } = images;
 
   return (
-    <div className="px-8 sm:px-16">
-      <div className="text-center">
-        <h1 className='pt-16 pb-1 inline-block text-3xl font-bold relative before:absolute before:content-[""] before:left-0 before:bottom-0 before:w-[40%] before:h-[4px] before:bg-primary-dark before:opacity-50 '>
-          About us
-        </h1>
-      </div>
+    <div id="about" className="px-8 sm:px-16">
+      <h1 className="pt-16 pb-1 text-center text-primary-dark text-4xl font-bold ">About us</h1>
 
-      <div className="mt-8 md:flex md:gap-8">
+      <div className="mt-8 md:flex md:gap-8 md:justify-around">
         {about_content.map((content, index) => (
-          <div className="max-w-[300px] mt-16 mx-auto" key={content.title}>
+          <Fade key={content.title}>
+            <div className="max-w-[300px] mt-16 mx-auto" >
             <Image
               src={content.logo}
               alt={`image_${content.title}`}
@@ -28,6 +26,7 @@ const About = () => {
             <h1 className="mt-4 text-center font-bold"> {content.title} </h1>
             <p className="mt-4 text-center"> {content.text} </p>
           </div>
+          </Fade>
         ))}
       </div>
 
