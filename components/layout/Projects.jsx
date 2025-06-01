@@ -16,7 +16,7 @@ const Projects = () => {
       />
       <div>
         <div className="text-center pt-16">
-          <h1 className='font-bold pb-1 text-3xl relative before:absolute before:content-[""] before:left-0 before:bottom-0 before:w-[40%] before:h-[4px] before:bg-primary-dark before:opacity-50 inline-block '>
+          <h1 className='font-bold pb-1 text-3xl '>
             Projects
           </h1>
         </div>
