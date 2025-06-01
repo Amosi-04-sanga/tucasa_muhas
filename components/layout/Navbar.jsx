@@ -28,7 +28,10 @@ const Navbar = () => {
             )}
           </Link>
         </div>
-        <div>
+        <div className="flex items-center justify-center gap-4 h-full">
+          <button className="px-4 cursor-pointer py-1 rounded-md bg-yellow-500 text-white">
+            Donate
+          </button>
           <div className="md:hidden">
             <Image
               src={isMenuOpened ? close : menu}
