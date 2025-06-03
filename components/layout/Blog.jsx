@@ -43,11 +43,11 @@ const Blog = () => {
           articlesData.slice(0, initialArticlesLoad).map((content, index) => (
             <Fade key={index}>
               <div className="max-w-[350px] shadow-md rounded-md">
-                <div className="">
+                <div className="h-[150px] md:h-[200px]">
                   <img
                     src={content.fields.image.fields.file.url}
                     alt={`poster`}
-                    className="object-cover w-full max-h-[300px] rounded-tl-md rounded-tr-md"
+                    className="object-cover w-full h-full rounded-tl-md rounded-tr-md"
                   />
                 </div>
                 <div className="px-2 pb-4">
@@ -56,10 +56,10 @@ const Blog = () => {
                     {content.fields.title}
                   </p>
                   <p className="mt-4">
-                    {content.fields.exerpt.slice(0, 100)} {"..."}{" "}
+                    {content.fields.exerpt.slice(0, 85)} {"..."}{" "}
                   </p>
 
-                  <button className=" mx-auto block px-2 py-1 rounded-md text-primary-dark capitalize mt-8 cursor-pointer border-primary-light border-[1px]">
+                  <button className=" mx-auto block px-2 py-1 rounded-md text-primary-dark capitalize mt-4 cursor-pointer border-primary-light border-[1px]">
                     <Link href={`/blog/${content.sys.id}`}>
                       <p>Read More</p>
                     </Link>

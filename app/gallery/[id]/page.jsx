@@ -8,6 +8,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
+import { SyncLoader } from "react-spinners";
+import { Fade } from "react-awesome-reveal";
 
 const page = ({ params }) => {
   const [data, setData] = useState(null);
@@ -27,7 +29,7 @@ const page = ({ params }) => {
         .getEntry(entry.id)
         .then((entry) => {
           setData(entry);
-          console.log(entry)
+          console.log(entry);
         })
         .catch(console.error);
     };
@@ -88,18 +90,32 @@ const page = ({ params }) => {
   };
 
   return (
-    <div className="w-[95vw] flex flex-wrap gap-2 mb-8">
-      {data && (data.fields.photos.length > 0) ? data.fields.photos.map( (photo, index) => (
-        <div key={index} className="mt-8 max-w-[170px]">
-        <img
-          src={photo.fields.file.url}
-          alt={`cover_image`}
-          className=" max-h-[160px] w-full object-cover rounded-md"
-        />
+    <div className="px-2 md:px-2 mt-8 mb-8">
+      <h1 className="mt-8 uppercase text-primary-dark">
+        {" "}
+        {data && data.fields.title}{" "}
+      </h1>
+      <div className="flex flex-wrap gap-1 mt-4">
+        {data && data.fields.photos.length > 0 ? (
+          data.fields.photos.map((photo, index) => (
+            <Fade delay={index * 100} key={index}>
+              <div className="h-[250px] w-[300px] bg-orange-100">
+                <img
+                  src={photo.fields.file.url}
+                  alt={`cover_image`}
+                  className="w-full h-full object-cover block"
+                />
+              </div>
+            </Fade>
+          ))
+        ) : (
+          <>
+            <div className="w-full h-[60vh] flex items-center justify-center">
+              <SyncLoader color="#008080" />
+            </div>
+          </>
+        )}
       </div>
-      ) ) : (
-        "loading..."
-      )}
     </div>
   );
 };

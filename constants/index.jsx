@@ -364,15 +364,15 @@ export const footer_links = [
   },
   {
     text: 'Articles',
-    path: '/'
+    path: '/blog'
   },
   {
     text: 'Hope channel',
-    path: '/'
+    path: 'https://hopetv.org/'
   },
   {
     text: 'Adventist church',
-    path: '/'
+    path: 'https://www.adventist.org/'
   },
 ]
 

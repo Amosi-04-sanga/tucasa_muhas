@@ -8,6 +8,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
+import { SyncLoader } from "react-spinners";
 
 const page = ({ params }) => {
   const [data, setData] = useState(null);
@@ -99,8 +100,9 @@ const page = ({ params }) => {
                 className="block w-full"
               />
             </div>
-            <div className="flex justify-between">
-              <p>date</p>
+            <div className="flex justify-between mt-2 text-sm">
+              <p>created At: {moment(data.sys.createdAt).format("MMM Do YY")} </p>
+              <p>uploaded At: {moment(data.sys.updatedAt).format("MMM Do YY")}</p>
             </div>
 
             <div className="mt-4">
@@ -109,9 +111,11 @@ const page = ({ params }) => {
           </section>
         </div>
       ) : (
-        <h3 className="fixed left-[50%] top-[50%] -translate-x-[50%] -translate-y-[50%] font-Bold">
-          loading ...
-        </h3>
+        <>
+          <div className="w-full h-[60vh] flex items-center justify-center">
+            <SyncLoader color="#008080" />
+          </div>
+        </>
       )}
     </div>
   );

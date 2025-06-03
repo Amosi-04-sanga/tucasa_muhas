@@ -14,7 +14,7 @@ const Navbar = () => {
 
   return (
     <>
-      <div className="sticky left-0 top-0 z-50 flex justify-between items-center px-8 h-[10vh] bg-primary-dark text-white">
+      <div className="sticky left-0 top-0 z-50 flex justify-between items-center px-2 h-[10vh] bg-primary-dark text-white">
         <div className="text-white">
           <Link href="/">
             {logo && (
@@ -23,7 +23,7 @@ const Navbar = () => {
                 alt={`logo`}
                 width={90}
                 height={30}
-                className="block mx-auto "
+                className="block -ml-4 mx-auto "
               />
             )}
           </Link>

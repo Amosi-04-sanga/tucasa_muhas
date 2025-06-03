@@ -8,8 +8,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
-
-
+import { SyncLoader } from "react-spinners";
 
 const page = ({ params }) => {
   const [data, setData] = useState(null);
@@ -29,7 +28,7 @@ const page = ({ params }) => {
         .getEntry(entry.id)
         .then((entry) => {
           setData(entry);
-          console.log(entry)
+          console.log(entry);
         })
         .catch(console.error);
     };
@@ -48,7 +47,7 @@ const page = ({ params }) => {
             className="max-w-[60vw] mx-auto"
             src={imageUrl}
             alt={altText}
-            style={{margin: '16px auto'}}
+            style={{ margin: "16px auto" }}
           />
         );
       },
@@ -59,7 +58,11 @@ const page = ({ params }) => {
       },
       text: (text) => {
         // You can style text nodes here, e.g., adding CSS classes for headings.
-        return <p style={{paddingTop: '10px'}} className="mt-4" >{text}</p>;
+        return (
+          <p style={{ paddingTop: "10px" }} className="mt-4">
+            {text}
+          </p>
+        );
       },
       "heading-1": (node) => (
         <h1 className="text-center text-heading1-bold">
@@ -87,23 +90,29 @@ const page = ({ params }) => {
 
   return (
     <div className="block w-[95vw]">
-  
       {data ? (
         <div className=" mx-auto p-4 md:px-40">
           <section className="mt-10">
-            <h1 style={{fontSize: '30px'}} className="uppercase font-bold text-center">
+            <h1
+              style={{ fontSize: "30px" }}
+              className="uppercase font-bold text-center"
+            >
               {" "}
               {data.fields.title}{" "}
             </h1>
-            
-            <div className="mt-4">
-              <p> {" "}
-              {data.fields.description}{" "} </p>
-            </div>
 
+            <div className="mt-4">
+              <p> {data.fields.description} </p>
+            </div>
           </section>
         </div>
-      ) : 'loading...' }
+      ) : (
+        <>
+          <div className="w-full h-[60vh] flex items-center justify-center">
+            <SyncLoader color="#008080" />
+          </div>
+        </>
+      )}
     </div>
   );
 };

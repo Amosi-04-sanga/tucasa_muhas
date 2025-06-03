@@ -11,8 +11,7 @@ export default function Home() {
       </div>
 
       <div className="bg-form_bg">
-      <Blog />
-
+        <Blog />
       </div>
       <Form />
     </div>
