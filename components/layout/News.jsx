@@ -28,7 +28,6 @@ console.log(today);
       const response = await client.getEntries({content_type: 'announcement'});
       setAnnouncementData(response.items);
       
-      console.log('welcome')
     };
     getitems();
   }, []);

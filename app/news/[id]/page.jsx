@@ -89,9 +89,9 @@ const page = ({ params }) => {
   };
 
   return (
-    <div className="block w-[95vw]">
+    <div className="block">
       {data ? (
-        <div className=" mx-auto p-4 md:px-40">
+        <div className=" mx-auto px-4 md:px-40">
           <section className="mt-10">
             <h1
               style={{ fontSize: "30px" }}

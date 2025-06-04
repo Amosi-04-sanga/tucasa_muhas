@@ -7,6 +7,7 @@ import { BLOCKS, MARKS } from "@contentful/rich-text-types";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { SyncLoader } from "react-spinners";
 
 const page = ({ params }) => {
   const [data, setData] = useState(null);
@@ -26,7 +27,7 @@ const page = ({ params }) => {
         .getEntry(entry.id)
         .then((entry) => {
           setData(entry);
-         console.log(entry)
+          console.log(entry);
         })
         .catch(console.error);
     };
@@ -45,7 +46,7 @@ const page = ({ params }) => {
             className="max-w-[60vw] mx-auto"
             src={imageUrl}
             alt={altText}
-            style={{margin: '16px auto'}}
+            style={{ margin: "16px auto" }}
           />
         );
       },
@@ -56,7 +57,11 @@ const page = ({ params }) => {
       },
       text: (text) => {
         // You can style text nodes here, e.g., adding CSS classes for headings.
-        return <p style={{paddingTop: '10px'}} className="mt-4" >{text}</p>;
+        return (
+          <p style={{ paddingTop: "10px" }} className="mt-4">
+            {text}
+          </p>
+        );
       },
       "heading-1": (node) => (
         <h1 className="text-center text-heading1-bold">
@@ -84,32 +89,28 @@ const page = ({ params }) => {
 
   return (
     <div className="">
-
-
       {data ? (
         <div className=" p-4 mx-auto max-w-[800px]">
           <section className="mt-10 mx-auto ">
-           
-           
-           
-           <div className="max-w-[500px]  mx-auto">
-           <img
-              src={data.fields.poster.fields.file.url}
-              alt="featured image"
-              className="block"
-            />
-           </div>
+            <div className="max-w-[500px]  mx-auto">
+              <img
+                src={data.fields.poster.fields.file.url}
+                alt="featured image"
+                className="block"
+              />
+            </div>
 
             <div className="mt-4">
               <p> {data.fields.description} </p>
             </div>
-
           </section>
         </div>
       ) : (
-        <h3 className="fixed left-[50%] top-[50%] -translate-x-[50%] -translate-y-[50%] font-Bold">
-          loading ...
-        </h3>
+        <>
+          <div className="w-full h-[70vh] flex items-center justify-center">
+            <SyncLoader color="#008080" />
+          </div>
+        </>
       )}
     </div>
   );
@@ -117,17 +118,4 @@ const page = ({ params }) => {
 
 export default page;
 
-/*
 
-
-const client = contentful.createClient({
-  space: '<space_id>',
-  environment: '<environment_id>', // defaults to 'master' if not set
-  accessToken: '<content_delivery_api_key>'
-})
-
-client.getEntry('<entry_id>')
-.then((entry) => console.log(entry))
-.catch(console.error)
-
-*/
