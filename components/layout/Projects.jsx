@@ -36,7 +36,7 @@ const Projects = () => {
                 </div>
                 <p className="mt-2 min-h-[100px]">
                   {" "}
-                  {content.text} {"..."}{" "}
+                  {content.text.slice(0, 110)} {"..."}{" "}
                 </p>
                 <button className="mt-8 mx-auto block">
                   <Link href={content.path} className="capitalize text-red-700 font-bold">
