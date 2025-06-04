@@ -57,7 +57,7 @@ export const about_content = [
   },
   {
     logo: values,
-    title: "Our Believes",
+    title: "Our Beliefs",
     text: "Seventh-day Adventists accept the Bible as their only creed and hold certain fundamental beliefs to be the teaching of the Holy Scriptures. These beliefs, as set forth here, constitute the church’s understanding and expression of the teaching of Scripture.",
   },
 ];
@@ -379,18 +379,18 @@ export const footer_links = [
 export const sociomedia_icons = [
  {
     icon: facebook,
-    path: '/'
+    path: 'https://www.facebook.com/tucasamuhasfamily/'
   },
   {
     icon: instagram,
-    path: '/'
+    path: 'https://www.instagram.com/tucasamuhas/?hl=en'
   },
   {
     icon: youtube,
-    path: '/'
+    path: 'https://www.youtube.com/TUCASA%20MUHAS'
   },
   {
     icon: tiktok,
-    path: '/'
+    path: 'https://www.tiktok.com/@tucasamuhas'
   },
 ]

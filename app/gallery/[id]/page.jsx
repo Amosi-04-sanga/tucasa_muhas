@@ -10,11 +10,13 @@ import Image from "next/image";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { SyncLoader } from "react-spinners";
 import { Fade } from "react-awesome-reveal";
+import { images } from "@/src/images";
 
 const page = ({ params }) => {
   const [data, setData] = useState(null);
   const router = useRouter();
   const entry = React.use(params);
+  const { download, tiktok } = images;
 
   useEffect(() => {
     const Getitems = async () => {
@@ -35,6 +37,15 @@ const page = ({ params }) => {
     };
     Getitems();
   }, []);
+
+  const handleDownload = (url, filename) => {
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = filename; // filename for download
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
 
   const options = {
     renderNode: {
@@ -99,12 +110,28 @@ const page = ({ params }) => {
         {data && data.fields.photos.length > 0 ? (
           data.fields.photos.map((photo, index) => (
             <Fade delay={index * 100} key={index}>
-              <div className="h-[250px] w-[300px] bg-orange-100">
+              <div className="relative h-[150px] w-[170px] bg-orange-100">
                 <img
                   src={photo.fields.file.url}
                   alt={`cover_image`}
                   className="w-full h-full object-cover block"
                 />
+
+                <div
+                  onClick={() =>
+                    handleDownload(
+                      photo.fields.file.url,
+                      photo.fields.file.url.split("/").pop()
+                    )
+                  }
+                  className="absolute right-0 bottom-0 z-20 bg-primary-light p-1 rounded-full"
+                >
+                  <img
+                    src={download}
+                    alt={`download`}
+                    className="w-[20px] h-[20px] object-cover block"
+                  />
+                </div>
               </div>
             </Fade>
           ))

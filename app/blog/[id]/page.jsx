@@ -100,9 +100,8 @@ const page = ({ params }) => {
                 className="block w-full"
               />
             </div>
-            <div className="flex justify-between mt-2 text-sm">
+            <div className="flex justify-between mt-4 text-sm">
               <p>created At: {moment(data.sys.createdAt).format("MMM Do YY")} </p>
-              <p>uploaded At: {moment(data.sys.updatedAt).format("MMM Do YY")}</p>
             </div>
 
             <div className="mt-4">

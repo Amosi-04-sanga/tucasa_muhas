@@ -30,6 +30,38 @@ const page = () => {
           continuous work of God, in 2013, the Organization again changed its
           name to the current name.
         </p>
+
+        <h1 className="mt-16 font-bold">Establishment of TUCASA – MUHAS</h1>
+        <p className="mt-4">
+          Praise the Lord! TUCASA MUHAS stands for the Tanzania Universities and
+          Colleges Adventist Students Association at Muhimbili University of
+          Health and Allied Sciences (MUHAS)
+        </p>
+        <p className="mt-4">
+          Since 1970, the TUCASA MUHAS Branch began its journey with just seven
+          dedicated members. Prof. Daniel Mtango, Bisanda, (im finding that
+          name)
+        </p>
+
+        <p className="mt-4">
+          From these humble beginnings, our association has grown into a vibrant
+          spiritual community committed to nurturing the faith and well-being of
+          students at the Muhimbili University of Health and Allied Sciences.
+        </p>
+
+        <p className="mt-4">
+          We are devoted to upholding Christian values through regular worship
+          services(Friday Worships), Bible studies, and meaningful fellowship.
+          We strive to support one another spiritually, emotionally, and
+          academically as we navigate the unique challenges and opportunities of
+          university life.
+        </p>
+
+        <p className="mt-4">
+          Rooted in the Seventh-day Adventist faith, we strive to live out the
+          love of Christ, grow in grace, and prepare ourselves and others for
+          His soon return.
+        </p>
       </div>
 
       <div className=" p-8">
@@ -52,7 +84,7 @@ const page = () => {
       </div>
 
       <div className=" p-8">
-        <h2 className="text-2xl text-primary-dark font-bold">Our Believes </h2>
+        <h2 className="text-2xl text-primary-dark font-bold">Our Beliefs </h2>
         <div className="mt-4">
           <p className="inline">
             Seventh-day Adventist beliefs offer a life-transforming foundation
@@ -61,12 +93,12 @@ const page = () => {
           </p>
 
           <span>
-          <Link
-            href="https://www.adventist.org/beliefs/"
-            className="text-red-700 inline"
-          >
-            Read More
-          </Link>
+            <Link
+              href="https://www.adventist.org/beliefs/"
+              className="text-red-700 inline"
+            >
+              Read More
+            </Link>
           </span>
         </div>
       </div>
@@ -74,7 +106,7 @@ const page = () => {
       <div className="bg-[#E9FFFF] p-8">
         <h2 className="text-2xl text-primary-dark font-bold">Core Values</h2>
         <div className="flex flex-wrap gap-4 mt-4">
-          <div className="flex flex-col gap-2 capitalize min-w-[200px]">
+          <div className="flex flex-col gap-2 capitalize min-w-[100px]">
             <p>Faith</p>
             <p>Service</p>
             <p>unity</p>
