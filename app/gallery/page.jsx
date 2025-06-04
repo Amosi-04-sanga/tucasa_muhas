@@ -39,7 +39,7 @@ const page = () => {
           Event collections
         </h1>
       </div>
-      <div className="flex flex-wrap mt-8 gap-1 md:gap-2 justify-start">
+      <div className="flex flex-wrap justify-start max-sm:justify-center mt-8 gap-1 md:gap-2">
         {photos && photos.length > 0 ? (
           photos.map((content, index) => (
             <Fade delay={index * 100} key={index}>

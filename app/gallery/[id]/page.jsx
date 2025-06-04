@@ -38,13 +38,23 @@ const page = ({ params }) => {
     Getitems();
   }, []);
 
-  const handleDownload = (url, filename) => {
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = filename; // filename for download
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  const handleDownload = async (url, filename) => {
+    try {
+      const response = await fetch(url, { mode: "cors" });
+      const blob = await response.blob();
+      const blobUrl = URL.createObjectURL(blob);
+
+      const link = document.createElement("a");
+      link.href = blobUrl;
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      URL.revokeObjectURL(blobUrl);
+    } catch (error) {
+      console.error("Download failed:", error);
+    }
   };
 
   const options = {
@@ -101,12 +111,12 @@ const page = ({ params }) => {
   };
 
   return (
-    <div className="px-2 md:px-2 mt-8 mb-8">
-      <h1 className="mt-8 uppercase text-primary-dark">
+    <div className="px-2 md:px-2 mt-8 mb-8 ">
+      <h1 className="mt-8 uppercase text-primary-dark max-sm:text-center">
         {" "}
         {data && data.fields.title}{" "}
       </h1>
-      <div className="flex flex-wrap gap-1 mt-4">
+      <div className="flex flex-wrap max-sm:justify-center gap-1 mt-4">
         {data && data.fields.photos.length > 0 ? (
           data.fields.photos.map((photo, index) => (
             <Fade delay={index * 100} key={index}>
