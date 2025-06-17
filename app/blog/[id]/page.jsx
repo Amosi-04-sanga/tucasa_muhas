@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { createClient } from "contentful";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 import moment from "moment";
-import { BLOCKS, MARKS } from "@contentful/rich-text-types";
+import { BLOCKS, MARKS, INLINES } from "@contentful/rich-text-types";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
@@ -44,7 +44,7 @@ const page = ({ params }) => {
 
         return (
           <img
-            className="max-w-[60vw] mx-auto"
+            className="max-w-[10vw] mx-auto"
             src={imageUrl}
             alt={altText}
             style={{ margin: "16px auto" }}
@@ -59,7 +59,7 @@ const page = ({ params }) => {
       text: (text) => {
         // You can style text nodes here, e.g., adding CSS classes for headings.
         return (
-          <p style={{ paddingTop: "10px" }} className="mt-4">
+          <p style={{ paddingTop: "10px" }} className="mt-4 text-red-600">
             {text}
           </p>
         );

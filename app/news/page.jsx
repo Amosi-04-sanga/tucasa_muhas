@@ -5,6 +5,7 @@ import moment from "moment";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { Fade } from "react-awesome-reveal";
+import { SyncLoader } from "react-spinners";
 
 const News = () => {
   const [NewsData, setNewsData] = useState(null);
@@ -59,8 +60,7 @@ const News = () => {
       </div>
 
       <div className="flex flex-col gap-4 md:gap-8 justify-start items-center md:items-start md:flex md:flex-row md:flex-wrap mt-4">
-        {NewsData &&
-          NewsData.length > 0 &&
+        {NewsData && NewsData.length > 0 && (
           NewsData.map((content, index) => (
             <Fade key={index}>
               <div className="max-w-[350px] rounded-md">
@@ -88,7 +88,8 @@ const News = () => {
                 </div>
               </div>
             </Fade>
-          ))}
+          ))
+        ) }
       </div>
 
       <div id="announcement" className="pt-32">

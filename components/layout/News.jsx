@@ -80,7 +80,7 @@ console.log(today);
                 <div className="px-2 pb-4">
                   <p className="mt-4 text-primary-dark font-bold">
                     {" "}
-                     {  moment(content.fields.date).fromNow() } to Go!{" "}
+                     {  moment(content.fields.date).fromNow() } {" "}
                   </p>
                   <p className="mt-4">
                     {content.fields.description.slice(0, 100)} {"..."}{" "}

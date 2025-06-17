@@ -2,14 +2,26 @@
 import React, { useState } from "react";
 import { Fade } from "react-awesome-reveal";
 import { useForm } from "react-hook-form";
+import emailjs from "@emailjs/browser";
 
 const Form = () => {
   const [messageSend, setMessageSend] = useState(false);
   const { register, handleSubmit, reset } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
-    reset();
+  const onSubmit = (data, e) => {
+    emailjs
+      .sendForm("service_4kdyr3m", "template_0m28fhq", e.target, {
+        publicKey: "MrKtDiM4rOW05oIyz",
+      })
+      .then(
+        () => {
+          console.log("SUCCESS!");
+          reset();
+        },
+        (error) => {
+          console.log("FAILED...", error);
+        }
+      );
   };
 
   return (
@@ -53,13 +65,9 @@ const Form = () => {
               />
             </div>
 
-            <p className="italic text-gray-700">
-              Thanks, message send successfully!
-            </p>
-
             <button
               type="submit"
-              className=" mx-auto block px-4 py-1 rounded-md capitalize mt-4 cursor-pointer border-primary-light border-[1px]"
+              className="bg-white mx-auto block px-4 py-1 rounded-md capitalize mt-4 cursor-pointer border-primary-light border-[1px]"
             >
               Send
             </button>
@@ -71,3 +79,7 @@ const Form = () => {
 };
 
 export default Form;
+
+/*  <p className="italic text-gray-700">
+              Thanks, message send successfully!
+            </p>*/
