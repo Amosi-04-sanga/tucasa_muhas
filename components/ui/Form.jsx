@@ -67,7 +67,7 @@ const Form = () => {
 
             <button
               type="submit"
-              className=" mx-auto block px-4 py-1 rounded-md capitalize mt-4 cursor-pointer border-primary-light border-[1px]"
+              className="bg-white mx-auto block px-4 py-1 rounded-md capitalize mt-4 cursor-pointer border-primary-light border-[1px]"
             >
               Send
             </button>
