@@ -39,15 +39,15 @@ const page = () => {
           Event collections
         </h1>
       </div>
-      <div className="flex flex-wrap justify-start max-sm:justify-center mt-8 gap-1 md:gap-2">
+      <div className="flex flex-wrap justify-start max-sm:justify-around mt-8 gap-1 md:gap-2">
         {photos && photos.length > 0 ? (
           photos.map((content, index) => (
             <Fade delay={index * 100} key={index}>
               <Link
-                className="rounded-md shadow-md max-w-[150px] block mb-2"
+                className="rounded-md shadow-md max-w-[150px] md:max-w-[250px] block mb-2"
                 href={`/gallery/${content.sys.id}`}
               >
-                <div className=" w-full h-[100px] ">
+                <div className=" w-full h-[100px] md:h-[200px]">
                   <img
                     src={content.fields.coverPhoto.fields.file.url}
                     alt="cover image"
@@ -94,8 +94,3 @@ const page = () => {
 
 export default page;
 
-/*
-{gallery_content.map((item, index) => (
-          
-        ))}
-*/

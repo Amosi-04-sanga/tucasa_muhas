@@ -116,7 +116,7 @@ const page = ({ params }) => {
         {" "}
         {data && data.fields.title}{" "}
       </h1>
-      <div className="flex flex-wrap max-sm:justify-center gap-1 mt-4">
+      <div className="flex flex-wrap justify-start max-sm:justify-around gap-1 mt-4">
         {data && data.fields.photos.length > 0 ? (
           data.fields.photos.map((photo, index) => (
             <Fade delay={index * 100} key={index}>
