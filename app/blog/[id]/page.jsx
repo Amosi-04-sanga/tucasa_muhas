@@ -53,6 +53,7 @@ const page = ({ params }) => {
 
         return (
           <img
+            className="max-w-[10vw] mx-auto"
             src={imageUrl}
             alt={title || "Embedded asset"}
             className="my-4 mx-auto max-w-full rounded"
@@ -68,6 +69,39 @@ const page = ({ params }) => {
         >
           {children}
         </a>
+      "embedded-entry-block": (node) => {
+        // Handle other embedded entries, e.g., links to other Contentful content.
+        // You can customize the rendering for different content types here.
+        return null;
+      },
+      text: (text) => {
+        // You can style text nodes here, e.g., adding CSS classes for headings.
+        return (
+          <p style={{ paddingTop: "10px" }} className="mt-4 text-red-600">
+            {text}
+          </p>
+        );
+      },
+      "heading-1": (node) => (
+        <h1 className="text-center text-heading1-bold">
+          {node.content[0].value}
+        </h1>
+      ),
+      "heading-2": (node) => (
+        <h2 className="text-center text-heading2-bold">
+          {node.content[0].value}
+        </h2>
+      ),
+      "heading-3": (node) => (
+        <h3 className="text-heading3-bold text-center">
+          {node.content[0].value}
+        </h3>
+      ),
+      // Add more heading levels as needed.
+      hyperlink: (node) => (
+        <Link className="text-red-700" href={node.data.uri}>
+          {node.content[0].value}
+        </Link>
       ),
     },
   };

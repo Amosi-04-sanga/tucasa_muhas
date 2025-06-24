@@ -69,7 +69,7 @@ console.log(today);
       <div className="flex flex-col gap-8 justify-center items-center md:items-start  md:flex md:flex-row md:flex-wrap md:gap-8 mt-4">
         {NewsData && (NewsData.length > 0) && NewsData.slice(0, initialNewsLoad).map((content, index) => (
             <Fade key={index}>
-              <div className="max-w-[350px] min-h-[700px] shadow-md rounded-md">
+              <div className="max-w-[350px] md:min-h-[700px] md:shadow-md rounded-md">
                 <div className="mb-0">
                   <img
                     src={content.fields.poster.fields.file.url}
@@ -80,7 +80,7 @@ console.log(today);
                 <div className="px-2 pb-4">
                   <p className="mt-4 text-primary-dark font-bold">
                     {" "}
-                     {  moment(content.fields.date).fromNow() } to Go!{" "}
+                     {  moment(content.fields.date).fromNow() } {" "}
                   </p>
                   <p className="mt-4">
                     {content.fields.description.slice(0, 100)} {"..."}{" "}

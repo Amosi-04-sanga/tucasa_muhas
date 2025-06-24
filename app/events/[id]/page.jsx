@@ -71,6 +71,7 @@ const page = ({ params }) => {
       ),
     },
   };
+  
 
   return (
     <div className="">

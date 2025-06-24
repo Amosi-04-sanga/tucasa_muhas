@@ -39,8 +39,7 @@ const page = () => {
         </p>
         <p className="mt-4">
           Since 1970, the TUCASA MUHAS Branch began its journey with just seven
-          dedicated members. Prof. Daniel Mtango, Bisanda, (im finding that
-          name)
+          dedicated members. 
         </p>
 
         <p className="mt-4">
