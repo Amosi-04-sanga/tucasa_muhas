@@ -40,7 +40,7 @@ const page = ({ params }) => {
         <h1 className="text-2xl font-bold text-center my-4">{children}</h1>
       ),
       [BLOCKS.HEADING_2]: (node, children) => (
-        <h2 className="text-xl font-semibold my-3">{children}</h2>
+        <h2 className="text-xl text-center font-semibold my-3">{children}</h2>
       ),
       [BLOCKS.PARAGRAPH]: (node, children) => (
         <p className="text-base leading-relaxed my-2">{children}</p>
