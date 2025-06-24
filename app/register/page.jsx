@@ -15,6 +15,9 @@ const page = () => {
   return (
     <div className="px-8 sm:px-16 md:px-24 lg:px-32 xl:px-48">
       <h1 className="mt-8 font-bold text-3xl text-center">Register As</h1>
+      <p className="text-center capitalize text-red-600 pt-8 font-bold text-xl">
+        Coming soon!
+      </p>
 
       <div className="mt-4 flex gap-4  justify-center items-center">
         {userStatus.map((status, index) => (
@@ -30,6 +33,7 @@ const page = () => {
           </div>
         ))}
       </div>
+     
 
       <div className="mt-8">
         {currentIndex === 0 && <MemberForm />}
