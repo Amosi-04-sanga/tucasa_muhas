@@ -1,12 +1,10 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { createClient } from "contentful";
-import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 import moment from "moment";
-import { BLOCKS, MARKS } from "@contentful/rich-text-types";
+import { BLOCKS, INLINES, MARKS } from "@contentful/rich-text-types";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { SyncLoader } from "react-spinners";
 
@@ -37,53 +35,38 @@ const page = ({ params }) => {
 
   const options = {
     renderNode: {
-      "embedded-asset-block": (node) => {
+      [BLOCKS.HEADING_1]: (node, children) => (
+        <h1 className="text-2xl font-bold text-center my-4">{children}</h1>
+      ),
+      [BLOCKS.HEADING_2]: (node, children) => (
+        <h2 className="text-xl font-semibold my-3">{children}</h2>
+      ),
+      [BLOCKS.PARAGRAPH]: (node, children) => (
+        <p className="text-base leading-relaxed my-2">{children}</p>
+      ),
+      [BLOCKS.EMBEDDED_ASSET]: (node) => {
         const { title, file } = node.data.target.fields;
-        const imageUrl = file.url;
-        const altText = title || "";
+        const imageUrl = file?.url?.startsWith("//")
+          ? "https:" + file.url
+          : file.url;
 
         return (
           <img
-            className="max-w-[60vw] mx-auto"
             src={imageUrl}
-            alt={altText}
-            style={{ margin: "16px auto" }}
+            alt={title || "Embedded asset"}
+            className="my-4 mx-auto max-w-full rounded"
           />
         );
       },
-      "embedded-entry-block": (node) => {
-        // Handle other embedded entries, e.g., links to other Contentful content.
-        // You can customize the rendering for different content types here.
-        return null;
-      },
-      text: (text) => {
-        // You can style text nodes here, e.g., adding CSS classes for headings.
-        return (
-          <p style={{ paddingTop: "10px" }} className="mt-4">
-            {text}
-          </p>
-        );
-      },
-      "heading-1": (node) => (
-        <h1 className="text-center text-heading1-bold">
-          {node.content[0].value}
-        </h1>
-      ),
-      "heading-2": (node) => (
-        <h2 className="text-center text-heading2-bold">
-          {node.content[0].value}
-        </h2>
-      ),
-      "heading-3": (node) => (
-        <h3 className="text-heading3-bold text-center">
-          {node.content[0].value}
-        </h3>
-      ),
-      // Add more heading levels as needed.
-      hyperlink: (node) => (
-        <Link className="text-red-700" href={node.data.uri}>
-          {node.content[0].value}
-        </Link>
+      [INLINES.HYPERLINK]: (node, children) => (
+        <a
+          href={node.data.uri}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-blue-600 hover:underline"
+        >
+          {children}
+        </a>
       ),
     },
   };
@@ -93,19 +76,22 @@ const page = ({ params }) => {
       {data ? (
         <div className=" p-4 mx-auto max-w-[800px]">
           <section className="mt-10 mx-auto ">
-            <div className="max-w-[500px] mx-auto">
+            <div className="max-w-[400px] mx-auto">
               <img
                 src={data.fields.image.fields.file.url}
                 alt="featured image"
                 className="block w-full"
               />
             </div>
-            <div className="flex justify-between mt-4 text-sm">
-              <p>created At: {moment(data.sys.createdAt).format("MMM Do YY")} </p>
-            </div>
 
             <div className="mt-4">
               {documentToReactComponents(data.fields.content, options)}
+            </div>
+            <div className="flex flex-col justify-center text-sm mt-8">
+              <p>Author: {data.fields.author} </p>
+              <p className="mt-2 text-gray-600">
+                Published on: {moment(data.sys.createdAt).format("MMM Do YY")}{" "}
+              </p>
             </div>
           </section>
         </div>
