@@ -51,7 +51,7 @@ const Blog = () => {
                   />
                 </div>
                 <div className="px-2 pb-4">
-                  <p className="mt-4 text-primary-dark font-bold">
+                  <p className="mt-4 text-primary-dark min-h-[50px] font-bold">
                     {" "}
                     {content.fields.title}
                   </p>

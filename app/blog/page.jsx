@@ -4,24 +4,27 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { Fade } from "react-awesome-reveal";
 import { createClient } from "contentful";
+import { SyncLoader } from "react-spinners";
 
 const page = () => {
   const [initialArticlesLoad, setInitialArticlesLoad] = useState(3);
   const [articlesData, setArticlesData] = useState(3);
+  const [hasMore, setHasMore] = useState(true);
+
 
   const loadMoreHandler = () => {
-    if (postsLoad < articlesData.fields.length) {
-      setPostsLoad((prev) => {
+    if (initialArticlesLoad < articlesData.fields.length) {
+      initialArticlesLoad((prev) => {
         const newsLoad = prev + 2;
         if (newsLoad == articlesData.fields.length) {
-          SetHasMore(false);
+          setHasMore(false);
         }
 
         return newsLoad;
       });
     } else {
-      setPostsLoad(4);
-      SetHasMore(true);
+      setInitialArticlesLoad(3);
+      setHasMore(true);
     }
   };
 
@@ -48,9 +51,8 @@ const page = () => {
       </div>
 
       <div className="mt-8 flex flex-col gap-8 justify-center items-center md:flex-row flex-wrap">
-        {articlesData &&
-          articlesData.length > 0 &&
-          articlesData.slice(0, initialArticlesLoad).map((content, index) => (
+        {articlesData && articlesData.length > 0 ? (
+          articlesData.map((content, index) => (
             <Fade key={index}>
               <div className="max-w-[350px] shadow-md rounded-md">
                 <div className="h-[150px] md:h-[200px]">
@@ -61,7 +63,7 @@ const page = () => {
                   />
                 </div>
                 <div className="px-2 pb-4">
-                  <p className="mt-4 text-primary-dark font-bold">
+                  <p className="mt-4 text-primary-dark min-h-[50px] font-bold">
                     {" "}
                     {content.fields.title}
                   </p>
@@ -77,12 +79,17 @@ const page = () => {
                 </div>
               </div>
             </Fade>
-          ))}
+          ))
+        ) : (
+          <>
+            <div className="w-full h-[60vh] flex items-center justify-center">
+              <SyncLoader color="#008080" />
+            </div>
+          </>
+        )}
       </div>
 
-      <button onClick={loadMoreHandler} className="mt-16 mx-auto block cursor-pointer">
-        <p className="capitalize text-red-700 font-bold"> Load More </p>
-      </button>
+      
     </div>
   );
 };
@@ -90,5 +97,10 @@ const page = () => {
 export default page;
 
 /*
-  
+  <button
+        onClick={loadMoreHandler}
+        className="mt-16 mx-auto block cursor-pointer"
+      >
+        <p className="capitalize text-red-700 font-bold"> Load More </p>
+      </button>
 */
