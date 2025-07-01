@@ -2,11 +2,13 @@
   "name": "tucasa_muhas",
   "version": "0.1.0",
   "private": true,
+
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postbuild": "next-sitemap"
   },
   "dependencies": {
     "@contentful/rich-text-html-renderer": "^17.0.0",
@@ -18,6 +20,7 @@
     "emailjs": "^4.0.3",
     "moment": "^2.30.1",
     "next": "15.3.2",
+    "next-sitemap": "^4.2.3",
     "react": "^19.0.0",
     "react-awesome-reveal": "^4.3.1",
     "react-dom": "^19.0.0",

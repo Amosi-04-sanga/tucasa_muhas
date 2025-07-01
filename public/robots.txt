@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://tucasamuhas.com
+
+# Sitemaps
+Sitemap: https://tucasamuhas.com/sitemap.xml

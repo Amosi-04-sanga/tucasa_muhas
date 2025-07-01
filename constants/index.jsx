@@ -125,7 +125,7 @@ export const project_content = [
   {
     logo: kai,
     path: 'https://www.keshoangavu.org/',
-    text: " KAI is a non-profit organizationis initiated with the goal of empowering youth, particularly the unemployed, by offering them viable alternatives and equipping them with knowledge on financial development, personal development, and life skills.",
+    text: " KAI is a non-government organizationis initiated with the goal of empowering youth, particularly the unemployed, by offering them viable alternatives and equipping them with knowledge on financial development, personal development, and life skills.",
   },
   {
     logo: muhasso_loundry,
