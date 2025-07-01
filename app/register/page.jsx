@@ -33,7 +33,7 @@ const page = () => {
           </div>
         ))}
       </div>
-     
+      
 
       <div className="mt-8">
         {currentIndex === 0 && <MemberForm />}

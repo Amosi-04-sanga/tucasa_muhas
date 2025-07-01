@@ -83,7 +83,7 @@ console.log(today);
                      {  moment(content.fields.date).fromNow() } {" "}
                   </p>
                   <p className="mt-4">
-                    {content.fields.description.slice(0, 100)} {"..."}{" "}
+                    {content.fields.excerpt.slice(0, 100)} {"..."}{" "}
                   </p>
 
                   <button className=" mx-auto block px-2 py-1 rounded-md text-primary-dark capitalize mt-8 cursor-pointer border-primary-light border-[1px]">
@@ -116,7 +116,7 @@ console.log(today);
           announcementData && (announcementData.length > 0) && announcementData.slice(0, initialAnnouncementLoad).map((content, index) => (
             <Fade key={index}>
            
-            <div className="max-w-[350px] p-4 rounded-lg">
+            <div className="max-w-[350px] shadow-md md:min-h-[300px] p-4 rounded-lg">
              
               <div className="px-2 pb-4">
                 <p className="mt-4 font-bold">
@@ -124,7 +124,7 @@ console.log(today);
                   {content.fields.title}
                 </p>
                 <p className="mt-4">
-                  {content.fields.description.slice(0, 100)} {"..."}{" "} 
+                  {content.fields.excerpt.slice(0, 100)} {"..."}{" "} 
                 </p>
 
                 <button className=" mx-auto block px-2 py-1 rounded-md text-red-700 capitalize mt-4 cursor-pointer ">

@@ -8,7 +8,7 @@ const Footer = () => {
   const { location, email, facebook, instagram, tiktok, youtube, advent } =
     images;
   return (
-    <div className="flex flex-col md:flex-row md:justify-around md:gap-32 px-8 pt-8 min-h-[400px] bg-primary-dark text-white">
+    <div className="flex flex-col md:flex-row md:justify-around md:gap-32 px-8 pt-8 max-sm:pb-8 min-h-[300px] bg-primary-dark text-white">
       <div className="mt-8 flex flex-col gap-2 justify-start">
         <div className="flex gap-2">
           <Image
