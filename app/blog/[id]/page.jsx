@@ -76,7 +76,7 @@ const page = ({ params }) => {
   return (
     <div className="mb-8">
       {data ? (
-        <div className=" px-[50px] mx-auto max-w-[800px]">
+        <div className=" px-[40px] mx-auto max-w-[800px]">
           <section className="mt-10 mx-auto ">
             <div className="max-w-[400px] mx-auto">
               <img
