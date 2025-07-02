@@ -60,10 +60,11 @@ const News = () => {
       </div>
 
       <div className="flex flex-col gap-4 md:gap-8 justify-start items-center md:items-start md:flex md:flex-row md:flex-wrap mt-4">
-        {NewsData && NewsData.length > 0 && (
+        {NewsData &&
+          NewsData.length > 0 &&
           NewsData.map((content, index) => (
             <Fade key={index}>
-              <div className="max-w-[350px] rounded-md">
+              <div className="max-w-[350px] md:min-h-[700px] md:shadow-md rounded-md">
                 <div className="mb-0">
                   <img
                     src={content.fields.poster.fields.file.url}
@@ -74,10 +75,10 @@ const News = () => {
                 <div className="px-2 pb-4">
                   <p className="mt-4 text-primary-dark font-bold">
                     {" "}
-                    {moment(content.fields.date).fromNow()} to Go!{" "}
+                    {moment(content.fields.date).fromNow()}{" "}
                   </p>
                   <p className="mt-4">
-                    {content.fields.description.slice(0, 100)} {"..."}{" "}
+                    {content.fields.title.slice(0, 100)} {"..."}{" "}
                   </p>
 
                   <button className=" mx-auto block px-2 py-1 rounded-md text-primary-dark capitalize mt-8 cursor-pointer border-primary-light border-[1px]">
@@ -88,8 +89,7 @@ const News = () => {
                 </div>
               </div>
             </Fade>
-          ))
-        ) }
+          ))}
       </div>
 
       <div id="announcement" className="pt-32">
@@ -97,16 +97,16 @@ const News = () => {
           Recent <span className="text-primary-dark"> Announcements </span>{" "}
         </h1>
 
-        <div className="mt-4 flex flex-col sm:flex-row sm:flex-wrap gap-2 w-fit mx-auto">
+        <div className="mt-4 flex flex-col sm:flex-row sm:flex-wrap gap-2 items-start mx-auto">
           {announcementData &&
             announcementData.length > 0 &&
             announcementData.map((content, index) => (
               <Fade key={index}>
-                <div className="max-w-[350px] p-4 rounded-lg">
+                <div className="max-w-[350px] shadow-md md:min-h-[300px] p-4 rounded-md">
                   <div className="px-2 pb-4">
                     <p className="mt-4 font-bold"> {content.fields.title}</p>
                     <p className="mt-4">
-                      {content.fields.description.slice(0, 100)} {"..."}{" "}
+                      {content.fields.excerpt.slice(0, 100)} {"..."}{" "}
                     </p>
 
                     <button className=" mx-auto block px-2 py-1 rounded-md text-red-700 capitalize mt-4 cursor-pointer ">
@@ -125,8 +125,3 @@ const News = () => {
 };
 
 export default News;
-
-/*
-
-
-*/

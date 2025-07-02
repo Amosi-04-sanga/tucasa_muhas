@@ -2,7 +2,6 @@
 import React from "react";
 import { Fade } from "react-awesome-reveal";
 import { useForm } from "react-hook-form";
-import { supabase } from "../../lib/supabaseClient";
 
 const LeaderForm = () => {
   const { register, handleSubmit, reset } = useForm();

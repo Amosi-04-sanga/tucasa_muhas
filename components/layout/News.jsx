@@ -114,7 +114,7 @@ const News = () => {
               .slice(0, initialAnnouncementLoad)
               .map((content, index) => (
                 <Fade key={index}>
-                  <div className="max-w-[350px] shadow-md md:min-h-[300px] p-4 rounded-lg">
+                  <div className="max-w-[350px] shadow-md md:min-h-[300px] p-4 rounded-md">
                     <div className="px-2 pb-4">
                       <p className="mt-4 font-bold"> {content.fields.title}</p>
                       <p className="mt-4">

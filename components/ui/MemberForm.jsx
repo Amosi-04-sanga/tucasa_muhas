@@ -2,16 +2,57 @@
 import React from "react";
 import { Fade } from "react-awesome-reveal";
 import { useForm } from "react-hook-form";
+import { account, databases, ID } from "../../lib/appwrite";
+import { Permission, Role } from 'appwrite';
 
 const MemberForm = () => {
   const { register, handleSubmit, reset } = useForm();
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
+    const {
+      name,
+      email,
+      password,
+      baptism_status,
+      adress,
+      course,
+      gender,
+      phone,
+      year_of_study,
+    } = data;
+
     try {
+     const newAccount = await account.create(ID.unique(), email, password, name);
+
+      // Store extra info in your DB
+      await databases.createDocument(
+        "68656655000caca35665",
+        "686566a6001a34b76c14",
+        ID.unique(),
+        {
+          userId: newAccount.$id,
+          name,
+          email,
+          baptism_status,
+          course,
+          phone,
+          adress,
+          year_of_study
+        },
+        [
+          Permission.read(Role.user(newAccount.$id)),
+          Permission.update(Role.user(newAccount.$id)),
+          Permission.delete(Role.user(newAccount.$id))
+        ]
+      );
+
+      console.log("registered successfully");
       console.log(data);
+      reset();
     } catch (error) {
-      console.log("Error submitting form:", error);
+      throw new Error(error.message);
     }
+
     reset();
   };
 
@@ -86,7 +127,7 @@ const MemberForm = () => {
                 required
                 className="rounded-md bg-white px-2 py-1 text-black outline-none"
                 id="Baptism_status"
-                {...register("Baptism_status")}
+                {...register("baptism_status")}
               >
                 <option value="Yes">Yes</option>
                 <option value="No">No</option>
