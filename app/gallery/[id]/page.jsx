@@ -121,10 +121,9 @@ const page = ({ params }) => {
           data.fields.photos.map((photo, index) => (
             <Fade delay={index * 100} key={index}>
               <div className="relative h-[150px] w-[170px] bg-orange-100">
-                <Image
+                <img
                   src={photo.fields.file.url}
                   alt={`cover_image`}
-                  fill
                   className="w-full h-full object-cover block"
                 />
 
