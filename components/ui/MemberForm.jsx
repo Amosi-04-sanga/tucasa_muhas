@@ -1,12 +1,13 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { Fade } from "react-awesome-reveal";
 import { useForm } from "react-hook-form";
-import { account, databases, ID } from "../../lib/appwrite";
-import { Permission, Role } from 'appwrite';
+import { account, databases, storage, ID } from "../../lib/appwrite";
+import { Permission, Role } from "appwrite";
 
 const MemberForm = () => {
   const { register, handleSubmit, reset } = useForm();
+  const [registered, setRegistered] = useState(false);
 
   const onSubmit = async (data) => {
     const {
@@ -21,13 +22,24 @@ const MemberForm = () => {
       year_of_study,
     } = data;
 
+    const file = data.file[0]; // Get the first file from FileList
+    if (!file) {
+      alert("No file selected!");
+      return;
+    }
+
     try {
-     const newAccount = await account.create(ID.unique(), email, password, name);
+      const newAccount = await account.create(
+        ID.unique(),
+        email,
+        password,
+        name
+      );
 
       // Store extra info in your DB
       await databases.createDocument(
-        "68656655000caca35665",
-        "686566a6001a34b76c14",
+        "68668bb2002232c78c64",
+        "68668c13002021cd8a17",
         ID.unique(),
         {
           userId: newAccount.$id,
@@ -36,18 +48,21 @@ const MemberForm = () => {
           baptism_status,
           course,
           phone,
+          gender,
           adress,
-          year_of_study
-        },
-        [
-          Permission.read(Role.user(newAccount.$id)),
-          Permission.update(Role.user(newAccount.$id)),
-          Permission.delete(Role.user(newAccount.$id))
-        ]
+          year_of_study,
+        }
       );
 
+      const response = await storage.createFile(
+        "6866981d001e9d0b62dd", // e.g., "profile_pics"
+        ID.unique(), // Auto-generate file ID
+        file // File object from <input type="file">
+      );
+      console.log("File uploaded:", response);
+
+      setRegistered(true);
       console.log("registered successfully");
-      console.log(data);
       reset();
     } catch (error) {
       throw new Error(error.message);
@@ -61,7 +76,7 @@ const MemberForm = () => {
       <div className="max-w-[350px] mt-4 mx-auto">
         <Fade>
           <form
-            className="flex flex-col gap-4 mt-4 w-full bg-primary-dark rounded-md px-4 py-8 text-white"
+            className="flex flex-col gap-4 mt-4 w-full rounded-md px-4 py-8 bg-primary-dark text-white"
             onSubmit={handleSubmit(onSubmit)}
           >
             <div className="flex flex-col gap-1">
@@ -69,7 +84,7 @@ const MemberForm = () => {
               <input
                 type="text"
                 required
-                className="rounded-md px-2 py-1 bg-white text-black outline-none"
+                className="rounded-md px-2 py-1 bg-white text-black outline-none "
                 id="name"
                 {...register("name")}
               />
@@ -125,7 +140,7 @@ const MemberForm = () => {
               <label htmlFor="Baptism_status">Baptism status</label>
               <select
                 required
-                className="rounded-md bg-white px-2 py-1 text-black outline-none"
+                className="rounded-md bg-white px-2 py-1 text-black outline-none "
                 id="Baptism_status"
                 {...register("baptism_status")}
               >
@@ -184,9 +199,18 @@ const MemberForm = () => {
               />
             </div>
 
+            <p
+              className={`${
+                register && "animate-[fadeOut_4s_ease-in_forwards] opacity-100"
+              } mt-2`}
+            >
+              {" "}
+              {registered && "registered successfully"}{" "}
+            </p>
+
             <button
               type="submit"
-              className=" mx-auto block px-4 py-1 rounded-md text-white capitalize mt-4 cursor-pointer border-primary-light border-[1px]"
+              className=" mx-auto block px-4 py-1 rounded-md capitalize mt-4 cursor-pointer border-primary-light border-[1px]"
             >
               Sign up
             </button>

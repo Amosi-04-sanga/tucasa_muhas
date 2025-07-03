@@ -1,49 +1,72 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { Fade } from "react-awesome-reveal";
 import { useForm } from "react-hook-form";
+import { account, databases, storage, ID } from "../../lib/appwrite";
 
 const LeaderForm = () => {
   const { register, handleSubmit, reset } = useForm();
+  const [registered, setRegistered] = useState(false);
 
-  const onSubmit = async (formData) => {
+  const onSubmit = async (data) => {
+    const {
+      name,
+      email,
+      password,
+      gender,
+      position,
+      adress,
+      course,
+      phone,
+      year_of_study,
+    } = data;
+
+    const file = data.file[0]; // Get the first file from FileList
+    if (!file) {
+      alert("No file selected!");
+      return;
+    }
+
     try {
-      const {
-        email,
-        name,
-        phone,
-        leadership_position,
-        duration_of_leadership,
-        gender,
-        course,
-      } = formData;
-      /* const { data, error: signUpError } = await supabase.auth.signUp({
+      const newAccount = await account.create(
+        ID.unique(),
         email,
         password,
-      });  */
+        name
+      );
 
-      if (true) {
-        console.log("new user");
+      // Store extra info in your DB
+      await databases.createDocument(
+        "68668bb2002232c78c64",
+        "68668c13002021cd8a17",
+        ID.unique(),
+        {
+          userId: newAccount.$id,
+          name,
+          email,
+          course,
+          position,
+          phone,
+          gender,
+          adress,
+          year_of_study,
+        }
+      );
 
-        const { error: insertError, data: insertData } = await supabase
-          .from("members")
-          .insert([
-            {
-              email,
-              name,
-              phone,
-              gender,
-              course,
-              leadership_position,
-              duration_of_leadership,
-            },
-          ]);
-      }
+      const response = await storage.createFile(
+        "6866981d001e9d0b62dd", // e.g., "profile_pics"
+        ID.unique(), // Auto-generate file ID
+        file // File object from <input type="file">
+      );
+      console.log("File uploaded:", response);
+
+      console.log("registered successfully");
+      reset();
     } catch (error) {
-      console.log("Error submitting form:", error);
-    } finally {
-      // reset();
+      throw new Error(error.message);
     }
+
+    reset();
   };
 
   return (
@@ -87,6 +110,27 @@ const LeaderForm = () => {
                 className="rounded-md px-2 py-1 bg-white text-black outline-none"
                 id="position"
                 {...register("position")}
+              />
+            </div>
+
+            <div className="flex flex-col gap-1">
+              <label htmlFor="adress">Adress</label>
+              <input
+                type="text"
+                className="rounded-md bg-white px-2 py-1 text-black outline-none border border-primary-light"
+                placeholder="e.g. Dar es Salaam, Shinyanga"
+                id="adress"
+                {...register("adress")}
+              />
+            </div>
+            <div className="flex flex-col gap-1">
+              <label htmlFor="year_of_study">Current year of study</label>
+              <input
+                type="text"
+                className="rounded-md bg-white px-2 py-1 text-black outline-none border border-primary-light"
+                placeholder="e.g. 1,2"
+                id="year_of_study"
+                {...register("year_of_study")}
               />
             </div>
 
@@ -151,6 +195,14 @@ const LeaderForm = () => {
                 className="block w-full text-sm text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm file:mr-4 file:py-2 file:px-4 file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-gray-500 hover:file:bg-blue-100"
               />
             </div>
+            <p
+              className={`${
+                register && "animate-[fadeOut_4s_ease-in_forwards] opacity-100"
+              } mt-2`}
+            >
+              {" "}
+              {registered && "registered successfully"}{" "}
+            </p>
 
             <button
               type="submit"

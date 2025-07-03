@@ -1,17 +1,68 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import { Fade } from "react-awesome-reveal";
 import { useForm } from "react-hook-form";
+import { account, databases, storage, ID } from "../../lib/appwrite";
 
 const AssociateForm = () => {
   const { register, handleSubmit, reset } = useForm();
+  const [registered, setRegistered] = useState(false);
 
-  const onSubmit = (data) => {
-    try {
-      console.log(data);
-    } catch (error) {
-      console.log("Error submitting form:", error);
+  const onSubmit = async (data) => {
+    const {
+      name,
+      email,
+      password,
+      gender,
+      profession,
+      adress,
+      phone,
+      year_of_graduation,
+    } = data;
+
+    const file = data.file[0]; // Get the first file from FileList
+    if (!file) {
+      alert("No file selected!");
+      return;
     }
+
+    try {
+      const newAccount = await account.create(
+        ID.unique(),
+        email,
+        password,
+        name
+      );
+
+      // Store extra info in your DB
+      await databases.createDocument(
+        "68668bb2002232c78c64",
+        "68668c13002021cd8a17",
+        ID.unique(),
+        {
+          userId: newAccount.$id,
+          name,
+          email,
+          phone,
+          gender,
+          adress,
+          year_of_graduation,
+          profession,
+        }
+      );
+      const response = await storage.createFile(
+        "6866981d001e9d0b62dd", // e.g., "profile_pics"
+        ID.unique(), // Auto-generate file ID
+        file // File object from <input type="file">
+      );
+      console.log("File uploaded:", response);
+
+      console.log("registered successfully");
+      reset();
+    } catch (error) {
+      throw new Error(error.message);
+    }
+
     reset();
   };
 
@@ -55,7 +106,7 @@ const AssociateForm = () => {
                 required
                 className="rounded-md bg-white px-2 py-1 text-black outline-none"
                 id="Professional"
-                {...register("email")}
+                {...register("profession")}
               />
             </div>
 
@@ -131,6 +182,15 @@ const AssociateForm = () => {
                 className="block w-full text-sm text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm file:mr-4 file:py-2 file:px-4 file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-gray-500 hover:file:bg-blue-100"
               />
             </div>
+
+            <p
+              className={`${
+                register && "animate-[fadeOut_4s_ease-in_forwards] opacity-100"
+              } mt-2`}
+            >
+              {" "}
+              {registered && "registered successfully"}{" "}
+            </p>
 
             <button
               type="submit"

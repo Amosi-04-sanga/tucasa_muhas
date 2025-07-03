@@ -11,6 +11,7 @@ import Form from "./ui/Form";
 import MemberForm from "./ui/MemberForm";
 import LeaderForm from "./ui/LeaderForm";
 import AssociateForm from "./ui/AssociateForm";
+import Timetable from "./ui/Timetable";
 
 export {
   Navbar,
@@ -26,4 +27,5 @@ export {
   MemberForm,
   LeaderForm,
   AssociateForm,
+  Timetable
 };
