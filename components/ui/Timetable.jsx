@@ -4,8 +4,8 @@ const Timetable = () => {
   return (
     <>
       <div className="mt-16 px-2">
-        <h1 className="mt-4">Timetable for worship</h1>
-        <table className="min-w-[300px] mx-auto border border-primary-light">
+        <h1 className="mt-4 text-center">Timetable for worship</h1>
+        <table className="min-w-[300px] mt-2 mx-auto border border-primary-light">
           <thead>
             <tr className="uppercase">
               <th className="px-4 py-2 md:px-8 md:py-4  border border-primary-light bg-primary-light">
