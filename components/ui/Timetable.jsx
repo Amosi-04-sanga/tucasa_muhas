@@ -4,7 +4,7 @@ const Timetable = () => {
   return (
     <>
       <div className="mt-16">
-        <table className="min-w-[350px] mx-auto border border-primary-light">
+        <table className="min-w-[300px] mx-auto border border-primary-light">
           <thead>
             <tr className="uppercase">
               <th className="px-4 py-2 md:px-8 md:py-4  border border-primary-light bg-primary-light">
