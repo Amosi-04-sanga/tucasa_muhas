@@ -3,7 +3,7 @@ import React from "react";
 const Timetable = () => {
   return (
     <>
-      <div className="mt-16">
+      <div className="mt-16 px-2">
         <table className="min-w-[300px] mx-auto border border-primary-light">
           <thead>
             <tr className="uppercase">

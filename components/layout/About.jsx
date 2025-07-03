@@ -5,6 +5,8 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
 import { Fade } from "react-awesome-reveal";
+import Timetable from "../ui/Timetable";
+
 
 const About = () => {
   const { right_arrow } = images;
