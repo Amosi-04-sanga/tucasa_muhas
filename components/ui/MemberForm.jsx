@@ -3,11 +3,14 @@ import React, { useState } from "react";
 import { Fade } from "react-awesome-reveal";
 import { useForm } from "react-hook-form";
 import { account, databases, storage, ID } from "../../lib/appwrite";
-import { Permission, Role } from "appwrite";
+import { useRouter } from "next/router";
+
 
 const MemberForm = () => {
+  const router = useRouter();
   const { register, handleSubmit, reset } = useForm();
   const [registered, setRegistered] = useState(false);
+  const [submiting, setSubmiting] = useState(false);
 
   const onSubmit = async (data) => {
     const {
@@ -29,12 +32,15 @@ const MemberForm = () => {
     }
 
     try {
+      setSubmiting(true);
       const newAccount = await account.create(
         ID.unique(),
         email,
         password,
         name
       );
+
+      const session = await account.createEmailPasswordSession(email, password);
 
       // Store extra info in your DB
       await databases.createDocument(
@@ -67,8 +73,10 @@ const MemberForm = () => {
     } catch (error) {
       throw new Error(error.message);
     }
-
+    
     reset();
+    setSubmiting(false);
+    router.push("/login");
   };
 
   return (
@@ -98,6 +106,7 @@ const MemberForm = () => {
                 id="gender"
                 {...register("gender")}
               >
+                <option value="">select</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
               </select>
@@ -107,6 +116,7 @@ const MemberForm = () => {
               <label htmlFor="adress">Adress</label>
               <input
                 type="text"
+                required
                 className="rounded-md bg-white px-2 py-1 text-black outline-none"
                 placeholder="e.g. Dar es Salaam, Shinyanga"
                 id="adress"
@@ -139,11 +149,11 @@ const MemberForm = () => {
             <div className="flex flex-col gap-1">
               <label htmlFor="Baptism_status">Baptism status</label>
               <select
-                required
                 className="rounded-md bg-white px-2 py-1 text-black outline-none "
                 id="Baptism_status"
                 {...register("baptism_status")}
               >
+                <option value="">select</option>
                 <option value="Yes">Yes</option>
                 <option value="No">No</option>
               </select>
@@ -194,25 +204,18 @@ const MemberForm = () => {
               </label>
               <input
                 type="file"
-                {...register("file", { required: true })}
+                {...register("file")}
                 className="block w-full text-sm text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm file:mr-4 file:py-2 file:px-4 file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-gray-500 hover:file:bg-blue-100"
               />
             </div>
 
-            <p
-              className={`${
-                register && "animate-[fadeOut_4s_ease-in_forwards] opacity-100"
-              } mt-2`}
-            >
-              {" "}
-              {registered && "registered successfully"}{" "}
-            </p>
+            <p className="text-yellow-100" > {registered && "registered successfully"} </p>
 
             <button
               type="submit"
               className=" mx-auto block px-4 py-1 rounded-md capitalize mt-4 cursor-pointer border-primary-light border-[1px]"
             >
-              Sign up
+              {submiting ? "Submitting..." : "Register"}
             </button>
           </form>
         </Fade>

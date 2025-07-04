@@ -7,8 +7,11 @@ import { account, databases, storage, ID } from "../../lib/appwrite";
 const LeaderForm = () => {
   const { register, handleSubmit, reset } = useForm();
   const [registered, setRegistered] = useState(false);
+  const [submiting, setSubmiting] = useState(false);
 
   const onSubmit = async (data) => {
+    setSubmiting(true);
+
     const {
       name,
       email,
@@ -61,6 +64,8 @@ const LeaderForm = () => {
       console.log("File uploaded:", response);
 
       console.log("registered successfully");
+      setSubmiting(false);
+
       reset();
     } catch (error) {
       throw new Error(error.message);
@@ -96,6 +101,7 @@ const LeaderForm = () => {
                 id="gender"
                 {...register("gender")}
               >
+                <option value="">select</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
               </select>
@@ -117,6 +123,7 @@ const LeaderForm = () => {
               <label htmlFor="adress">Adress</label>
               <input
                 type="text"
+                required
                 className="rounded-md bg-white px-2 py-1 text-black outline-none border border-primary-light"
                 placeholder="e.g. Dar es Salaam, Shinyanga"
                 id="adress"
@@ -127,6 +134,7 @@ const LeaderForm = () => {
               <label htmlFor="year_of_study">Current year of study</label>
               <input
                 type="text"
+                required
                 className="rounded-md bg-white px-2 py-1 text-black outline-none border border-primary-light"
                 placeholder="e.g. 1,2"
                 id="year_of_study"
@@ -138,6 +146,7 @@ const LeaderForm = () => {
               <label htmlFor="course">Course</label>
               <input
                 type="text"
+                required
                 className="rounded-md bg-white px-2 py-1 text-black outline-none"
                 placeholder="e.g. MD, DDS, BMLS"
                 id="course"
@@ -191,7 +200,7 @@ const LeaderForm = () => {
               </label>
               <input
                 type="file"
-                {...register("file", { required: true })}
+                {...register("file")}
                 className="block w-full text-sm text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm file:mr-4 file:py-2 file:px-4 file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-gray-500 hover:file:bg-blue-100"
               />
             </div>
@@ -208,7 +217,7 @@ const LeaderForm = () => {
               type="submit"
               className=" mx-auto block px-4 py-1 rounded-md text-white capitalize mt-4 cursor-pointer border-primary-light border-[1px]"
             >
-              Sign up
+              {submiting ? "Submitting..." : "Register"}
             </button>
           </form>
         </Fade>

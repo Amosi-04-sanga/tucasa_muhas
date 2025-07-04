@@ -7,8 +7,10 @@ import { account, databases, storage, ID } from "../../lib/appwrite";
 const AssociateForm = () => {
   const { register, handleSubmit, reset } = useForm();
   const [registered, setRegistered] = useState(false);
+  const [submiting, setSubmiting] = useState(false);
 
   const onSubmit = async (data) => {
+
     const {
       name,
       email,
@@ -25,7 +27,8 @@ const AssociateForm = () => {
       alert("No file selected!");
       return;
     }
-
+    setSubmiting(true);
+   
     try {
       const newAccount = await account.create(
         ID.unique(),
@@ -62,6 +65,7 @@ const AssociateForm = () => {
     } catch (error) {
       throw new Error(error.message);
     }
+    setSubmiting(false);
 
     reset();
   };
@@ -93,6 +97,7 @@ const AssociateForm = () => {
                 id="gender"
                 {...register("gender")}
               >
+                <option value="">select</option>
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
               </select>
@@ -126,6 +131,7 @@ const AssociateForm = () => {
               <label htmlFor="phone">Phone Number</label>
               <input
                 type="tel"
+                required
                 className="rounded-md bg-white px-2 py-1 text-black outline-none"
                 id="phone"
                 {...register("phone", {
@@ -165,6 +171,7 @@ const AssociateForm = () => {
               <label htmlFor="adress">Adress</label>
               <input
                 type="text"
+                required
                 className="rounded-md bg-white px-2 py-1 text-black outline-none"
                 placeholder="e.g. Dar es Salaam, Tanzania"
                 id="adress"
@@ -178,25 +185,18 @@ const AssociateForm = () => {
               </label>
               <input
                 type="file"
-                {...register("file", { required: true })}
+                {...register("file")}
                 className="block w-full text-sm text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm file:mr-4 file:py-2 file:px-4 file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-gray-500 hover:file:bg-blue-100"
               />
             </div>
 
-            <p
-              className={`${
-                register && "animate-[fadeOut_4s_ease-in_forwards] opacity-100"
-              } mt-2`}
-            >
-              {" "}
-              {registered && "registered successfully"}{" "}
-            </p>
+            <p> {registered && "registered successfully"} </p>
 
             <button
               type="submit"
               className=" mx-auto block px-4 py-1 rounded-md text-white capitalize mt-4 cursor-pointer border-primary-light border-[1px]"
             >
-              Sign up
+              {submiting ? "Submitting..." : "Register"}
             </button>
           </form>
         </Fade>
