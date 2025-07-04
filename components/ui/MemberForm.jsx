@@ -3,11 +3,8 @@ import React, { useState } from "react";
 import { Fade } from "react-awesome-reveal";
 import { useForm } from "react-hook-form";
 import { account, databases, storage, ID } from "../../lib/appwrite";
-import { useRouter } from "next/router";
-
 
 const MemberForm = () => {
-  const router = useRouter();
   const { register, handleSubmit, reset } = useForm();
   const [registered, setRegistered] = useState(false);
   const [submiting, setSubmiting] = useState(false);
@@ -73,10 +70,9 @@ const MemberForm = () => {
     } catch (error) {
       throw new Error(error.message);
     }
-    
+
     reset();
     setSubmiting(false);
-    router.push("/login");
   };
 
   return (
@@ -209,7 +205,10 @@ const MemberForm = () => {
               />
             </div>
 
-            <p className="text-yellow-100" > {registered && "registered successfully"} </p>
+            <p className="text-yellow-100">
+              {" "}
+              {registered && "registered successfully"}{" "}
+            </p>
 
             <button
               type="submit"
