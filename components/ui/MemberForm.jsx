@@ -22,11 +22,7 @@ const MemberForm = () => {
       year_of_study,
     } = data;
 
-    const file = data.file[0]; // Get the first file from FileList
-    if (!file) {
-      alert("No file selected!");
-      return;
-    }
+    
 
     try {
       setSubmiting(true);
@@ -37,7 +33,7 @@ const MemberForm = () => {
         name
       );
 
-      const session = await account.createEmailPasswordSession(email, password);
+      // const session = await account.createEmailPasswordSession(email, password);
 
       // Store extra info in your DB
       await databases.createDocument(
@@ -57,22 +53,15 @@ const MemberForm = () => {
         }
       );
 
-      const response = await storage.createFile(
-        "6866981d001e9d0b62dd", // e.g., "profile_pics"
-        ID.unique(), // Auto-generate file ID
-        file // File object from <input type="file">
-      );
-      console.log("File uploaded:", response);
-
       setRegistered(true);
       console.log("registered successfully");
       reset();
     } catch (error) {
+      reset();
+      setSubmiting(false);
       throw new Error(error.message);
     }
 
-    reset();
-    setSubmiting(false);
   };
 
   return (
@@ -194,17 +183,6 @@ const MemberForm = () => {
               />
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-white mb-1">
-                Profile picture
-              </label>
-              <input
-                type="file"
-                {...register("file")}
-                className="block w-full text-sm text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm file:mr-4 file:py-2 file:px-4 file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-gray-500 hover:file:bg-blue-100"
-              />
-            </div>
-
             <p className="text-yellow-100">
               {" "}
               {registered && "registered successfully"}{" "}
@@ -226,24 +204,11 @@ const MemberForm = () => {
 export default MemberForm;
 
 /*
- <div className="flex flex-col gap-1">
-              <label htmlFor="course">Course</label>
-              <select
-                className="rounded-md bg-white px-2 py-1 text-black outline-none"
-                id="course"
-                {...register("course")}
-              >
-                <option value="MD">MD</option>
-                <option value="DDS">DDS</option>
-                <option value="BMLS">BMLS</option>
-                <option value="PHARMACY">PHARMACY</option>
-                <option value="RADIOLOGY">RADIOLOGY</option>
-                <option value="NURSING">NURSING</option>
-                <option value="PHYSIOTHERAPY">PHYSIOTHERAPY</option>
-                <option value="ENVIRONMENTAL HEALTH">
-                  ENVIRONMENTAL HEALTH
-                </option>
-                <option value="OT">OT</option>
-              </select>
-            </div>
+const response = await storage.createFile(
+        "6866981d001e9d0b62dd", // e.g., "profile_pics"
+        ID.unique(), // Auto-generate file ID
+        file // File object from <input type="file">
+      );
+      console.log("File uploaded:", response);
+
 */

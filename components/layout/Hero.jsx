@@ -43,41 +43,53 @@ const Hero = () => {
 
   return (
     <>
-      <div className="relative overflow-hidden">
-        <div className="bg-[#333] absolute left-0 top-0 z-10 h-[100vh] w-full opacity-[.6]" />
-        <div className={``}>
-          <img
-            src={hero_slideshow[currentIndex].url}
-            alt="hero image"
-            className={`w-full h-[100vh] object-cover origin-center opacity-50 ${
-              zoomImage &&
-              "transition-opacity ease-out duration-1000 opacity-100"
-            }`}
-          />
-        </div>
+      <section
+        style={{
+          backgroundImage: hero_slideshow[currentIndex].url
+            ? `url("${hero_slideshow[currentIndex].url}")`
+            : "none",
+          backgroundColor: "var(--soft-white)",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          transition: "background-image 1s ease-in-out",
+        }}
+        className="relative min-h-[90vh] flex items-center justify-center"
+      >
+        <div className="bg-[#333] absolute left-0 top-0 z-10 h-[90vh] w-full opacity-[.6]" />
+
         <div className="flex flex-col justify-center items-center absolute left-[50%] -translate-x-2/4 top-[50%] -translate-y-2/4 z-20 h-[90vh] max-sm:w-auto text-center text-white">
           <Fade className="sm:w-[450px] max-sm:w-[300px]">
-            <h1 className="text-xl md:text-2xl uppercase"> {hero_slideshow[currentIndex].title} </h1>
+            <h1 className="text-xl md:text-2xl uppercase">
+              {" "}
+              {hero_slideshow[currentIndex].title}{" "}
+            </h1>
             <div className="mt-4 font-bold text-5xl md:text-6xl ">
               {" "}
-              <span>{hero_slideshow[currentIndex].description}</span> {" "} {currentIndex === 2 &&  <span className="text-primary-light text-[22px] italic">Hebrews 13:1</span> }
+              <span>{hero_slideshow[currentIndex].description}</span>{" "}
+              {currentIndex === 2 && (
+                <span className="text-primary-light text-[22px] italic">
+                  Hebrews 13:1
+                </span>
+              )}
             </div>
           </Fade>
           <Slide direction="up">
             {hero_slideshow[currentIndex].btn && (
-             <Link href='#about'>
-              <button className={`p-4 rounded-md text-white capitalize mt-16 cursor-pointer border-gray-500 border-[1px]`}>
-                <div className="flex gap-2">
-                  <Image
-                    src={right_arrow}
-                    alt="icon"
-                    width={20}
-                    height={20}
-                    className="rotate-90"
-                  />
-                </div>
-              </button>
-             </Link>
+              <Link href="#about">
+                <button
+                  className={`p-4 rounded-md text-white capitalize mt-38 cursor-pointer border-gray-500 border-[1px]`}
+                >
+                  <div className="flex gap-2">
+                    <Image
+                      src={right_arrow}
+                      alt="icon"
+                      width={20}
+                      height={20}
+                      className="rotate-90"
+                    />
+                  </div>
+                </button>
+              </Link>
             )}
           </Slide>
         </div>
@@ -105,10 +117,9 @@ const Hero = () => {
             className=""
           />
         </button>
-      </div>
+      </section>
     </>
   );
 };
 
 export default Hero;
-

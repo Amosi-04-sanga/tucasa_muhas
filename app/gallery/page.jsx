@@ -6,6 +6,7 @@ import { Fade, Slide } from "react-awesome-reveal";
 import { createClient } from "contentful";
 import moment from "moment";
 import { SyncLoader } from "react-spinners";
+import Image from "next/image";
 
 const page = () => {
   const [hasMore, setHasMore] = useState(true);
@@ -39,39 +40,40 @@ const page = () => {
           Event collections
         </h1>
       </div>
-      <div className="flex flex-wrap justify-start max-sm:justify-around mt-8 gap-1 md:gap-2">
+      <div className="flex flex-wrap justify-start mt-8 gap-1 md:gap-2">
         {photos && photos.length > 0 ? (
           photos.map((content, index) => (
-            <Fade delay={index * 100} key={index}>
-              <Link
-                className="rounded-md shadow-md max-w-[150px] md:max-w-[250px] block mb-2"
-                href={`/gallery/${content.sys.id}`}
-              >
-                <div className=" w-full h-[100px] md:h-[200px]">
-                  <img
-                    src={content.fields.coverPhoto.fields.file.url}
-                    alt="cover image"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="px-1">
-                  <h2 className="mt-1 min-h-[35px] bg-orange-100 text-[12px] uppercase">
+            <Link
+              key={index}
+              className="rounded-md shadow-md w-[170px] md:w-[250px] block mb-2"
+              href={`/gallery/${content.sys.id}`}
+            >
+              <div className="relative w-[170px] md:w-[250px] h-[100px] md:h-[200px]">
+                <Image
+                  src={`https:${content.fields.coverPhoto.fields.file.url}?w=500&h=500&fit=fill`}
+                  alt="cover image"
+                  fill
+                  sizes="(max-width: 468px) 50vw, (max-width: 400px) 50vw, 33vw"
+                  className="object-cover"
+                />
+              </div>
+              <div className="px-1">
+                <h2 className="mt-1 min-h-[35px] bg-orange-100 text-[12px] uppercase">
+                  {" "}
+                  {content.fields.title}{" "}
+                </h2>
+                <div className="mt-1 text-sm flex justify-between">
+                  <p className=" text-gray-500">
                     {" "}
-                    {content.fields.title}{" "}
-                  </h2>
-                  <div className="mt-1 text-sm flex justify-between">
-                    <p className=" text-gray-500">
-                      {" "}
-                      {content.fields.photos.length} photos
-                    </p>
-                    <p className="text-gray-500">
-                      {" "}
-                      {moment(content.fields.date).format("MMM Do YY")}{" "}
-                    </p>
-                  </div>
+                    {content.fields.photos.length} photos
+                  </p>
+                  <p className="text-gray-500">
+                    {" "}
+                    {moment(content.fields.date).format("MMM Do YY")}{" "}
+                  </p>
                 </div>
-              </Link>
-            </Fade>
+              </div>
+            </Link>
           ))
         ) : (
           <>
@@ -93,4 +95,3 @@ const page = () => {
 };
 
 export default page;
-

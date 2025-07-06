@@ -1,22 +1,22 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { createClient } from "contentful";
-import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
-import moment from "moment";
-import { BLOCKS, MARKS } from "@contentful/rich-text-types";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { SyncLoader } from "react-spinners";
-import { Fade } from "react-awesome-reveal";
 import { images } from "@/src/images";
+import { Fullscreen } from "lucide-react";
+import { useRef } from "react";
 
 const page = ({ params }) => {
   const [data, setData] = useState(null);
   const router = useRouter();
   const entry = React.use(params);
   const { download, tiktok } = images;
+  const [initialPhotosLoad, setInitialPhotosLoad] = useState(20);
+  const [hasMore, setHasMore] = useState(true);
+  const imageContainerRef = useRef(null);
 
   useEffect(() => {
     const Getitems = async () => {
@@ -37,6 +37,20 @@ const page = ({ params }) => {
     };
     Getitems();
   }, []);
+
+  const handleFullscreen = (index) => {
+    const imageContainer = imageContainerRef.current[index];
+
+    if (imageContainer) {
+      // If already fullscreen, exit
+      if (document.fullscreenElement) {
+        document.exitFullscreen();
+      } else {
+        // Otherwise, request fullscreen for the specific container
+        imageContainer.requestFullscreen();
+      }
+    }
+  };
 
   const handleDownload = async (url, filename) => {
     try {
@@ -110,6 +124,22 @@ const page = ({ params }) => {
     },
   };
 
+  const loadMoreHandler = () => {
+    if (data && initialPhotosLoad < data.fields.photos.length) {
+      setInitialPhotosLoad((prev) => {
+        const newsLoad = prev + 20;
+        if (newsLoad == data.fields.photos.length) {
+          setHasMore(false);
+        }
+
+        return newsLoad;
+      });
+    } else {
+      setInitialPhotosLoad(20);
+      setHasMore(true);
+    }
+  };
+
   return (
     <div className="px-2 md:px-2 mt-8 mb-8 ">
       <h1 className="mt-8 uppercase text-primary-dark max-sm:text-center">
@@ -118,32 +148,43 @@ const page = ({ params }) => {
       </h1>
       <div className="flex flex-wrap justify-start max-sm:justify-around gap-1 mt-4">
         {data && data.fields.photos.length > 0 ? (
-          data.fields.photos.map((photo, index) => (
-            <Fade delay={index * 100} key={index}>
-              <div className="relative h-[150px] w-[170px] bg-orange-100">
-                <img
-                  src={photo.fields.file.url}
-                  alt={`cover_image`}
-                  className="w-full h-full object-cover block"
-                />
+          data.fields.photos.slice(0, initialPhotosLoad).map((photo, index) => (
+            <div
+              ref={imageContainerRef}
+              className="relative h-[150px] md:h-[250px] w-[200px] md:w-[300px] bg-orange-100"
+              key={index}
+            >
+              <Image
+                src={`https:${photo.fields.file.url}?w=500&h=500&fit=fill`}
+                alt={`cover_image`}
+                fill
+                sizes="(max-width: 468px) 50vw, (max-width: 400px) 50vw, 33vw"
+                className="object-cover block"
+              />
 
-                <div
-                  onClick={() =>
-                    handleDownload(
-                      photo.fields.file.url,
-                      photo.fields.file.url.split("/").pop()
-                    )
-                  }
-                  className="absolute right-0 bottom-0 z-20 bg-primary-light p-1 rounded-full"
-                >
-                  <img
-                    src={download}
-                    alt={`download`}
-                    className="w-[20px] h-[20px] object-cover block"
-                  />
-                </div>
+              <button
+                onClick={handleFullscreen}
+                className="absolute top-1 right-1 bg-black/50 text-white p-2 rounded-full hover:scale-125 transition-all duration-300 cursor-pointer"
+              >
+                <Fullscreen className="w-3 h-3" />
+              </button>
+
+              <div
+                onClick={() =>
+                  handleDownload(
+                    photo.fields.file.url,
+                    photo.fields.file.url.split("/").pop()
+                  )
+                }
+                className="absolute right-1 bottom-1 z-20 bg-black/50 p-1 rounded-full hover:scale-125 transition-all duration-300 cursor-pointer"
+              >
+                <img
+                  src={download}
+                  alt={`download`}
+                  className="w-[20px] h-[20px] object-cover block"
+                />
               </div>
-            </Fade>
+            </div>
           ))
         ) : (
           <>
@@ -153,6 +194,13 @@ const page = ({ params }) => {
           </>
         )}
       </div>
+      <p className="text-center mt-8 text-red-500">
+        {" "}
+        <span className="cursor-pointer" onClick={loadMoreHandler}>
+          {" "}
+          {hasMore ? "load more" : "load less"}{" "}
+        </span>{" "}
+      </p>
     </div>
   );
 };

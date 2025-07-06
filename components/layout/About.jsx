@@ -6,6 +6,7 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { Fade } from "react-awesome-reveal";
 import Timetable from "../ui/Timetable";
+import { Worshipprograms } from "..";
 
 
 const About = () => {
@@ -83,7 +84,7 @@ const About = () => {
           Read More
         </Link>
       </button>
-
+      <Worshipprograms/>
       <Timetable />
     </div>
   );
