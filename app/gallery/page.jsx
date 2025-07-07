@@ -33,7 +33,7 @@ const page = () => {
   };
 
   return (
-    <div className="px-4 md:px-8 mt-16 mb-8 flex flex-col">
+    <div className="px-2 md:px-8 mt-16 mb-8 flex flex-col">
       <div className="flex items-center gap-4">
         <div className="w-[4px] h-[25px] shadow-lg bg-primary-dark " />
         <h1 className=" text-3xl font-bold text-primary-dark">
@@ -45,15 +45,15 @@ const page = () => {
           photos.map((content, index) => (
             <Link
               key={index}
-              className="rounded-md shadow-md w-[170px] md:w-[250px] block mb-2"
+              className="rounded-md shadow-md w-[160px] md:w-[230px] block mb-2"
               href={`/gallery/${content.sys.id}`}
             >
-              <div className="relative w-[170px] md:w-[250px] h-[100px] md:h-[200px]">
+              <div className="relative w-[160px] md:w-[230px] h-[100px] md:h-[200px]">
                 <Image
                   src={`https:${content.fields.coverPhoto.fields.file.url}?w=500&h=500&fit=fill`}
                   alt="cover image"
                   fill
-                  sizes="(max-width: 468px) 50vw, (max-width: 400px) 50vw, 33vw"
+                  sizes="(max-width: 468px) 50vw, (max-width: 400px) 50vw, 43vw"
                   className="object-cover"
                 />
               </div>

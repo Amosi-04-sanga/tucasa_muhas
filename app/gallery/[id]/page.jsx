@@ -141,7 +141,7 @@ const page = ({ params }) => {
   };
 
   return (
-    <div className="px-2 md:px-2 mt-8 mb-8 ">
+    <div className="px-1 md:px-2 mt-8 mb-8 ">
       <h1 className="mt-8 uppercase text-primary-dark max-sm:text-center">
         {" "}
         {data && data.fields.title}{" "}
@@ -151,7 +151,7 @@ const page = ({ params }) => {
           data.fields.photos.slice(0, initialPhotosLoad).map((photo, index) => (
             <div
               ref={imageContainerRef}
-              className="relative h-[150px] md:h-[250px] w-[200px] md:w-[300px] bg-orange-100"
+              className="relative h-[150px] md:h-[250px] w-[170px] md:w-[300px] bg-orange-100"
               key={index}
             >
               <Image
