@@ -44,18 +44,28 @@ const Hero = () => {
   return (
     <>
       <section
-        style={{
-          backgroundImage: hero_slideshow[currentIndex].url
-            ? `url("${hero_slideshow[currentIndex].url}")`
-            : "none",
-          backgroundColor: "var(--soft-white)",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          transition: "background-image 1s ease-in-out",
-        }}
+       
         className="relative min-h-[90vh] flex items-center justify-center"
       >
         <div className="bg-[#333] absolute left-0 top-0 z-10 h-[90vh] w-full opacity-[.6]" />
+
+        <div className={`absolute inset-0 min-h-[80vh] w-100vw `}>
+        <Image
+          src={hero_slideshow[currentIndex].url}
+          alt="Hero Background"
+          fill
+          priority
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            transition: 'transform 0.5s ease-in-out'
+          }}
+        />
+        </div>
 
         <div className="flex flex-col justify-center items-center absolute left-[50%] -translate-x-2/4 top-[50%] -translate-y-2/4 z-20 h-[90vh] max-sm:w-auto text-center text-white">
           <Fade className="sm:w-[450px] max-sm:w-[300px]">

@@ -8,31 +8,31 @@ export default function DayMessage() {
 
   switch (today) {
     case 0:
-      message = "Happy Sunday! 🎉";
+      message = "Q&A Session";
       day = "Sunday";
       break;
     case 1:
-      message = "It's Monday — let's get started! 🚀";
+      message = "Relationships";
       day = "Monday";
       break;
     case 2:
-      message = "Tuesday vibes!";
+      message = "Prophecy";
       day = "Tuesday";
       break;
     case 3:
-      message = "Happy Wednesday — halfway there!";
+      message = "Prayer";
       day = "Wednesday";
       break;
     case 4:
-      message = "It's Thursday — almost the weekend!";
+      message = "Lesson Study";
       day = "Tuesday";
       break;
     case 5:
-      message = "Happy Friday! 🎉";
+      message = "oint Worship";
       day = "Friday";
       break;
     case 6:
-      message  = "Enjoy your Saturday!";
+      message = "Testimony";
       day: "Saturday";
       break;
     default:
@@ -40,8 +40,24 @@ export default function DayMessage() {
   }
 
   return (
-    <div className="p-4 mt-8 text-center text-xl font-bold text-blue-700">
-      <span className="uppercase"> {day} </span> {" : "} <span>{message}</span>
+    <div className="m-4 mt-8 shadow-md bg-white rounded-md max-w-[600px]">
+      <div className="flex flex-col p-1">
+        <p className="uppercase  font-semibold text-center"> {day} </p>
+        <div className="flex max-sm:flex-col sm:gap-8 items-center p-4 md:p-8 mt-2 border border-primary-light">
+          <div className="flex gap-4 items-center text-primary-dark p-2">
+            <p className="">THEME:</p>
+            <p className="uppercase">{message}</p>
+          </div>
+          <div className="flex gap-4">
+            <p>
+              Chole hostel <br /> 2000-2030Hrs <br /> Behind block F
+            </p>
+            <p>
+              Main campus <br /> 1930-2000Hrs <br /> Block M
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

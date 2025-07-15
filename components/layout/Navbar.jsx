@@ -23,6 +23,7 @@ const Navbar = () => {
                 alt={`logo`}
                 width={90}
                 height={30}
+                priority
                 className="block -ml-4 mx-auto "
               />
             )}
@@ -78,7 +79,7 @@ const Navbar = () => {
           <div className="mt-24 pb-8 text-white flex flex-col h-[75vh] justify-between ">
             <div className="flex flex-col gap-4">
               {nav_links.map((item, index) => (
-                <Slide key={item.link_text} delay={index * 100}>
+                <Slide key={item.link_text} delay={index * 60}>
                   <div className="flex gap-4">
                     <Link
                       className="inline-block hover:font-bold"
@@ -113,6 +114,3 @@ const Navbar = () => {
 
 export default Navbar;
 
-/*
-
-*/

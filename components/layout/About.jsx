@@ -4,14 +4,14 @@ import { images } from "@/src/images";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState } from "react";
-import { Fade } from "react-awesome-reveal";
+import { Fade, Slide } from "react-awesome-reveal";
 import Timetable from "../ui/Timetable";
 import { Worshipprograms } from "..";
-
 
 const About = () => {
   const { right_arrow } = images;
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [openTimetable, setOpenTimetable] = useState(false);
   const title = ["Vision", "Mission", "Believes"];
 
   return (
@@ -84,8 +84,28 @@ const About = () => {
           Read More
         </Link>
       </button>
-      <Worshipprograms/>
-      <Timetable />
+     <div className="flex flex-col items-center justify-center mt-8">
+       <Worshipprograms />
+      <div className="mt-4">
+        <Fade >
+          <div className={`${openTimetable ? "block" : "hidden"}`}>
+            <Timetable />
+          </div>
+        </Fade>
+        <p
+          onClick={() => setOpenTimetable(!openTimetable)}
+          className="cursor-pointer text-center mt-4"
+        >
+          <span
+            onClick={() => setOpenTimetable(!openTimetable)}
+            className="text-red-500"
+          >
+            {" "}
+            {openTimetable ? "hide timetable" : "view timetable"}{" "}
+          </span>
+        </p>
+      </div>
+     </div>
     </div>
   );
 };
