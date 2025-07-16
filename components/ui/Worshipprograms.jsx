@@ -42,7 +42,7 @@ export default function DayMessage() {
   return (
     <div className="m-4 mt-4 shadow-md bg-white rounded-md max-w-[600px]">
       <div className="flex flex-col p-1">
-        <p className="uppercase text-primary-dark text-center"> {day} </p>
+        <p className="uppercase text-primary-dark text-center"> TODAY: {day} </p>
         <div className="flex max-sm:flex-col sm:gap-8 items-center p-4 md:p-8 mt-2 border border-primary-light">
           <div className="flex gap-4 items-center text-primary-dark p-2">
             <p className="">THEME:</p>
