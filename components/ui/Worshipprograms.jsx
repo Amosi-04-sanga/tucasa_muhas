@@ -20,7 +20,7 @@ export default function DayMessage() {
       day = "Tuesday";
       break;
     case 3:
-      message = "Prayer";
+      message = "Prayers";
       day = "Wednesday";
       break;
     case 4:
@@ -28,7 +28,7 @@ export default function DayMessage() {
       day = "Tuesday";
       break;
     case 5:
-      message = "oint Worship";
+      message = "Joint Worship";
       day = "Friday";
       break;
     case 6:
@@ -40,9 +40,9 @@ export default function DayMessage() {
   }
 
   return (
-    <div className="m-4 mt-8 shadow-md bg-white rounded-md max-w-[600px]">
+    <div className="m-4 mt-4 shadow-md bg-white rounded-md max-w-[600px]">
       <div className="flex flex-col p-1">
-        <p className="uppercase  font-semibold text-center"> {day} </p>
+        <p className="uppercase text-primary-dark text-center"> {day} </p>
         <div className="flex max-sm:flex-col sm:gap-8 items-center p-4 md:p-8 mt-2 border border-primary-light">
           <div className="flex gap-4 items-center text-primary-dark p-2">
             <p className="">THEME:</p>

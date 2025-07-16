@@ -75,7 +75,7 @@ const About = () => {
                 <p className="mt-4 text-center"> {content.text} </p>
               </div>
             </Fade>
-          ))}
+          ))} 
         </div>
       </div>
 
@@ -85,6 +85,7 @@ const About = () => {
         </Link>
       </button>
      <div className="flex flex-col items-center justify-center mt-8">
+      <h2 className="uppercase text-center mt-4 font-bold">worship services</h2>
        <Worshipprograms />
       <div className="mt-4">
         <Fade >
@@ -94,7 +95,7 @@ const About = () => {
         </Fade>
         <p
           onClick={() => setOpenTimetable(!openTimetable)}
-          className="cursor-pointer text-center mt-4"
+          className="cursor-pointer text-center mt-2"
         >
           <span
             onClick={() => setOpenTimetable(!openTimetable)}
