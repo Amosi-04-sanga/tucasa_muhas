@@ -3,16 +3,33 @@ import { about_content } from "@/constants";
 import { images } from "@/src/images";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Fade, Slide } from "react-awesome-reveal";
 import Timetable from "../ui/Timetable";
 import { Worshipprograms } from "..";
+import { motion, useAnimation } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 
 const About = () => {
   const { right_arrow } = images;
   const [currentIndex, setCurrentIndex] = useState(0);
   const [openTimetable, setOpenTimetable] = useState(false);
   const title = ["Vision", "Mission", "Believes"];
+  const controls = useAnimation();
+  const [ref, inView] = useInView({
+    triggerOnce: false,
+    threshold: 0.4, // Trigger when 20% visible
+  });
+
+  useEffect(() => {
+    if (inView) {
+      controls.start({
+        opacity: 1,
+        y: 0,
+        transition: { duration: 0.6, ease: "easeOut" },
+      });
+    }
+  }, [controls, inView]);
 
   return (
     <div id="about">
@@ -75,7 +92,7 @@ const About = () => {
                 <p className="mt-4 text-center"> {content.text} </p>
               </div>
             </Fade>
-          ))} 
+          ))}
         </div>
       </div>
 
@@ -84,29 +101,36 @@ const About = () => {
           Read More
         </Link>
       </button>
-     <div className="flex flex-col items-center justify-center mt-8">
-      <h2 className="uppercase text-center mt-4 font-bold">worship services</h2>
-       <Worshipprograms />
-      <div className="mt-4">
-        <Fade >
-          <div className={`${openTimetable ? "block" : "hidden"}`}>
-            <Timetable />
-          </div>
-        </Fade>
-        <p
-          onClick={() => setOpenTimetable(!openTimetable)}
-          className="cursor-pointer text-center mt-2"
-        >
-          <span
+      <motion.div
+        ref={ref}
+        initial={{ opacity: 0, y: 50 }}
+        animate={controls}
+        className="flex flex-col items-center justify-center mt-8"
+      >
+        <h2 className="uppercase text-center mt-4 font-bold">
+          worship services
+        </h2>
+        <Worshipprograms />
+        <div className="mt-4">
+          <Fade>
+            <div className={`${openTimetable ? "block" : "hidden"}`}>
+              <Timetable />
+            </div>
+          </Fade>
+          <p
             onClick={() => setOpenTimetable(!openTimetable)}
-            className="text-red-500"
+            className="cursor-pointer text-center mt-2"
           >
-            {" "}
-            {openTimetable ? "hide timetable" : "view timetable"}{" "}
-          </span>
-        </p>
-      </div>
-     </div>
+            <span
+              onClick={() => setOpenTimetable(!openTimetable)}
+              className="text-red-500"
+            >
+              {" "}
+              {openTimetable ? "hide timetable" : "view timetable"}{" "}
+            </span>
+          </p>
+        </div>
+      </motion.div>
     </div>
   );
 };
