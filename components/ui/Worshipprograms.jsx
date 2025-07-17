@@ -25,7 +25,7 @@ export default function DayMessage() {
       break;
     case 4:
       message = "Lesson Study";
-      day = "Tuesday";
+      day = "Thursday";
       break;
     case 5:
       message = "Joint Worship";
