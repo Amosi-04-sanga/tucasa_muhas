@@ -30,9 +30,11 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="flex items-center justify-center gap-4 h-full">
-          <button className="px-4 cursor-pointer py-1 rounded-md bg-yellow-500 text-white">
-            Donate
-          </button>
+          <Link href="/donate">
+            <button className="px-4 cursor-pointer py-1 rounded-md bg-yellow-500 text-white">
+              Donate
+            </button>
+          </Link>
           <div className="md:hidden">
             <Image
               src={isMenuOpened ? close : menu}
@@ -79,7 +81,7 @@ const Navbar = () => {
           <div className="mt-24 pb-8 text-white flex flex-col h-[75vh] justify-between ">
             <div className="flex flex-col gap-4">
               {nav_links.map((item, index) => (
-                <Slide key={item.link_text} delay={index * 60}>
+                <Slide key={item.link_text} delay={index * 50}>
                   <div className="flex gap-4">
                     <Link
                       className="inline-block hover:font-bold"
@@ -113,4 +115,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-

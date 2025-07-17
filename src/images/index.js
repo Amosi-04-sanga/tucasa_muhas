@@ -29,6 +29,10 @@ const images = {
   hope_in_ict: "/assets/logo/hope_in_ict.svg",
   projects_bg: "/assets/bg/projects_bg.png",
   logo: "/assets/logo/logo.svg",
+  airtel: "/assets/logo/airtelLogo.png",
+  yas: "/assets/logo/yasLogo.png",
+  mpesa: "/assets/logo/M-pesaLogo.png",
+  halotel: "/assets/logo/halopesaLogo.png",
 };
 
 
