@@ -10,9 +10,8 @@ const paymentInstructions = [
       "Dial *150*00#",
       "Choose Option 4: Lipa kwa M-Pesa",
       "Choose Option 4: Lipa namba ya biashara",
-      "Enter Business Number: 58267308",
-      "Enter Amount: 3000",
-      "Enter Reference (optional): Akili Supa 2025",
+      "Enter Business Number: 37852199",
+      "Enter Amount: ",
       "Confirm and enter your PIN",
     ],
   },
@@ -25,8 +24,8 @@ const paymentInstructions = [
       "Choose Option 5: Lipa bili/PAY BILL",
       "Choose Option 3: Mitandao mingine (Other Networks)",
       "Select Vodacom M-Pesa",
-      "Enter Business Number: 58267308",
-      "Enter Amount: 3000",
+      "Enter Business Number: 37852199",
+      "Enter Amount: ",
       "Confirm and enter your PIN",
     ],
   },
@@ -38,9 +37,8 @@ const paymentInstructions = [
       "Dial *150*60#",
       "Choose Option 5: Lipa bili",
       "Choose Option 4: Lipa kwa namba ya kampuni",
-      "Enter Business Number: 58267308",
-      "Enter Amount: 3000",
-      "Reference (optional): Akili Supa 2025",
+      "Enter Business Number: 37852199",
+      "Enter Amount: ",
       "Confirm and enter your PIN",
     ],
   },
@@ -51,8 +49,8 @@ const paymentInstructions = [
     steps: [
       "Dial *150*88#",
       "Select Option 5: Lipa bili",
-      "Choose Mitandao mingine or Vodacom",
-      "Enter Business Number: 58267308",
+      "Choose Mitandao mingine",
+      "Enter Business Number: 37852199",
       "Enter Amount: 3000",
       "Confirm and enter PIN",
     ],
@@ -93,7 +91,7 @@ const DonatePage = () => {
                 }}
               >
                 <button
-                  className="w-full flex items-center cursor-pointer gap-4 p-4 focus:outline-none focus:ring-2 focus:ring-deep-red transition"
+                  className="w-full flex items-center cursor-pointer gap-4 p-4 focus:outline-none focus:ring-2 focus:ring-primary-light transition"
                 
                   onClick={() => setOpenIdx(isOpen ? null : idx)}
                   aria-expanded={isOpen}

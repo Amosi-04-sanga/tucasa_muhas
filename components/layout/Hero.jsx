@@ -87,7 +87,7 @@ const Hero = () => {
             {hero_slideshow[currentIndex].btn && (
               <Link href="#about">
                 <button
-                  className={`p-4 rounded-md text-white capitalize mt-38 cursor-pointer border-gray-500 border-[1px]`}
+                  className={`p-4 rounded-md text-white capitalize mt-24 cursor-pointer border-gray-500 border-[1px]`}
                 >
                   <div className="flex gap-2">
                     <Image

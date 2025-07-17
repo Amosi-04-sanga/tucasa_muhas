@@ -28,6 +28,9 @@ const page = () => {
     getitems();
   }, []);
 
+  {
+    /*load more handler*/
+  }
   const loadMoreHandler = () => {
     console.log("load more");
   };

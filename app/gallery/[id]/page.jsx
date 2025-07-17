@@ -8,6 +8,7 @@ import { SyncLoader } from "react-spinners";
 import { images } from "@/src/images";
 import { Fullscreen } from "lucide-react";
 import { useRef } from "react";
+import LightboxModal from "@/components/ui/LightBoxModel";
 
 const page = ({ params }) => {
   const [data, setData] = useState(null);
@@ -17,6 +18,12 @@ const page = ({ params }) => {
   const [initialPhotosLoad, setInitialPhotosLoad] = useState(20);
   const [hasMore, setHasMore] = useState(true);
   const imageContainerRef = useRef(null);
+
+  const [viewMode, setViewMode] = useState("grid");
+
+  // State for lightbox
+  const [selectedPhoto, setSelectedPhoto] = useState(null);
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
   useEffect(() => {
     const Getitems = async () => {
@@ -38,19 +45,35 @@ const page = ({ params }) => {
     Getitems();
   }, []);
 
-  const handleFullscreen = (index) => {
-    const imageContainer = imageContainerRef.current[index];
-
-    if (imageContainer) {
-      // If already fullscreen, exit
-      if (document.fullscreenElement) {
-        document.exitFullscreen();
-      } else {
-        // Otherwise, request fullscreen for the specific container
-        imageContainer.requestFullscreen();
-      }
-    }
+  // Handle photo click to open lightbox
+  const handlePhotoClick = (photo) => {
+    setSelectedPhoto(photo);
+    setIsLightboxOpen(true);
   };
+
+  // Handle lightbox navigation
+  const handlePrevious = () => {
+    const currentIndex = data?.findIndex(
+      (photo) => photo.sys?.id === selectedPhoto?.sys?.id
+    );
+    const previousIndex = currentIndex > 0 ? currentIndex - 1 : data.length - 1;
+    setSelectedPhoto(data[previousIndex]);
+  };
+
+  const handleNext = () => {
+    const currentIndex = data && data.findIndex(
+      (photo) => photo.sys?.id === selectedPhoto?.sys?.id
+    );
+    const nextIndex = currentIndex < data?.length - 1 ? currentIndex + 1 : 0;
+    setSelectedPhoto(data[nextIndex]);
+  };
+
+  const handleCloseLightbox = () => {
+    setIsLightboxOpen(false);
+    setSelectedPhoto(null);
+  };
+
+
 
   const handleDownload = async (url, filename) => {
     try {
@@ -150,7 +173,7 @@ const page = ({ params }) => {
         {data && data.fields.photos.length > 0 ? (
           data.fields.photos.slice(0, initialPhotosLoad).map((photo, index) => (
             <div
-              ref={imageContainerRef}
+              onClick={() => handlePhotoClick(photo)}
               className="relative h-[150px] md:h-[250px] w-[170px] md:w-[300px] bg-orange-100"
               key={index}
             >
@@ -162,10 +185,7 @@ const page = ({ params }) => {
                 className="object-cover block"
               />
 
-              <button
-                onClick={handleFullscreen}
-                className="absolute top-1 right-1 bg-black/50 text-white p-2 rounded-full hover:scale-125 transition-all duration-300 cursor-pointer"
-              >
+              <button className="absolute top-1 right-1 bg-black/50 text-white p-2 rounded-full hover:scale-125 transition-all duration-300 cursor-pointer">
                 <Fullscreen className="w-3 h-3" />
               </button>
 
@@ -201,6 +221,17 @@ const page = ({ params }) => {
           {hasMore ? "load more" : "load less"}{" "}
         </span>{" "}
       </p>
+
+      <LightboxModal
+        photo={selectedPhoto}
+        isOpen={isLightboxOpen}
+        onClose={handleCloseLightbox}
+        onPrevious={handlePrevious}
+        onNext={handleNext}
+        hasPrevious={true}
+        hasNext={true}
+        viewMode={viewMode}
+      />
     </div>
   );
 };
@@ -208,5 +239,5 @@ const page = ({ params }) => {
 export default page;
 
 /*
-
+data && data.length > 1
 */

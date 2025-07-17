@@ -13,6 +13,7 @@ import LeaderForm from "./ui/LeaderForm";
 import AssociateForm from "./ui/AssociateForm";
 import Timetable from "./ui/Timetable";
 import Worshipprograms from "./ui/Worshipprograms";
+import LightBoxModel from "./ui/LightBoxModel";
 
 export {
   Navbar,
@@ -30,4 +31,5 @@ export {
   AssociateForm,
   Timetable,
   Worshipprograms,
+  LightBoxModel,
 };
