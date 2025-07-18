@@ -26,7 +26,7 @@ const Blog = () => {
 
   return (
     <div className=" pb-16 px-8 sm:px-16 ">
-      <div className="text-center pt-32">
+      <div className="text-center pt-4">
         <h1 className="text-primary-dark text-3xl font-bold">
           Articles and Sermons
         </h1>
