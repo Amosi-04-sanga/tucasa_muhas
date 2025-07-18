@@ -53,19 +53,22 @@ const page = ({ params }) => {
 
   // Handle lightbox navigation
   const handlePrevious = () => {
-    const currentIndex = data?.findIndex(
+    const currentIndex = data.fields.photos?.findIndex(
       (photo) => photo.sys?.id === selectedPhoto?.sys?.id
     );
-    const previousIndex = currentIndex > 0 ? currentIndex - 1 : data.length - 1;
-    setSelectedPhoto(data[previousIndex]);
+    const previousIndex = currentIndex > 0 ? currentIndex - 1 : data.fields.photos.length - 1;
+    setSelectedPhoto(data.fields.photos[previousIndex]);
   };
 
   const handleNext = () => {
-    const currentIndex = data && data.findIndex(
-      (photo) => photo.sys?.id === selectedPhoto?.sys?.id
-    );
-    const nextIndex = currentIndex < data?.length - 1 ? currentIndex + 1 : 0;
-    setSelectedPhoto(data[nextIndex]);
+    const currentIndex =
+      data &&
+      data.fields.photos.findIndex(
+        (photo) => photo.sys?.id === selectedPhoto?.sys?.id
+      );
+    const nextIndex =
+      currentIndex < data.fields.photos?.length - 1 ? currentIndex + 1 : 0;
+    setSelectedPhoto(data.fields.photos[nextIndex]);
   };
 
   const handleCloseLightbox = () => {
@@ -74,25 +77,6 @@ const page = ({ params }) => {
   };
 
 
-
-  const handleDownload = async (url, filename) => {
-    try {
-      const response = await fetch(url, { mode: "cors" });
-      const blob = await response.blob();
-      const blobUrl = URL.createObjectURL(blob);
-
-      const link = document.createElement("a");
-      link.href = blobUrl;
-      link.download = filename;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-
-      URL.revokeObjectURL(blobUrl);
-    } catch (error) {
-      console.error("Download failed:", error);
-    }
-  };
 
   const options = {
     renderNode: {
@@ -189,21 +173,7 @@ const page = ({ params }) => {
                 <Fullscreen className="w-3 h-3" />
               </button>
 
-              <div
-                onClick={() =>
-                  handleDownload(
-                    photo.fields.file.url,
-                    photo.fields.file.url.split("/").pop()
-                  )
-                }
-                className="absolute right-1 bottom-1 z-20 bg-black/50 p-1 rounded-full hover:scale-125 transition-all duration-300 cursor-pointer"
-              >
-                <img
-                  src={download}
-                  alt={`download`}
-                  className="w-[20px] h-[20px] object-cover block"
-                />
-              </div>
+             
             </div>
           ))
         ) : (
