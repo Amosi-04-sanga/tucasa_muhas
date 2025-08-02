@@ -77,7 +77,7 @@ const Hero = () => {
               {" "}
               <span>{hero_slideshow[currentIndex].description}</span>{" "}
               {currentIndex === 2 && (
-                <span className="text-yellow-200 text-[22px] italic">
+                <span className="text-yellow-200 block text-[22px] italic">
                   Hebrews 13:1
                 </span>
               )}
