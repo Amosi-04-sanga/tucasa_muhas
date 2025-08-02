@@ -12,6 +12,7 @@ const page = () => {
   const [hasMore, setHasMore] = useState(true);
   const [initialPhotosLoad, setInitialPhotosLoad] = useState(20);
   const [photos, setPhotos] = useState(null);
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const getitems = async () => {
@@ -43,23 +44,35 @@ const page = () => {
           Event collections
         </h1>
       </div>
-      <div className="flex flex-wrap justify-start mt-8 gap-1 md:gap-2">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 md-gap-2 mt-4">
         {photos && photos.length > 0 ? (
           photos.map((content, index) => (
             <Link
               key={index}
-              className="rounded-md shadow-md w-[160px] md:w-[230px] block mb-2"
+              className="rounded-md shadow-md  block mb-2"
               href={`/gallery/${content.sys.id}`}
             >
-              <div className="relative w-[160px] md:w-[230px] h-[100px] md:h-[200px]">
-                <Image
-                  src={`https:${content.fields.coverPhoto.fields.file.url}?w=500&h=500&fit=fill`}
-                  alt="cover image"
-                  fill
-                  sizes="(max-width: 468px) 50vw, (max-width: 400px) 50vw, 43vw"
-                  className="object-cover"
-                />
-              </div>
+               <div className="relative h-[150px] sm:h-[200px] md:h-[300px] overflow-hidden rounded">
+      {/* Loader overlay */}
+      {isLoading && (
+        <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/80">
+          <div className="animate-spin rounded-full h-8 w-8 border-2 border-b-transparent border-primary-dark" />
+        </div>
+      )}
+
+      {/* Image with proper positioning */}
+      <Image
+        src={`https:${content.fields.coverPhoto.fields.file.url}?w=500&h=500&fit=fill`}
+        alt="cover image"
+        fill
+        priority
+        sizes="(max-width: 468px) 50vw, (max-width: 400px) 50vw, 43vw"
+        className={`object-cover transition-opacity duration-300 ${
+          isLoading ? 'opacity-0' : 'opacity-100'
+        }`}
+        onLoadingComplete={() => setIsLoading(false)}
+      />
+    </div>
               <div className="px-1">
                 <h2 className="mt-1 min-h-[35px] bg-orange-100 text-[12px] uppercase">
                   {" "}

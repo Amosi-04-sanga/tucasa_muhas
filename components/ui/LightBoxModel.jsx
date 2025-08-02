@@ -1,7 +1,7 @@
 "use client";
 import { images } from "@/src/images";
 import Image from "next/image";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { ClipLoader } from "react-spinners";
 
 
@@ -16,6 +16,7 @@ const LightboxModal = ({
   hasNext,
   viewMode = "grid",
 }) => {
+  const [isLoading, setIsLoading] = useState(true)
   const {download} = images
   // Close modal on escape key
   useEffect(() => {
@@ -95,11 +96,11 @@ const LightboxModal = ({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center"
       onClick={handleBackdropClick}
     >
       {/* Backdrop */}
-      <div className="absolute inset-0 bg-black bg-opacity-90 backdrop-blur-sm"></div>
+      <div className="absolute inset-0 bg-[#ddf9fa] bg-opacity-70 backdrop-blur-xs"></div>
 
       {/* Modal Content */}
       <div className="relative max-w-4xl w-full max-h-[90vh] flex flex-col items-center justify-center rounded-lg shadow-lg">
@@ -170,7 +171,14 @@ const LightboxModal = ({
         )}
 
         {/* Image Only */}
-        <div className="relative flex flex-col items-center justify-center w-full min-h-[80vh]">
+        <div className="relative flex flex-col items-center justify-center w-full min-h-[60vh]">
+            {isLoading && (
+        <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/80">
+          <div className="animate-spin rounded-full h-8 w-8 border-2 border-b-transparent border-yellow-700" />
+        </div>
+      )}
+
+
           <Image
             src={
               photo?.fields?.file?.url
@@ -178,8 +186,12 @@ const LightboxModal = ({
                 : "/assets/galleryDemo.jpg"
             }
             alt={photo?.fields?.title || "photo"}
-            fill
-            className="max-h-[80vh] w-auto object-contain rounded-lg shadow-lg mx-auto"
+            fill 
+            unoptimized={false}
+            className={`object-cover transition-opacity duration-300 ${
+          isLoading ? 'opacity-0' : 'opacity-100'
+        }`}
+        onLoadingComplete={() => setIsLoading(false)}
           />
           
           {/* download button */}
@@ -190,7 +202,7 @@ const LightboxModal = ({
                 photo.fields.file.url.split("/").pop()
               )
             }
-            className="absolute border border-zinc-700 right-1 bottom-1 z-20 bg-black/50 p-1 rounded-full hover:scale-125 transition-all duration-300 cursor-pointer"
+            className="absolute border border-white/80 right-1 bottom-1 z-20 bg-black/50 p-1 rounded-full hover:scale-125 transition-all duration-300 cursor-pointer"
           >
             <img
               src={download}
@@ -206,4 +218,3 @@ const LightboxModal = ({
 
 export default LightboxModal;
 
-<ClipLoader />

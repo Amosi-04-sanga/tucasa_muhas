@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { SyncLoader } from "react-spinners";
 import { images } from "@/src/images";
-import { Fullscreen } from "lucide-react";
+import { Fullscreen, TruckElectricIcon } from "lucide-react";
 import { useRef } from "react";
 import LightboxModal from "@/components/ui/LightBoxModel";
 
@@ -18,6 +18,7 @@ const page = ({ params }) => {
   const [initialPhotosLoad, setInitialPhotosLoad] = useState(20);
   const [hasMore, setHasMore] = useState(true);
   const imageContainerRef = useRef(null);
+  const [isLoading, setIsLoading] = useState(true)
 
   const [viewMode, setViewMode] = useState("grid");
 
@@ -132,6 +133,7 @@ const page = ({ params }) => {
   };
 
   const loadMoreHandler = () => {
+    setIsLoading(true)
     if (data && initialPhotosLoad < data.fields.photos.length) {
       setInitialPhotosLoad((prev) => {
         const newsLoad = prev + 20;
@@ -153,20 +155,29 @@ const page = ({ params }) => {
         {" "}
         {data && data.fields.title}{" "}
       </h1>
-      <div className="flex flex-wrap justify-start max-sm:justify-around gap-1 mt-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-1 md-gap-2 mt-4">
         {data && data.fields.photos.length > 0 ? (
           data.fields.photos.slice(0, initialPhotosLoad).map((photo, index) => (
             <div
               onClick={() => handlePhotoClick(photo)}
-              className="relative h-[150px] md:h-[250px] w-[170px] md:w-[300px] bg-orange-100"
+              className="relative h-[150px] md:h-[250px]  bg-orange-100"
               key={index}
             >
+
+               {isLoading && (
+        <div className="absolute inset-0 z-10 flex items-center justify-center border-[1px] border-primary-light bg-white">
+          <div className="animate-spin rounded-full h-8 w-8 border-2 border-b-transparent border-primary-dark" />
+        </div>
+      )}
               <Image
                 src={`https:${photo.fields.file.url}?w=500&h=500&fit=fill`}
                 alt={`cover_image`}
                 fill
                 sizes="(max-width: 468px) 50vw, (max-width: 400px) 50vw, 33vw"
-                className="object-cover block"
+                 className={`object-cover transition-opacity duration-300 ${
+          isLoading ? 'opacity-0' : 'opacity-100'
+        }`}
+                onLoadingComplete={() => setIsLoading(false)}
               />
 
               <button className="absolute top-1 right-1 bg-black/50 text-white p-2 rounded-full hover:scale-125 transition-all duration-300 cursor-pointer">
