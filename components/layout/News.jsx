@@ -150,7 +150,7 @@ const News = () => {
           Recent <span className="text-primary-dark"> Announcements </span>{" "}
         </h1>
 
-        <div className="mt-4 flex flex-col sm:flex-row sm:flex-wrap gap-2 w-fit mx-auto">
+        <div className="mt-4 px-4 flex flex-col sm:flex-row sm:flex-wrap gap-2 w-fit mx-auto">
           {announcementData &&
             announcementData.length > 0 &&
             announcementData
