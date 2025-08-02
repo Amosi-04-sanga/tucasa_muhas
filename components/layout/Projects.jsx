@@ -8,7 +8,7 @@ import { Fade, Slide } from "react-awesome-reveal";
 const Projects = () => {
   const { projects_bg } = images;
   return (
-    <div className="relative  px-8 sm:px-16 pb-8">
+    <div className="relative  px-4 sm:px-16 pb-8">
       <img
         src={projects_bg}
         alt="bg"
