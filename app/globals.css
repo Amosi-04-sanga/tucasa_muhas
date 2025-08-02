@@ -23,3 +23,15 @@ body {
   font-style: normal;
 }
 
+
+.scorllbar-x {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  scrollbar-width: none;
+}
+
+.scorllbar-x::-webkit-scrollbar {
+ display: none;
+ width: 0;
+}
+

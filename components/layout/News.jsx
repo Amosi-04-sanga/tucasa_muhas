@@ -4,6 +4,10 @@ import moment from "moment";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { Fade } from "react-awesome-reveal";
+import Countdown from "../../components/ui/Countdown";
+import EventCard from "../../components/ui/EventCard";
+
+
 
 const News = () => {
   const [initialNewsLoad, setInitialNewsLoad] = useState(3);
@@ -12,7 +16,6 @@ const News = () => {
   const [NewsData, setNewsData] = useState(null);
 
   const today = moment().format("YYYY-MM-DD");
-  console.log(today);
 
   useEffect(() => {
     const getitems = async () => {
@@ -45,32 +48,53 @@ const News = () => {
       });
       setNewsData(response.items);
     };
-    getitems();
+    getitems(); 
   }, []);
 
+   const filteredEvents = (events) => {
+    let upcomingEvents = [];
+    let previousEvents = [];
+
+    NewsData &&
+      NewsData.forEach((event, index) => {
+        const eventDate = new Date(event.fields.date);
+        const currentDate = new Date();
+
+        if (eventDate >= currentDate) {
+          upcomingEvents.push(event);
+        } else {
+          previousEvents.push(event);
+        }
+      });
+    return { upcomingEvents, previousEvents };
+  };
+  const { upcomingEvents, previousEvents } = filteredEvents(NewsData);
+  console.log(upcomingEvents)
+
+
   return (
-    <div className="mt-16 mb-8 px-8 sm:px-16">
+    <div className="">
       <div className="text-center pt-16">
         <h1 className="font-bold pb-1 text-3xl text-primary-dark">
           News and Events
         </h1>
       </div>
-      <p className="mt-4 sm:max-w-[500px] mx-auto">
+      <p className="px-4 sm:px-16 mt-4 sm:max-w-[500px] mx-auto">
         Stay updated with the latest news, announcements, and upcoming events.
-        Here you'll find everything happening in and around our organization
+        Here you'll find everything happening in and around Tucasa Muhas
       </p>
 
-      <h1 className="capitalize text-center font-bold text-xl mt-8">
+      <h1 className="mx-4 sm:px-16 capitalize font-bold text-xl mt-8">
         {" "}
-        upcoming <span className="text-primary-dark"> events </span>{" "}
+        📅 upcoming <span className="text-primary-dark"> events </span>{" "}
       </h1>
 
-      <div className="flex flex-col gap-8 justify-center items-center md:items-start  md:flex md:flex-row md:flex-wrap md:gap-8 mt-4">
+      <div className="mx-4 sm:mx-16 flex flex-col gap-8 justify-center items-center md:items-start  md:flex md:flex-row md:flex-wrap md:gap-8 mt-4">
         {NewsData &&
-          NewsData.length > 0 &&
-          NewsData.slice(0, initialNewsLoad).map((content, index) => (
+          upcomingEvents.length > 0 &&
+          upcomingEvents.slice(0, initialNewsLoad).map((content, index) => (
             <Fade key={index}>
-              <div className="max-w-[350px] md:min-h-[700px] md:shadow-md rounded-md">
+              <div className="max-w-[350px] md:min-h-[700px] bg-[#f1f7f7] md:shadow-md rounded-md">
                 <div className="mb-0">
                   <img
                     src={content.fields.poster.fields.file.url}
@@ -78,16 +102,17 @@ const News = () => {
                     className="object-cover w-full rounded-tl-md rounded-tr-md"
                   />
                 </div>
-                <div className="px-2 pb-4">
-                  <p className="mt-4 text-primary-dark font-bold">
-                    {" "}
-                    {moment(content.fields.date).fromNow()}{" "}
-                  </p>
-                  <p className="mt-4">
-                    {content.fields.title} {"..."}{" "}
+                <div className="px-2  pb-4">
+                  <div className="pt-2 text-primary-dark font-bold">
+                    {
+                      <Countdown eventDate={content.fields.date}/>
+                    }
+                  </div>
+                  <p className="mt-1">
+                    {content.fields.title}{" "}
                   </p>
 
-                  <button className=" mx-auto block px-2 py-1 rounded-md text-primary-dark capitalize mt-8 cursor-pointer border-primary-light border-[1px]">
+                  <button className="block px-2 py-1 text-primary-dark capitalize mt-2 cursor-pointer border-primary-light border-[1px]">
                     <Link href={`/events/${content.sys.id}`}>
                       <p>Read More</p>
                     </Link>
@@ -98,11 +123,29 @@ const News = () => {
           ))}
       </div>
 
-      <button className="mt-16 text-red-800 font-bold cursor-pointer mx-auto block">
+      <h1 className="mx-4 sm:mx-16 capitalize font-bold text-xl mt-12">
+        {" "}
+        📅 Previous<span className="text-primary-dark"> events </span>{" "}
+      </h1>
+
+       <div className="h-[250px] scorllbar-x mx-auto flex gap-4 sm:gap-12 items-center">
+        {NewsData &&
+          previousEvents.length > 0 &&
+          previousEvents.slice(0, initialNewsLoad).map((content, index) => (
+            <Fade className="flex-shrink-0" key={index}>
+              <EventCard
+             title={content.fields.title}
+             eventDate={content.fields.date}
+      />
+            </Fade>
+          ))}
+      </div>
+
+      <button className="mt-2 text-red-800 cursor-pointer mx-auto block">
         <Link href="/news">View All</Link>
       </button>
 
-      <div className="mt-32">
+      <div className="mt-12 bg-[#b6dbdb] pt-8">
         <h1 className="text-center font-bold text-2xl capitalize">
           Recent <span className="text-primary-dark"> Announcements </span>{" "}
         </h1>
@@ -113,15 +156,15 @@ const News = () => {
             announcementData
               .slice(0, initialAnnouncementLoad)
               .map((content, index) => (
-                <Fade key={index}>
-                  <div className="max-w-[350px] shadow-md md:min-h-[300px] p-4 rounded-md">
+                <Fade className="" key={index}>
+                  <div className="bg-white shadow-lg max-w-[350px] md:min-h-[300px] p-4 rounded-md">
                     <div className="px-2 pb-4">
-                      <p className="mt-4 font-bold"> {content.fields.title}</p>
-                      <p className="mt-4">
+                      <p className="mt-2 font-bold"> {content.fields.title}</p>
+                      <p className="mt-2">
                         {content.fields.excerpt.slice(0, 100)} {"..."}{" "}
                       </p>
 
-                      <button className=" mx-auto block px-2 py-1 rounded-md text-red-700 capitalize mt-4 cursor-pointer ">
+                      <button className="block px-1 py-1 border-[1px] border-primary-light text-red-700 capitalize mt-2 cursor-pointer ">
                         <Link href={`/news/${content.sys.id}`}>
                           <p>Read More</p>
                         </Link>
@@ -135,7 +178,7 @@ const News = () => {
         <button className="mt-8 pb-4 mx-auto block">
           <Link
             href="/news#announcement"
-            className="capitalize text-red-700 font-bold"
+            className="capitalize text-red-700"
           >
             view all
           </Link>
@@ -150,4 +193,11 @@ export default News;
 /*
 
 
+
+
+      <img
+                    src={content.fields.poster.fields.file.url}
+                    alt={`poster_${content.fields.title}`}
+                    className="object-cover w-full rounded-tl-md rounded-tr-md"
+                  />
 */

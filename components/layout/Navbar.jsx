@@ -50,7 +50,7 @@ const Navbar = () => {
               <Fade key={item.link_text} delay={index * 100}>
                 <div className="flex gap-4">
                   <Link
-                    className="inline-block hover:text-black transition duration-200"
+                    className="inline-block hover:underline transition duration-200"
                     href={item.path}
                   >
                     <div
@@ -84,7 +84,7 @@ const Navbar = () => {
                 <Slide key={item.link_text} delay={index * 50}>
                   <div className="flex gap-4">
                     <Link
-                      className="inline-block hover:font-bold"
+                      className="inline-block hover:underline transition duration-300"
                       href={item.path}
                     >
                       <div

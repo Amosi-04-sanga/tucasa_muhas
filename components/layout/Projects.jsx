@@ -8,7 +8,7 @@ import { Fade, Slide } from "react-awesome-reveal";
 const Projects = () => {
   const { projects_bg } = images;
   return (
-    <div className="relative mt-16 px-8 sm:px-16 pb-16">
+    <div className="relative  px-8 sm:px-16 pb-8">
       <img
         src={projects_bg}
         alt="bg"
@@ -21,7 +21,7 @@ const Projects = () => {
           </h1>
         </div>
 
-        <div className="mt-8  pb-4 flex flex-col gap-4 md:flex md:flex-row md:flex-wrap md:justify-center md:gap-8">
+        <div className="mt-2 pb-4 flex flex-col gap-4 md:flex md:flex-row md:flex-wrap md:justify-center md:gap-8">
           {project_content.map((content, index) => (
             <Fade cascade={true} key={index}>
               <div className="max-w-[350px] mt-4 mx-auto shadow-md pb-4 px-4 rounded-md">
@@ -38,9 +38,9 @@ const Projects = () => {
                   {" "}
                   {content.text.slice(0, 110)} {"..."}{" "}
                 </p>
-                <button className="mt-8 mx-auto block">
-                  <Link href={content.path} className="capitalize text-red-700 font-bold">
-                    More
+                <button className="block px-1 py-1 border-[1px] border-primary-light text-red-700 capitalize mt-1 cursor-pointer">
+                  <Link href={content.path} className="capitalize text-red-700">
+                    read more
                   </Link>
                 </button>
               </div>

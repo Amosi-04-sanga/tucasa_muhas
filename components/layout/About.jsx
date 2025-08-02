@@ -3,15 +3,14 @@ import { about_content } from "@/constants";
 import { images } from "@/src/images";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Fade, Slide } from "react-awesome-reveal";
 import Timetable from "../ui/Timetable";
 import { Worshipprograms } from "..";
-import { motion, useAnimation } from "framer-motion";
+import { AnimatePresence, motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
 const About = () => {
-  const { right_arrow } = images;
   const [currentIndex, setCurrentIndex] = useState(0);
   const [openTimetable, setOpenTimetable] = useState(false);
   const title = ["Vision", "Mission", "Believes"];
@@ -20,6 +19,8 @@ const About = () => {
     triggerOnce: false,
     threshold: 0.4, // Trigger when 20% visible
   });
+
+ 
 
   useEffect(() => {
     if (inView) {
@@ -32,12 +33,12 @@ const About = () => {
   }, [controls, inView]);
 
   return (
-    <div id="about">
+    <div id="about" className="bg-primary-light">
       <h1 className="pt-16 pb-1 text-center text-primary-dark text-4xl font-bold ">
         About us
       </h1>
 
-      <div className="px-8 sm:px-16">
+      <div className="mx-4 mt-2 sm:mx-16 bg-white rounded-lg">
         <div className="md:hidden">
           <div className="flex gap-4  justify-center items-center">
             {title.map((item, index) => (
@@ -54,12 +55,13 @@ const About = () => {
             ))}
           </div>
           <Fade>
-            <div className="max-w-[350px] shadow-sm py-4 px-2 mt-4 mx-auto">
+            <div className="sm:px-16 shadow-sm py-4 px-2 mt-4 mx-auto">
               <Image
                 src={about_content[currentIndex].logo}
                 alt={`image_${about_content[currentIndex].title}`}
                 width={50}
                 height={50}
+                priority
                 className="block mx-auto"
               />
               <h1 className="mt-4 text-center font-bold">
@@ -72,11 +74,17 @@ const About = () => {
               </p>
             </div>
           </Fade>
+          <button className="py-2 mx-auto block">
+        <Link href="/about" className="capitalize text-red-700">
+          Read More
+        </Link>
+      </button>
         </div>
 
         <div className="max-md:hidden mt-8 md:flex md:gap-8 md:justify-around">
           {about_content.map((content, index) => (
-            <Fade key={content.title}>
+            <div key={content.title}>
+              <Fade>
               <div className="max-w-[300px] mt-16 mx-auto">
                 <Image
                   src={content.logo}
@@ -92,38 +100,57 @@ const About = () => {
                 <p className="mt-4 text-center"> {content.text} </p>
               </div>
             </Fade>
-          ))}
-        </div>
-      </div>
-
-      <button className="mt-8 mx-auto block">
-        <Link href="/about" className="capitalize text-red-700 font-bold">
+            <button className="py-2 mx-auto block">
+        <Link href="/about" className="capitalize text-red-700">
           Read More
         </Link>
       </button>
+            </div>
+            
+          ))}
+        </div>
+        
+      </div>
+
+      
       <motion.div
         ref={ref}
         initial={{ opacity: 0, y: 50 }}
         animate={controls}
-        className="flex flex-col items-center justify-center mt-8"
+        className="mt-12"
       >
-        <h2 className="uppercase text-center mt-4 font-bold">
+        <h2 className="uppercase text-center text-primary-dark font-bold">
           worship services
         </h2>
         <Worshipprograms />
         <div className="mt-4">
-          <Fade>
-            <div className={`${openTimetable ? "block" : "hidden"}`}>
+
+          <AnimatePresence>
+        {openTimetable && (
+          <motion.div
+            key="card"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.3 }}
+            className="w-full max-w-sm p-2 bg-white rounded shadow"
+          >
+            <Fade >
+            <div >
               <Timetable />
             </div>
           </Fade>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+         
           <p
-            onClick={() => setOpenTimetable(!openTimetable)}
-            className="cursor-pointer text-center mt-2"
+            className="cursor-pointer text-center pt-2 pb-4"
           >
             <span
               onClick={() => setOpenTimetable(!openTimetable)}
-              className="text-red-500"
+              className="text-red-600"
             >
               {" "}
               {openTimetable ? "hide timetable" : "view timetable"}{" "}

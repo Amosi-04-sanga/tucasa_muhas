@@ -33,27 +33,30 @@ export default function DayMessage() {
       break;
     case 6:
       message = "Testimony";
-      day: "Saturday";
+      day = "Saturday";
       break;
     default:
       message = "";
   }
 
+
+
+
   return (
-    <div className="m-4 mt-4 shadow-md bg-white rounded-md max-w-[600px]">
-      <div className="flex flex-col p-1">
-        <p className="uppercase text-primary-dark text-center"> TODAY: {day} </p>
-        <div className="flex max-sm:flex-col sm:gap-8 items-center p-4 md:p-8 mt-2 border border-primary-light">
+    <div className="mx-4 mt-2 shadow-md bg-white rounded-md max-w-[509x]">
+      <div className="flex flex-col ">
+        <p className="uppercase text-primary-dark text-center p-2"> TODAY: {day} </p>
+        <div className="flex max-sm:flex-col sm:gap-8 items-center p-4 md:p-8 border border-primary-light">
           <div className="flex gap-4 items-center text-primary-dark p-2">
-            <p className="">THEME:</p>
+            <p className="font-bold">THEME:</p>
             <p className="uppercase">{message}</p>
           </div>
           <div className="flex gap-4">
             <p>
-              Chole hostel <br /> 2000-2030Hrs <br /> Behind block F
+              <span className="italic">Chole hostel</span> <br /> 20:00-20:30Hrs <br /> Behind block F
             </p>
             <p>
-              Main campus <br /> 1930-2000Hrs <br /> Block M
+              <span className="italic">Main campus</span> <br /> 19:30-20:00Hrs <br /> Block M
             </p>
           </div>
         </div>

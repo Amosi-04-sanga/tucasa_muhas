@@ -67,17 +67,17 @@ const Hero = () => {
         />
         </div>
 
-        <div className="flex flex-col justify-center items-center absolute left-[50%] -translate-x-2/4 top-[50%] -translate-y-2/4 z-20 h-[90vh] max-sm:w-auto text-center text-white">
-          <Fade className="sm:w-[450px] max-sm:w-[300px] text-yellow-200">
-            <h1 className="text-xl md:text-2xl text-white uppercase">
+        <div className="flex flex-col justify-center items-center absolute left-[50%] -translate-x-2/4 top-[60%] -translate-y-2/4 z-20 h-[90vh] max-sm:w-auto text-center text-white">
+          <Fade className="sm:w-[450px] max-sm:w-[280px]">
+            <h1 className="text-md md:text-2xl text-white uppercase">
               {" "}
               {hero_slideshow[currentIndex].title}{" "}
             </h1>
-            <div className="mt-4 text-5xl md:text-6xl ">
+            <div className="mt-4 text-4xl md:text-6xl ">
               {" "}
               <span>{hero_slideshow[currentIndex].description}</span>{" "}
               {currentIndex === 2 && (
-                <span className="text-primary-light text-[22px] italic">
+                <span className="text-yellow-200 text-[22px] italic">
                   Hebrews 13:1
                 </span>
               )}

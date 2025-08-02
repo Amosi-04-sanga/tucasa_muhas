@@ -5,7 +5,7 @@ export default function Home() {
     <div>
       <Hero />
       <About />
-      <div className="bg-news_bg_color">
+      <div className="bg-white">
         <News />
         <Projects />
       </div>

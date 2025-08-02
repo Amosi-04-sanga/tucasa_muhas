@@ -26,9 +26,9 @@ const Blog = () => {
   }, []);
 
   return (
-    <div className=" pb-16 px-8 sm:px-16 ">
-      <div className="text-center pt-4">
-        <h1 className="text-primary-dark text-3xl font-bold">
+    <div className="px-8 pb-4 sm:px-16 ">
+      <div className="text-center">
+        <h1 className="text-primary-dark pt-12 text-3xl font-bold">
           Articles and Sermons
         </h1>
       </div>
@@ -42,9 +42,9 @@ const Blog = () => {
         {articlesData &&
           articlesData.length > 0 &&
           articlesData.slice(0, initialArticlesLoad).map((content, index) => (
-            <Fade key={index}>
+            <Fade className="bg-white" key={index}>
               <div className="max-w-[350px] shadow-md rounded-md">
-                <div className="h-[150px] md:h-[200px]">
+                <div className="shadow-sm h-[150px] md:h-[200px]">
                   <img
                     src={content.fields.image.fields.file.url}
                     alt={`poster`}
@@ -56,11 +56,11 @@ const Blog = () => {
                     {" "}
                     {content.fields.title}
                   </p>
-                  <p className="mt-4">
+                  <p className="mt-1">
                     {content.fields.exerpt.slice(0, 85)} {"..."}{" "}
                   </p>
 
-                  <button className=" mx-auto block px-2 py-1 rounded-md text-primary-dark capitalize mt-4 cursor-pointer border-primary-light border-[1px]">
+                  <button className="block px-1 py-1 border-[1px] border-primary-light text-red-700 capitalize mt-4 cursor-pointer">
                     <Link href={`/blog/${content.sys.id}`}>
                       <p>Read More</p>
                     </Link>

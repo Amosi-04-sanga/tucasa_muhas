@@ -64,7 +64,7 @@ const News = () => {
           NewsData.length > 0 &&
           NewsData.map((content, index) => (
             <Fade key={index}>
-              <div className="max-w-[350px] md:min-h-[700px] md:shadow-md rounded-md">
+              <div className="max-w-[350px] md:min-h-[600px] md:shadow-md rounded-md">
                 <div className="mb-0">
                   <img
                     src={content.fields.poster.fields.file.url}
@@ -73,10 +73,10 @@ const News = () => {
                   />
                 </div>
                 <div className="px-2 pb-4">
-                  <p className="mt-4 text-primary-dark font-bold">
+                  <div className="mt-4 text-primary-dark font-bold">
                     {" "}
                     {moment(content.fields.date).fromNow()}{" "}
-                  </p>
+                  </div>
                   <p className="mt-4">
                     {content.fields.title.slice(0, 100)} {"..."}{" "}
                   </p>
