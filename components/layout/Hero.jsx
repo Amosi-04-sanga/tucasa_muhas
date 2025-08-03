@@ -10,6 +10,7 @@ import Link from "next/link";
 const Hero = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [zoomImage, setZoomImage] = useState(false);
+  const [isLoading, setIsLoading] = useState(true)
 
   const { right_arrow } = images;
 
@@ -50,7 +51,12 @@ const Hero = () => {
         <div className="bg-[#222] absolute left-0 top-0 z-10 h-[90vh] w-full opacity-[.6]" />
 
         <div className={`absolute inset-0 min-h-[80vh] w-100vw `}>
-        <Image
+         {isLoading && (
+        <div className="absolute inset-0 z-10 flex items-center justify-center bg-white/80">
+          <div className="animate-spin rounded-full h-8 w-8 border-2 border-b-transparent border-yellow-700" />
+        </div>
+      )}
+         <Image
           src={hero_slideshow[currentIndex].url}
           alt="Hero Background"
           fill
@@ -64,8 +70,9 @@ const Hero = () => {
             objectFit: "cover",
            
           }}
+          onLoad={ () => setIsLoading(false)}
         />
-        </div>
+       </div>
 
         <div className="flex flex-col justify-center items-center absolute left-[50%] -translate-x-2/4 top-[60%] -translate-y-2/4 z-20 h-[90vh] max-sm:w-auto text-center text-white">
           <Fade className="sm:w-[450px] max-sm:w-[280px]">

@@ -4,12 +4,15 @@ import React from "react";
 const page = () => {
   return (
     <div className="md:px-32">
-      <h1 className="text-3xl px-8 font-bold text-primary-dark mt-4 ">
-        ABOUT US
+      <p className="px-4 font-bold text-primary-dark mt-8 capitalize">about</p>
+      <h1 className="text-3xl px-4 text-primary-dark mt-1 ">
+        TUCASA MUHAS
       </h1>
-      <div className="bg-[#E9FFFF] mt-4 p-8">
+      <div className="bg-[#d7e9e9] mt-12 rounded-4xl p-4">
         <h2 className="text-2xl text-primary-dark font-bold">Who we are</h2>
-        <p className="mt-4">
+        <div className="bg-white rounded-lg mt-4 p-2">
+
+        <p className="mt-4 ">
           The Tanzania Universities and Colleges Adventist Students Association
           (TUCASA) is an extension of the Seventh Day Adventist Church Youth,
           Chaplaincy and Public Campus Ministries that focuses on preaching and
@@ -30,8 +33,11 @@ const page = () => {
           continuous work of God, in 2013, the Organization again changed its
           name to the current name.
         </p>
+        </div>
 
-        <h1 className="mt-16 font-bold">Establishment of TUCASA – MUHAS</h1>
+        <h1 className="mt-16 text-xl font-bold">Establishment of TUCASA – MUHAS</h1>
+        <div className="bg-white rounded-lg mt-4 p-2">
+
         <p className="mt-4">
           Praise the Lord! TUCASA MUHAS stands for the Tanzania Universities and
           Colleges Adventist Students Association at Muhimbili University of
@@ -61,6 +67,7 @@ const page = () => {
           love of Christ, grow in grace, and prepare ourselves and others for
           His soon return.
         </p>
+        </div>
       </div>
 
       <div className=" p-8">
