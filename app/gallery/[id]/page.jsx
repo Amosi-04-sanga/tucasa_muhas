@@ -19,6 +19,9 @@ const page = ({ params }) => {
   const [hasMore, setHasMore] = useState(true);
   const imageContainerRef = useRef(null);
   const [isLoading, setIsLoading] = useState(true)
+  const [nextPhoto, setNextPhoto] = useState(null)
+  const [prevPhoto, setPrevPhoto] = useState(null)
+  
 
   const [viewMode, setViewMode] = useState("grid");
 
@@ -159,7 +162,15 @@ const page = ({ params }) => {
         {data && data.fields.photos.length > 0 ? (
           data.fields.photos.slice(0, initialPhotosLoad).map((photo, index) => (
             <div
-              onClick={() => handlePhotoClick(photo)}
+              onClick={() => {
+                handlePhotoClick(photo)
+                
+                 const next = index + 1 < data.fields.photos.length ? data.fields.photos[index + 1] : 0;
+        const prev = index - 1 >= 0 ? data.fields.photos[index - 1] : data.fields.photos[data.fields.photos.length - 1];
+
+        setNextPhoto(next);
+        setPrevPhoto(prev);
+              }}
               className="relative h-[150px] md:h-[250px]  bg-orange-100"
               key={index}
             >
@@ -212,6 +223,8 @@ const page = ({ params }) => {
         hasPrevious={true}
         hasNext={true}
         viewMode={viewMode}
+        prevPhoto={prevPhoto}
+        nextPhoto={nextPhoto}
       />
     </div>
   );

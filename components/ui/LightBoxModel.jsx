@@ -2,8 +2,6 @@
 import { images } from "@/src/images";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { ClipLoader } from "react-spinners";
-
 
 
 const LightboxModal = ({
@@ -14,6 +12,8 @@ const LightboxModal = ({
   onNext,
   hasPrevious,
   hasNext,
+  prevPhoto,
+  nextPhoto,
   viewMode = "grid",
 }) => {
   const [isLoading, setIsLoading] = useState(true)
@@ -94,6 +94,10 @@ const LightboxModal = ({
 
   if (!isOpen || !photo) return null;
 
+  console.log(prevPhoto)
+  console.log(nextPhoto)
+  
+
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center"
@@ -106,7 +110,10 @@ const LightboxModal = ({
       <div className="relative max-w-4xl w-full max-h-[90vh] flex flex-col items-center justify-center rounded-lg shadow-lg">
         {/* Close Button */}
         <button
-          onClick={onClose}
+          onClick={() => {
+            onClose()
+            setIsLoading(true)
+          }}
           className="absolute top-4 right-1 z-10 p-1 rounded-full border border-zinc-700 bg-opacity-50 hover:border-zinc-500 transition-colors duration-200"
           aria-label="Close modal"
         >
@@ -177,6 +184,30 @@ const LightboxModal = ({
           <div className="animate-spin rounded-full h-8 w-8 border-2 border-b-transparent border-yellow-700" />
         </div>
       )}
+
+         <Image
+            src={
+              prevPhoto?.fields?.file?.url
+                ? `https:${photo.fields.file.url}?w=800&h=800&fit=fill`
+                : "/assets/galleryDemo.jpg"
+            }
+            alt={photo?.fields?.title || "photo"}
+            width={50}
+            height={50}
+            className={`hidden`}
+          />
+         
+          <Image
+            src={
+              nextPhoto?.fields?.file?.url
+                ? `https:${photo.fields.file.url}?w=800&h=800&fit=fill`
+                : "/assets/galleryDemo.jpg"
+            }
+            alt={photo?.fields?.title || "photo"}
+            width={50}
+            height={50}
+            className={`hidden`}
+          />
 
 
           <Image

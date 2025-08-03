@@ -47,7 +47,7 @@ const Hero = () => {
        
         className="relative min-h-[90vh] flex items-center justify-center"
       >
-        <div className="bg-[#333] absolute left-0 top-0 z-10 h-[90vh] w-full opacity-[.6]" />
+        <div className="bg-[#222] absolute left-0 top-0 z-10 h-[90vh] w-full opacity-[.6]" />
 
         <div className={`absolute inset-0 min-h-[80vh] w-100vw `}>
         <Image
@@ -62,7 +62,7 @@ const Hero = () => {
             width: "100%",
             height: "100%",
             objectFit: "cover",
-            transition: 'transform 0.5s ease-in-out'
+           
           }}
         />
         </div>
