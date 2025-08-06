@@ -1,18 +1,20 @@
-import { project_content } from "@/constants";
-import { images } from "@/src/images";
-import Image from "next/image";
-import Link from "next/link";
-import React from "react";
+'use client'
+import React, { useState } from "react";
 import { Fade, Slide } from "react-awesome-reveal";
+import { Hopeinict, Kai, MuhassoLoundry } from "..";
+import { images } from "@/src/images";
+
 
 const Projects = () => {
-  const { projects_bg } = images;
+ const {projects_bg} = images
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const project = ['Hope in ICT', 'Kai', 'Muhasso Loundry']
   return (
-    <div className="relative  px-4 sm:px-16 pb-8">
+    <div className="relative mx-auto max-w-[500px]  px-4 sm:px-16 pb-8">
       <img
         src={projects_bg}
         alt="bg"
-        className="w-full h-full absolute left-0 top-0"
+        className="w-full h-full absolute left-0 top-0 -z-20"
       />
       <div>
         <div className="text-center pt-16">
@@ -20,33 +22,28 @@ const Projects = () => {
             Projects
           </h1>
         </div>
-
-        <div className="mt-2 pb-4 flex flex-col gap-4 md:flex md:flex-row md:flex-wrap md:justify-center md:gap-8">
-          {project_content.map((content, index) => (
-            <Fade cascade={true} key={index}>
-              <div className="max-w-[350px] mt-4 mx-auto shadow-md pb-4 px-4 rounded-md">
-                <div className="min-h-[130px]  bg-news_bg_color flex items-center">
-                  <Image
-                    src={content.logo}
-                    alt={`image_${content.logo}`}
-                    width={`${index === 1 ? 90 : 170}`}
-                    height={`${index === 1 ? 90 : 170}`}
-                    className="block mx-auto mb-4"
-                  />
-                </div>
-                <p className="mt-2 min-h-[100px]">
-                  {" "}
-                  {content.text.slice(0, 110)} {"..."}{" "}
-                </p>
-                <button className="block px-1 py-1 border-[1px] border-primary-light text-red-700 capitalize mt-1 cursor-pointer">
-                  <Link href={content.path} className="capitalize text-red-700">
-                    read more
-                  </Link>
+        <div className="mt-2 flex justify-between items-center">
+          {
+            project.map( (item, index) => (
+                <div key={index}>
+                <button
+                  onClick={() => setCurrentIndex(index)}
+                  className={`block px-2 py-1 rounded-md text-black capitalize mt-2 cursor-pointer border-primary-light border-[1px] ${
+                    index === currentIndex && "bg-primary-light text-black"
+                  }`}
+                >
+                  {item}
                 </button>
               </div>
-            </Fade>
-          ))}
+            ))
+          }
         </div>
+
+        <Fade className="mt-2 pb-4 flex flex-col gap-4 md:flex md:flex-row md:flex-wrap md:justify-center md:gap-8">
+          {currentIndex == 0 && <Hopeinict index = {currentIndex} />}
+          {currentIndex == 1 && <MuhassoLoundry index = {currentIndex}/>}
+          {currentIndex == 2 && <Kai index = {currentIndex} />}
+        </Fade>
       </div>
     </div>
   );

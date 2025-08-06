@@ -200,7 +200,7 @@ const page = ({ params }) => {
           ))
         ) : (
           <>
-            <div className="w-full h-[60vh] flex items-center justify-center">
+            <div className="w-[90vw] h-[60vh] flex items-center justify-center">
               <SyncLoader color="#008080" />
             </div>
           </>

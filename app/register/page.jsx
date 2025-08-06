@@ -23,7 +23,7 @@ const page = () => {
               onClick={() => setCurrentIndex(index)}
               className={`block px-2 py-1 rounded-md text-primary-dark capitalize mt-8 cursor-pointer border-primary-light border-[1px] ${
                 index === currentIndex && "bg-primary-dark text-white"
-              }`}
+              }`} 
             >
               {status}
             </button>

@@ -3,17 +3,17 @@ import React from "react";
 const Timetable = () => {
   return (
     <>
-      <div className="px-2 bg-white">
-        <table className="min-w-[300px] mt-2 mx-auto border border-primary-light">
+      <div className="bg-[#269c92] text-white">
+        <table className="min-w-[300px] mt-2 mx-auto border border-primary-dark">
           <thead>
             <tr className="uppercase">
-              <th className="px-1 py-2 md:px-8 md:py-4  border border-primary-light bg-primary-light">
+              <th className="px-1 py-2 md:px-8 md:py-4  border border-yellow-200 ">
                 program
               </th>
-              <th className="px-4 py-2 md:px-8 md:py-4 border border-primary-light bg-primary-light">
+              <th className="px-4 py-2 md:px-8 md:py-4 border border-yellow-200">
                 location
               </th>
-              <th className="px-4 py-2 md:px-8 md:py-4 border border-primary-light bg-primary-light">
+              <th className="px-4 py-2 md:px-8 md:py-4 border border-yellow-200">
                 time
               </th>
             </tr>

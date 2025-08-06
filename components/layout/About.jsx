@@ -1,14 +1,14 @@
 "use client";
 import { about_content } from "@/constants";
-import { images } from "@/src/images";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 import { Fade, Slide } from "react-awesome-reveal";
 import Timetable from "../ui/Timetable";
-import { Worshipprograms } from "..";
+import { Believes, Mission, Vision, Worshipprograms } from "..";
 import { AnimatePresence, motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+
 
 const About = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -17,7 +17,7 @@ const About = () => {
   const controls = useAnimation();
   const [ref, inView] = useInView({
     triggerOnce: false,
-    threshold: 0.4, // Trigger when 20% visible
+    threshold: 0.4,
   });
 
  
@@ -55,24 +55,9 @@ const About = () => {
             ))}
           </div>
           <Fade>
-            <div className="sm:px-16 shadow-sm py-4 px-2 mt-4 mx-auto">
-              <Image
-                src={about_content[currentIndex].logo}
-                alt={`image_${about_content[currentIndex].title}`}
-                width={50}
-                height={50}
-                priority
-                className="block mx-auto"
-              />
-              <h1 className="mt-4 text-center font-bold">
-                {" "}
-                {about_content[currentIndex].title}{" "}
-              </h1>
-              <p className="mt-4 text-center">
-                {" "}
-                {about_content[currentIndex].text}{" "}
-              </p>
-            </div>
+           {currentIndex == 0 && <Vision currentIndex = {currentIndex} />}
+           {currentIndex == 1 && <Mission currentIndex = {currentIndex} />}
+           {currentIndex == 2 && <Believes currentIndex = {currentIndex} />}
           </Fade>
           <button className="py-2 mx-auto block">
         <Link href="/about" className="capitalize text-red-700">
@@ -81,7 +66,8 @@ const About = () => {
       </button>
         </div>
 
-        <div className="max-md:hidden mt-8 md:flex md:gap-8 md:justify-around">
+        <motion.div
+        className="max-md:hidden mt-8 md:flex md:gap-8 md:justify-around">
           {about_content.map((content, index) => (
             <div key={content.title}>
               <Fade>
@@ -108,7 +94,7 @@ const About = () => {
             </div>
             
           ))}
-        </div>
+        </motion.div>
         
       </div>
 
@@ -117,7 +103,7 @@ const About = () => {
         ref={ref}
         initial={{ opacity: 0, y: 50 }}
         animate={controls}
-        className="mt-12"
+        className="mt-12 w-full mx-auto max-w-[600px]"
       >
         <h2 className="uppercase text-center text-primary-dark font-bold">
           worship services
@@ -146,7 +132,7 @@ const About = () => {
 
          
           <p
-            className="cursor-pointer text-center pt-2 pb-4"
+            className="cursor-pointer text-center pt-2 pb-"
           >
             <span
               onClick={() => setOpenTimetable(!openTimetable)}

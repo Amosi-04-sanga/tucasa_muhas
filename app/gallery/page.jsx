@@ -44,7 +44,7 @@ const page = () => {
           Event collections
         </h1>
       </div>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 md-gap-2 mt-4">
+      <div className="w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 md-gap-2 mt-4">
         {photos && photos.length > 0 ? (
           photos.map((content, index) => (
             <Link
@@ -93,7 +93,7 @@ const page = () => {
           ))
         ) : (
           <>
-            <div className="w-full h-[60vh] flex items-center justify-center">
+            <div className="w-[90vw] h-[60vh] flex items-center justify-center">
               <SyncLoader color="#008080" />
             </div>
           </>

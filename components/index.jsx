@@ -14,6 +14,12 @@ import AssociateForm from "./ui/AssociateForm";
 import Timetable from "./ui/Timetable";
 import Worshipprograms from "./ui/Worshipprograms";
 import LightBoxModel from "./ui/LightBoxModel";
+import Vision from "./ui/about/Vision";
+import Mission from "./ui/about/Mission";
+import Believes from "./ui/about/Believes";
+import Hopeinict from "./ui/projects/Hopeinict";
+import MuhassoLoundry from "./ui/projects/MuhassoLoundry";
+import Kai from "./ui/projects/Kai";
 
 export {
   Navbar,
@@ -32,4 +38,10 @@ export {
   Timetable,
   Worshipprograms,
   LightBoxModel,
+  Vision,
+  Mission,
+  Believes,
+  Kai,
+  MuhassoLoundry,
+  Hopeinict
 };

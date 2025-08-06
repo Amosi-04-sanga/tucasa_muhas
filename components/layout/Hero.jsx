@@ -76,7 +76,7 @@ const Hero = () => {
 
         <div className="flex flex-col justify-center items-center absolute left-[50%] -translate-x-2/4 top-[60%] -translate-y-2/4 z-20 h-[90vh] max-sm:w-auto text-center text-white">
           <Fade className="sm:w-[450px] max-sm:w-[280px]">
-            <h1 className="text-md md:text-2xl text-white uppercase">
+            <h1 className="text-md md:text-2xl text-yellow-200 uppercase">
               {" "}
               {hero_slideshow[currentIndex].title}{" "}
             </h1>
