@@ -8,7 +8,6 @@ import Countdown from "../../components/ui/Countdown";
 import EventCard from "../../components/ui/EventCard";
 
 
-
 const News = () => {
   const [initialNewsLoad, setInitialNewsLoad] = useState(3);
   const [initialAnnouncementLoad, setInitialAnnouncementLoad] = useState(3);
@@ -60,7 +59,7 @@ const News = () => {
         const eventDate = new Date(event.fields.date);
         const currentDate = new Date();
 
-        if (eventDate >= currentDate) {
+        if (eventDate > currentDate) {
           upcomingEvents.push(event);
         } else {
           previousEvents.push(event);
