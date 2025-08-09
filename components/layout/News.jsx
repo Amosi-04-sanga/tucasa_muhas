@@ -50,23 +50,32 @@ const News = () => {
     getitems(); 
   }, []);
 
-   const filteredEvents = (events) => {
-    let upcomingEvents = [];
-    let previousEvents = [];
+  
+  const filteredEvents = (events) => {
+  let upcomingEvents = [];
+  let previousEvents = [];
 
-    NewsData &&
-      NewsData.forEach((event, index) => {
-        const eventDate = new Date(event.fields.date);
-        const currentDate = new Date();
+  if (!events) return { upcomingEvents, previousEvents };
 
-        if (eventDate > currentDate) {
-          upcomingEvents.push(event);
-        } else {
-          previousEvents.push(event);
-        }
-      });
-    return { upcomingEvents, previousEvents };
-  };
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); // strip time to compare only date
+
+  events.forEach((event) => {
+    const eventDate = new Date(event.fields.date);
+    eventDate.setHours(0, 0, 0, 0); // strip time for accurate comparison
+
+    if (eventDate >= today) {
+      upcomingEvents.push(event);
+    } else {
+      previousEvents.push(event);
+    }
+  });
+
+  return { upcomingEvents, previousEvents };
+};
+
+
+  
   const { upcomingEvents, previousEvents } = filteredEvents(NewsData);
   console.log(upcomingEvents)
 
@@ -90,8 +99,8 @@ const News = () => {
 
       <div className="mx-4 sm:mx-16 flex flex-col gap-8 justify-center items-center md:items-start  md:flex md:flex-row md:flex-wrap md:gap-8 mt-4">
         {NewsData &&
-          upcomingEvents.length > 0 &&
-          upcomingEvents.slice(0, initialNewsLoad).map((content, index) => (
+          upcomingEvents.length > 0 ?
+          (upcomingEvents.slice(0, initialNewsLoad).map((content, index) => (
             <Fade key={index}>
               <div className="max-w-[350px] md:min-h-[700px] bg-[#f1f7f7] md:shadow-md rounded-md">
                 <div className="mb-0">
@@ -119,7 +128,9 @@ const News = () => {
                 </div>
               </div>
             </Fade>
-          ))}
+          ))) : (
+            <p className="text-center">No upcoming event</p>
+          )}
       </div>
 
       <h1 className="mx-4 sm:mx-16 capitalize font-bold text-xl mt-12">
