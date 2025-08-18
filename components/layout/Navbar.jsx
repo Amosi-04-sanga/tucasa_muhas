@@ -3,12 +3,32 @@ import { nav_links } from "@/constants";
 import { images } from "@/src/images";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Fade, Slide } from "react-awesome-reveal";
+import { account } from "@/lib/appwrite";
+import Profile from "./Profile";
 
 const Navbar = () => {
   const [isMenuOpened, setIsMenuOpened] = useState(false);
   const [isSubmenuOpened, setIsSubmenuOpened] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [user, setUser] = useState(null);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+
+  useEffect(() => {
+    const checkAuthStatus = async () => {
+      try {
+        const currentUser = await account.get();
+        setUser(currentUser);
+        setIsLoggedIn(true);
+      } catch (error) {
+        setIsLoggedIn(false);
+        setUser(null);
+      }
+    };
+
+    checkAuthStatus();
+  }, []);
 
   const { menu, logo, location, right_arrow, close, hope_in_ict } = images;
 
@@ -29,12 +49,26 @@ const Navbar = () => {
             )}
           </Link>
         </div>
-        <div className="flex items-center justify-center gap-4 h-full">
+        <div className="flex items-center justify-center gap-2 h-full">
+          
+          
+          {isLoggedIn && user && (
+            <div 
+              onClick={() => setIsProfileOpen(true)}
+              className="hover:cursor-pointer flex items-center gap-2"
+            >
+              <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary-dark font-semibold text-sm">
+                {user.name ? user.name.charAt(0).toUpperCase() : 'U'}
+              </div>
+              <span className="text-sm text-white hidden sm:block">{user.name}</span>
+            </div>
+          )}
           <Link href="/donate">
-            <button className="px-4 cursor-pointer py-1 rounded-md bg-yellow-500 text-white">
+            <button className="px-4 cursor-pointer py-1 rounded-md bg-yellow-500 text-sm text-white">
               Donate
             </button>
           </Link>
+          {/* Profile Icon - shows when user is logged in */}
           <div className="md:hidden">
             <Image
               src={isMenuOpened ? close : menu}
@@ -110,6 +144,13 @@ const Navbar = () => {
           </div>
         </div>
       )}
+
+      {/* Profile Modal */}
+      <Profile 
+        isOpen={isProfileOpen}
+        onClose={() => setIsProfileOpen(false)}
+        user={user}
+      />
     </>
   );
 };

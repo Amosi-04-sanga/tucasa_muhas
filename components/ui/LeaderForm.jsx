@@ -1,42 +1,132 @@
 "use client";
 import React, { useState } from "react";
 import { Fade } from "react-awesome-reveal";
-import { useForm } from "react-hook-form";
 import { account, databases, storage, ID } from "../../lib/appwrite";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { FormProvider, useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
+import { FadeUp } from "..";
 
-const LeaderForm = () => {
-  const { register, handleSubmit, reset } = useForm();
-  const [registered, setRegistered] = useState(false);
+
+// Zod schemas (can remain even in JSX)
+const step1Schema = z.object({
+  name: z.string().min(1, "Full Name is required"),
+  gender: z.string().min(1, "gender is required"),
+  adress: z.string().min(1, "adress is required"),
+  baptism_status: z.string().min(1, "baptism status is required"),
+});
+
+const step2Schema = z.object({
+  email: z.email("Enter a valid email address"),
+  password: z.string().min(1, "password is required"),
+  phone: z.string().min(1, "Phone number is required"),
+ // otherInfo: z.string().optional(),
+});
+
+const step3Schema = z.object({
+  course: z.string().min(1, "course is required"),
+  year_of_study: z.string().min(1, "year of study is required"),
+});
+
+
+
+const allStepsSchema = step1Schema
+  .merge(step2Schema)
+  .merge(step3Schema)
+
+const steps = [
+  {
+    label: "Personal Info",
+    fields: ["Name", "gender", "adress"],
+    schema: step1Schema,
+  },
+  {
+    label: "credentials",
+    fields: ["email", "password", "phone"],
+    schema: step2Schema,
+  },
+  {
+    label: "Leadership info",
+    fields: ["course", "year_of_study", "position"],
+    schema: step3Schema,
+  },
+  
+];
+
+export default function LeaderForm() {
+  const router = useRouter();
+  const [step, setStep] = useState(0);
+  const [submitted, setSubmitted] = useState(false);
   const [submiting, setSubmiting] = useState(false);
+  const [registered, setRegistered] = useState(false);
 
-  const onSubmit = async (data) => {
-    setSubmiting(true);
+  
+ 
+
+  const methods = useForm({
+    resolver: zodResolver(allStepsSchema),
+    mode: "onTouched",
+    defaultValues: {
+      name: "",
+      gender: "",
+      adress: "",
+      email: "",
+      password: "",
+      phone: "",
+      course: "",
+      year_of_study: "",
+      position: "",
+    },
+  });
+
+  const {
+    register,
+    handleSubmit,
+    trigger,
+    reset,
+    formState: { errors },
+  } = methods;
+
+  const onNext = async () => {
+    if (step >= steps.length) return;
+    const currentStepFields = steps[step].fields;
+    const valid = await trigger(currentStepFields );
+    if (valid) setStep((s) => s + 1);
+  };
+
+  const onBack = () => {
+    if (step > 0) setStep((s) => s - 1);
+  };
+
+  const onSubmit = async (data) => { 
+    setSubmitted(true);
+    console.log("registratio info:", data);
 
     const {
       name,
+      gender,
+      adress,
       email,
       password,
-      gender,
-      position,
-      adress,
-      course,
       phone,
+      course,
       year_of_study,
+      position,
     } = data;
 
-    const file = data.file[0]; // Get the first file from FileList
-    if (!file) {
-      alert("No file selected!");
-      return;
-    }
+    
 
     try {
+      setSubmiting(true);
       const newAccount = await account.create(
         ID.unique(),
         email,
         password,
         name
       );
+
+      // const session = await account.createEmailPasswordSession(email, password);
 
       // Store extra info in your DB
       await databases.createDocument(
@@ -47,8 +137,8 @@ const LeaderForm = () => {
           userId: newAccount.$id,
           name,
           email,
+          baptism_status,
           course,
-          position,
           phone,
           gender,
           adress,
@@ -56,48 +146,87 @@ const LeaderForm = () => {
         }
       );
 
-      const response = await storage.createFile(
-        "6866981d001e9d0b62dd", // e.g., "profile_pics"
-        ID.unique(), // Auto-generate file ID
-        file // File object from <input type="file">
-      );
-      console.log("File uploaded:", response);
-
-      console.log("registered successfully");
-      setSubmiting(false);
-
+      setRegistered(true);
+      console.log("registered successfully");  
+      
+      // Automatically log in the user after registration
+      try {
+        await account.createEmailPasswordSession(email, password);
+        console.log("User logged in successfully");
+      } catch (loginError) {
+        console.error("Auto-login failed:", loginError);
+      }
+      
       reset();
+      
+      // Redirect to home page after successful registration (force full reload)
+      setTimeout(() => {
+        window.location.replace('/');
+      }, 500);
     } catch (error) {
+      reset();
+      setSubmiting(false);
       throw new Error(error.message);
     }
 
-    reset();
+
+
   };
 
-  return (
-    <>
-      <div className="max-w-[350px] mt-4 mx-auto">
-        <Fade>
-          <form
-            className="flex flex-col gap-4 mt-4 w-full bg-primary-dark rounded-md px-4 py-8 text-white"
-            onSubmit={handleSubmit(onSubmit)}
-          >
-            <div className="flex flex-col gap-1">
-              <label htmlFor="name">Full Name</label>
-              <input
-                type="text"
-                required
-                className="rounded-md px-2 py-1 bg-white text-black outline-none"
-                id="name"
-                {...register("name")}
-              />
-            </div>
+  const progressPercents = [0, 33, 66];
 
-            <div className="flex flex-col gap-1">
-              <label htmlFor="gender">Gender</label>
-              <select
-                className="rounded-md bg-white px-2 py-1 text-black outline-none"
-                required
+  return (
+    <main className="py-10 px-2 text-left">
+      <FadeUp>
+      <div className="w-full max-w-md mx-auto">
+        {!submitted && (
+          <div className="mb-4">
+            <div className="w-full h-2 bg-blue-100 rounded-full overflow-hidden">
+              <div
+                className="h-2 bg-orange-300 rounded-full transition-all duration-500"
+                style={{ width: `${progressPercents[step]}%` }}
+              ></div>
+            </div>
+          </div>
+        )}
+
+        { (
+          <FormProvider {...methods}>
+            <form
+              onSubmit={handleSubmit(onSubmit)}
+              className="bg-white rounded-2xl p-6 sm:p-4"
+            >
+              <div className="mb-6 text-sm text-[#10284A] font-semibold text-left">
+                Step {step + 1} of 3: {steps[step].label}
+              </div>
+
+              {step === 0 && (
+                <div className="space-y-5">
+                  <div>
+                    <label className="block font-medium mb-1">
+                      Full Name<span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      {...register("name")}
+                      className={`w-full rounded-lg border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 ${
+                        errors.name ? "border-red-400" : "border-gray-300"
+                      }`}
+                    />
+                    {errors.name && (
+                      <p className="text-red-500 text-xs mt-1">
+                        {errors.name.message}
+                      </p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="block font-medium mb-1">
+                      Gender<span className="text-red-500">*</span>
+                    </label>
+                    <select
+                className={`w-full rounded-lg border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 ${
+                  errors.gender ? "border-red-400" : "border-gray-300"
+                }`}
                 id="gender"
                 {...register("gender")}
               >
@@ -105,61 +234,83 @@ const LeaderForm = () => {
                 <option value="Male">Male</option>
                 <option value="Female">Female</option>
               </select>
-            </div>
+                   
+                    {errors.gender && (
+                      <p className="text-red-500 text-xs mt-1">
+                        {errors.gender.message}
+                      </p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="block font-medium mb-1">
+                      Adress<span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      {...register("adress")}
+                      className={`w-full rounded-lg border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 ${
+                        errors.phone ? "border-red-400" : "border-gray-300"
+                      }`}
+                    />
+                    {errors.adress && (
+                      <p className="text-red-500 text-xs mt-1">
+                        {errors.adress.message}
+                      </p>
+                    )}
+                  </div>
+                  
+                </div>
+              )}
 
-            <div className="flex flex-col gap-1">
-              <label htmlFor="position">Position</label>
-              <input
-                type="text"
-                placeholder="eg: chairman of tucasa"
+              {step === 1 && (
+                <div className="space-y-5">
+                  <div>
+                    <label className="block font-medium mb-1">
+                      Email
+                      <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="email"
+                      {...register("email")}
+                      className={`w-full rounded-lg border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 ${
+                        errors.email ? "border-red-400" : "border-gray-300"
+                      }`}
+                    />
+                    {errors.email && (
+                      <p className="text-red-500 text-xs mt-1">
+                        {errors.email.message}
+                      </p>
+                    )}
+                  </div>
+                  <div>
+                    <label className="block font-medium mb-1">
+                      Password
+                      <span className="text-red-500">*</span>
+                    </label>
+                     <input
+                type="password"
                 required
-                className="rounded-md px-2 py-1 bg-white text-black outline-none"
-                id="position"
-                {...register("position")}
+                className={`w-full rounded-lg border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 ${
+                  errors.email ? "border-red-400" : "border-gray-300"
+                }`}
+                id="password"
+                {...register("password")}
               />
-            </div>
+                 
+                    {errors.password && (
+                      <p className="text-red-500 text-xs mt-1">
+                        {errors.password.message}
+                      </p>
+                    )}
+                  </div>
 
-            <div className="flex flex-col gap-1">
-              <label htmlFor="adress">Adress</label>
-              <input
-                type="text"
-                required
-                className="rounded-md bg-white px-2 py-1 text-black outline-none border border-primary-light"
-                placeholder="e.g. Dar es Salaam, Shinyanga"
-                id="adress"
-                {...register("adress")}
-              />
-            </div>
-            <div className="flex flex-col gap-1">
-              <label htmlFor="year_of_study">Current year of study</label>
-              <input
-                type="text"
-                required
-                className="rounded-md bg-white px-2 py-1 text-black outline-none border border-primary-light"
-                placeholder="e.g. 1,2"
-                id="year_of_study"
-                {...register("year_of_study")}
-              />
-            </div>
-
-            <div className="flex flex-col gap-1">
-              <label htmlFor="course">Course</label>
-              <input
-                type="text"
-                required
-                className="rounded-md bg-white px-2 py-1 text-black outline-none"
-                placeholder="e.g. MD, DDS, BMLS"
-                id="course"
-                {...register("course")}
-              />
-            </div>
-
-            <div className="flex flex-col gap-1">
-              <label htmlFor="phone">Phone Number</label>
-              <input
+                  <div>
+                    <label className="block font-medium mb-1">
+                      Phone number
+                    </label>
+                    <input
                 type="phone"
-                required
-                className="rounded-md bg-white px-2 py-1 text-black outline-none"
+                className="w-full rounded-lg border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
                 id="phone"
                 {...register("phone", {
                   required: "Phone number is required",
@@ -170,71 +321,151 @@ const LeaderForm = () => {
                 })}
                 placeholder="+255712345678"
               />
-            </div>
+                 {errors.phone && (
+                      <p className="text-red-500 text-xs mt-1">
+                        {errors.phone.message}
+                      </p>
+                    )}   
+                  </div>
+                </div>
+              )}
 
-            <div className="flex flex-col gap-1">
-              <label htmlFor="email">Email</label>
-              <input
-                type="email"
-                required
-                className="rounded-md bg-white px-2 py-1 text-black outline-none"
-                id="email"
-                {...register("email")}
-              />
-            </div>
+              {step === 2 && (
+                <div className="space-y-5">
 
-            <div className="flex flex-col gap-1">
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                required
-                className="rounded-md bg-white px-2 py-1 text-black outline-none"
-                id="password"
-                {...register("password")}
-              />
-            </div>
+              <div>
+                    <label className="block font-medium mb-1">
+                    Course
+                      <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="MD, BMLS"
+                      {...register("course")}
+                      className={`w-full rounded-lg border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 ${
+                        errors.course ? "border-red-400" : "border-gray-300"
+                      }`}
+                    />
+                    {errors.course && (
+                      <p className="text-red-500 text-xs mt-1">
+                        {errors.course.message}
+                      </p>
+                    )}
+                  </div>
 
-            <div>
-              <label className="block text-sm font-medium text-white mb-1">
-                Profile picture
-              </label>
-              <input
-                type="file"
-                {...register("file")}
-                className="block w-full text-sm text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm file:mr-4 file:py-2 file:px-4 file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-gray-500 hover:file:bg-blue-100"
-              />
-            </div>
-            <p
-              className={`${
-                register && "animate-[fadeOut_4s_ease-in_forwards] opacity-100"
-              } mt-2`}
-            >
-              {" "}
-              {registered && "registered successfully"}{" "}
-            </p>
+                  <div>
+                    <label className="block font-medium mb-1">
+                    Leader position
+                      <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="Treasure"
+                      {...register("position")}
+                      className={`w-full rounded-lg border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 ${
+                        errors.position ? "border-red-400" : "border-gray-300"
+                      }`}
+                    />
+                    {errors.position && (
+                      <p className="text-red-500 text-xs mt-1">
+                        {errors.position.message}
+                      </p>
+                    )}
+                  </div>
 
-            <button
-              type="submit"
-              className=" mx-auto block px-4 py-1 rounded-md text-white capitalize mt-4 cursor-pointer border-primary-light border-[1px]"
-            >
-              {submiting ? "Submitting..." : "Register"}
-            </button>
-          </form>
-        </Fade>
+                  <div>
+                    <label className="block font-medium mb-1">
+                    Year of study
+                      <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      placeholder="2025/2026"
+                      {...register("year_of_study")}
+                      className={`w-full rounded-lg border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 ${
+                        errors.year_of_study ? "border-red-400" : "border-gray-300"
+                      }`}
+                    />
+                    {errors.year_of_study && (
+                      <p className="text-red-500 text-xs mt-1">
+                        {errors.year_of_study.message}
+                      </p>
+                    )}
+                  </div>
+                
+                 
+                </div>
+              )}
+
+              {/* Success message */}
+              {registered && (
+                <div className="mt-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg text-center">
+                  <p className="font-medium">Registered successfully! Redirecting to home page...</p>
+                </div>
+              )}
+
+              <div className="flex justify-between mt-8">
+                {step > 0 ? (
+                  <button
+                    type="button"
+                    onClick={onBack}
+                    className="px-4 py-2 rounded-lg bg-gray-200 text-gray-700 font-semibold hover:bg-gray-300 transition duration-200"
+                  >
+                    Back
+                  </button>
+                ) : (
+                  <div />
+                )}
+
+                {step < 2 ? (
+                  <button
+                    type="button"
+                    onClick={onNext}
+                    className="px-4 py-2 rounded-lg bg-primary-dark text-white font-semibold hover:bg-[#10284A] transition duration-200"
+                  >
+                    Next
+                  </button>
+                ) : (
+                  <button
+                    type="submit"
+                    disabled={submiting}
+                    className="px-4 py-2 rounded-lg bg-primary-dark text-white font-semibold cursor-pointer transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+                  >
+                    {submiting ? (
+                      <>
+                        <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                        Submitting
+                      </>
+                    ) : (
+                      "Submit"
+                    )}
+                  </button>
+                )}
+              </div>
+            </form>
+          </FormProvider>
+        )}
       </div>
-    </>
+      </FadeUp>
+    </main>
   );
-};
+}
 
-export default LeaderForm;
 
-/*    if (data.user.id) {
-        // Add user to the "members" table
-        const { error: insertError } = await supabase.from("members").insert([
-          {
-            email,
-            name,
-            phone,
-          },
-        ]);
-      } */
+/*
+const response = await storage.createFile(
+        "6866981d001e9d0b62dd", // e.g., "profile_pics"
+        ID.unique(), // Auto-generate file ID
+        file // File object from <input type="file">
+      );
+      console.log("File uploaded:", response);
+
+*/
+/*
+const { register, handleSubmit, reset } = useForm();
+  
+
+  const onSubmit = async (data) => {
+   
+  };
+*/

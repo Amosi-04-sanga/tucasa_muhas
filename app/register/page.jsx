@@ -13,8 +13,8 @@ const page = () => {
   const onSubmit = (data) => console.log(data);
 
   return (
-    <div className="px-8 sm:px-16 md:px-24 lg:px-32 xl:px-48">
-      <h1 className="mt-8 font-bold text-3xl text-center">Register As</h1>
+    <div className="px-4 sm:px-16 md:px-24 lg:px-32 xl:px-48 bg-[#20f8ed38]">
+      <h1 className="pt-8 font-bold text-3xl text-center">Register As</h1>
 
       <div className="mt-4 flex gap-4  justify-center items-center">
         {userStatus.map((status, index) => (
@@ -31,12 +31,12 @@ const page = () => {
         ))}
       </div>
 
-      <div className="mt-8">
+      <div className="">
         {currentIndex === 0 && <MemberForm />}
         {currentIndex === 1 && <LeaderForm />}
         {currentIndex === 2 && <AssociateForm />}
       </div>
-      <div className="flex gap-2 justify-center items-center mb-8 mt-4">
+      <div className="flex gap-2 justify-center items-center pb-8 mt-4">
         <p>Already registered ?</p>
         <Link href="/sign-in" className="text-red-800 font-bold">
           {" "}

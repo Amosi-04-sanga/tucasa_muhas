@@ -20,9 +20,11 @@ import Believes from "./ui/about/Believes";
 import Hopeinict from "./ui/projects/Hopeinict";
 import MuhassoLoundry from "./ui/projects/MuhassoLoundry";
 import Kai from "./ui/projects/Kai";
+import FadeUp from "./ui/FadeUp";
 
 export {
   Navbar,
+  FadeUp,
   Footer,
   Hero,
   Button,
