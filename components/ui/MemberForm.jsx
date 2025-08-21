@@ -68,6 +68,7 @@ export default function MemberForm() {
     resolver: zodResolver(allStepsSchema),
     mode: "onTouched",
     defaultValues: {
+      status: "Member",
       name: "",
       gender: "",
       adress: "",
@@ -104,6 +105,7 @@ export default function MemberForm() {
     console.log("registratio info:", data);
 
     const {
+      status = "Member",
       name,
       email,
       password,

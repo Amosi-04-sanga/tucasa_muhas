@@ -13,6 +13,8 @@ const images = {
   email: "/assets/icons/newsletter.svg",
   right_arrow: "/assets//icons/right_arrow.svg",
   values: "/assets/icons/values.svg",
+  whatsapp: "/assets/icons/whatsapp.svg",
+  whatsaap: "/assets/icons/whatsaap.svg",
   vision: "/assets/icons/vision.svg",
   download: "/assets/icons/download.png",
   direction_arrow: "/assets/icons/arrow.svg",

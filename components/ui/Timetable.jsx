@@ -3,8 +3,8 @@ import React from "react";
 const Timetable = () => {
   return (
     <>
-      <div className="bg-[#269c92] text-white">
-        <table className="min-w-[300px] mt-2 mx-auto border border-primary-dark">
+      <div className="bg-[#264e4b] text-white">
+        <table className="min-w-[300px] w-full mt-2 mx-auto border border-primary-dark">
           <thead>
             <tr className="uppercase">
               <th className="px-1 py-2 md:px-8 md:py-4  border border-yellow-200 ">

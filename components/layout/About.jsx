@@ -5,7 +5,7 @@ import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 import { Fade, Slide } from "react-awesome-reveal";
 import Timetable from "../ui/Timetable";
-import { Believes, Mission, Vision, Worshipprograms } from "..";
+import { Believes, FadeUp, Mission, Vision, Worshipprograms } from "..";
 import { AnimatePresence, motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
@@ -38,6 +38,7 @@ const About = () => {
         About us
       </h1>
 
+      <FadeUp>
       <div className="mx-4 mt-2 sm:mx-16 bg-white rounded-lg">
         <div className="md:hidden">
           <div className="flex gap-4  justify-center items-center">
@@ -54,11 +55,11 @@ const About = () => {
               </div>
             ))}
           </div>
-          <Fade>
+          <div>
            {currentIndex == 0 && <Vision currentIndex = {currentIndex} />}
            {currentIndex == 1 && <Mission currentIndex = {currentIndex} />}
            {currentIndex == 2 && <Believes currentIndex = {currentIndex} />}
-          </Fade>
+          </div>
           <button className="py-2 mx-auto block">
         <Link href="/about" className="capitalize text-red-700">
           Read More
@@ -70,7 +71,7 @@ const About = () => {
         className="max-md:hidden mt-8 md:flex md:gap-8 md:justify-around">
           {about_content.map((content, index) => (
             <div key={content.title}>
-              <Fade>
+              <FadeUp>
               <div className="max-w-[300px] mt-16 mx-auto">
                 <Image
                   src={content.logo}
@@ -85,7 +86,7 @@ const About = () => {
                 </h1>
                 <p className="mt-4 text-center"> {content.text} </p>
               </div>
-            </Fade>
+            </FadeUp>
             <button className="py-2 mx-auto block">
         <Link href="/about" className="capitalize text-red-700">
           Read More
@@ -97,13 +98,14 @@ const About = () => {
         </motion.div>
         
       </div>
+      </FadeUp>
 
       
       <motion.div
         ref={ref}
         initial={{ opacity: 0, y: 50 }}
         animate={controls}
-        className="mt-12 w-full mx-auto max-w-[600px]"
+        className="mt-12 w-full mx-auto max-w-[800px]"
       >
         <h2 className="uppercase text-center text-primary-dark font-bold">
           worship services
@@ -119,7 +121,7 @@ const About = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 20 }}
             transition={{ duration: 0.3 }}
-            className="w-full max-w-sm p-2 bg-white rounded shadow"
+            className="w-full p-2 bg-white rounded shadow"
           >
             <Fade >
             <div >

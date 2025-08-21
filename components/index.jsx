@@ -21,9 +21,11 @@ import Hopeinict from "./ui/projects/Hopeinict";
 import MuhassoLoundry from "./ui/projects/MuhassoLoundry";
 import Kai from "./ui/projects/Kai";
 import FadeUp from "./ui/FadeUp";
+import Leaders from "./ui/Leaders";
 
 export {
   Navbar,
+  Leaders,
   FadeUp,
   Footer,
   Hero,

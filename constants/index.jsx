@@ -159,6 +159,11 @@ export const nav_links = [
     path: "/gallery",
     link_text: "Gallery",
   },
+  ,
+  {
+    path: "/lessons",
+    link_text: "Lessons",
+  },
 ];
 
 export const blog_content = [

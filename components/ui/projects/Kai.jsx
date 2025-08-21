@@ -2,12 +2,13 @@ import React from 'react'
 import { project_content } from '../../../constants'
 import Link from 'next/link';
 import Image from 'next/image';
+import { FadeUp } from '@/components';
 
 
 const Kai = ({index}) => {
   return (
     <>
-      <div>
+      <FadeUp>
               <div className="max-w-[350px] mt-4 mx-auto shadow-md pb-4 px-4 rounded-md border-t-2 border-primary-light border-solid">
                 <div className="min-h-[130px]  bg-news_bg_color flex items-center">
                   <Image
@@ -28,7 +29,7 @@ const Kai = ({index}) => {
                   </Link>
                 </button>
               </div>
-            </div>
+            </FadeUp>
     </>
   )
 }

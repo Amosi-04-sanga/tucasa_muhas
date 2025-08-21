@@ -1,4 +1,5 @@
 'use client'
+import { FadeUp } from '@/components'
 import { about_content } from '@/constants'
 import { motion, useAnimation, useInView } from 'framer-motion'
 import Image from 'next/image'
@@ -11,6 +12,7 @@ const Mission = ({currentIndex}) => {
   return (
     <motion.div
     className="sm:px-16 shadow-sm py-4 px-2 mt-4 mx-auto">
+      <FadeUp>
                   <Image
                     src={about_content[currentIndex].logo}
                     alt={`image_${about_content[currentIndex].title}`}
@@ -27,6 +29,7 @@ const Mission = ({currentIndex}) => {
                     {" "}
                     {about_content[currentIndex].text}{" "}
                   </p>
+                  </FadeUp>
                 </motion.div>
   )
 }

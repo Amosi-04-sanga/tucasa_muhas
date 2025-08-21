@@ -1,4 +1,5 @@
 "use client"
+import { FadeUp } from '@/components'
 import { about_content } from '@/constants'
 import Image from 'next/image'
 import React from 'react'
@@ -7,6 +8,7 @@ import React from 'react'
 const Vision = ({currentIndex}) => {
   return (
     <div className="sm:px-16 shadow-sm py-4 px-2 mt-4 mx-auto">
+      <FadeUp>
                   <Image
                     src={about_content[currentIndex].logo}
                     alt={`image_${about_content[0].title}`}
@@ -23,6 +25,7 @@ const Vision = ({currentIndex}) => {
                     {" "}
                     {about_content[currentIndex].text}{" "}
                   </p>
+                </FadeUp>
                 </div>
   )
 }

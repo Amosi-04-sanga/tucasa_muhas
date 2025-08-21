@@ -55,7 +55,7 @@ const Navbar = () => {
           {isLoggedIn && user && (
             <div 
               onClick={() => setIsProfileOpen(true)}
-              className="hover:cursor-pointer flex items-center gap-2"
+              className="hover:cursor-pointer flex flex-col items-center gap-0"
             >
               <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center text-primary-dark font-semibold text-sm">
                 {user.name ? user.name.charAt(0).toUpperCase() : 'U'}

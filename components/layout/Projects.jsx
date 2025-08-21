@@ -10,7 +10,7 @@ const Projects = () => {
   const [currentIndex, setCurrentIndex] = useState(0)
   const project = ['Hope in ICT', 'Kai', 'Muhasso Loundry']
   return (
-    <div className="relative mx-auto max-w-[500px]  px-4 sm:px-16 pb-8">
+    <div className="relative mx-auto max-w-[500px] px-4 sm:px-16 pb-8">
       <img
         src={projects_bg}
         alt="bg"
@@ -22,7 +22,7 @@ const Projects = () => {
             Projects
           </h1>
         </div>
-        <div className="mt-2 flex justify-between items-center">
+        <div className="mt-2 flex justify-center gap-4 items-center">
           {
             project.map( (item, index) => (
                 <div key={index}>

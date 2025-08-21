@@ -4,6 +4,7 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { Fade } from "react-awesome-reveal";
 import { createClient } from "contentful";
+import { FadeUp } from "..";
 
 const Blog = () => {
   const [initialArticlesLoad, setInitialArticlesLoad] = useState(3);
@@ -42,7 +43,7 @@ const Blog = () => {
         {articlesData &&
           articlesData.length > 0 &&
           articlesData.slice(0, initialArticlesLoad).map((content, index) => (
-            <Fade className="bg-white" key={index}>
+            <FadeUp className="bg-white" key={index}>
               <div className="max-w-[350px] shadow-md rounded-md">
                 <div className="shadow-sm h-[150px] md:h-[200px]">
                   <img
@@ -67,7 +68,7 @@ const Blog = () => {
                   </button>
                 </div>
               </div>
-            </Fade>
+            </FadeUp>
           ))}
       </div>
 
