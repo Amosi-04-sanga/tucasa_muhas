@@ -169,11 +169,11 @@ export default function LeaderForm() {
   const progressPercents = [0, 33, 66];
 
   return (
-    <main className="py-10 px-2 text-left">
+    <main className="py-4 px-2 text-left">
       <FadeUp>
         <div className="w-full max-w-md mx-auto">
           {!submitted && (
-            <div className="mb-4">
+            <div className="mb-1">
               <div className="w-full h-2 bg-blue-100 rounded-full overflow-hidden">
                 <div
                   className="h-2 bg-orange-300 rounded-full transition-all duration-500"
