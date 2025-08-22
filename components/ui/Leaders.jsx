@@ -135,7 +135,7 @@ const displayData = React.useMemo(() => (leadersData && leadersData.length ? lea
               <div className="mt-2 flex items-center gap-3">
                 {(
                   <Link
-                href={`https://wa.me/${entry.fields.phoneNo}?text=Hello%2C%20I'm%20${name}`}
+                href={`https://wa.me/${entry.fields.phoneNo}?text=Hello%2C%20${name}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="Open WhatsApp chat"

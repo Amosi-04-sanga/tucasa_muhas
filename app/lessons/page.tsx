@@ -181,7 +181,6 @@ const LessonsPage = () => {
         const response = await client.getEntries<LessonSkeleton>({
           content_type: "lessons", // Adjust this to match your Contentful content type
           include: 10, // Ensure linked assets are fully resolved
-          order: ['-fields.year'], // Sort by year
         });
 
     
@@ -206,8 +205,8 @@ const LessonsPage = () => {
         <div className="max-w-7xl mx-auto">
           {/* Header */}
           <div className="text-center mb-12">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">
-              sabbath school Lessons
+            <h1 className="text-4xl uppercase font-bold text-gray-900 mb-4">
+              Sabbath school Lessons
             </h1>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Find and download sabbath school lessons, ensuring you never miss out on any lesson. Check back regularly for updates as new lessons are added.
@@ -253,7 +252,7 @@ const LessonsPage = () => {
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+          <h1 className="text-4xl uppercase font-bold text-gray-900 mb-4">
           sabbath school Lessons
           </h1>
           <p className="text-xl text-gray-600 max-w-3xl mx-auto">

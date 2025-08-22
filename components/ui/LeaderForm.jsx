@@ -368,7 +368,7 @@ export default function LeaderForm() {
                     </label>
                     <input
                       type="text"
-                      placeholder="eg: 2025/26"
+                      placeholder="eg: 3"
                       {...register("year_of_study")}
                       className={`w-full rounded-lg border px-3 py-2 ${
                         errors.year_of_study
