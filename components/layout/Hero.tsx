@@ -16,7 +16,7 @@ const SLIDES = [
     type: "video",
     src: '/assets/hero/videos/tucasa.mp4',
     alt: "Tucasa Muhas Choir",
-    text: 'Be blessed with songs from Tucasa muhas Choir',
+    text: 'Be blessed with songs from Tucasa Muhas Choir',
   },
   {
     type: "image",
@@ -190,7 +190,7 @@ export default function Hero() {
         </h1>
         {SLIDES[currentSlide]?.type === "video" && (
           <Link
-            href="https://www.youtube.com/"
+            href="https://www.youtube.com/@TUCASAMUHAS/videos"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Visit our YouTube channel"

@@ -110,7 +110,7 @@ const About = () => {
         <h2 className="uppercase text-center text-primary-dark font-bold">
           worship services
         </h2>
-        <Worshipprograms />
+        <Worshipprograms /> 
         <div className="mt-4">
 
           <AnimatePresence>

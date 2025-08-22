@@ -17,7 +17,7 @@ const step1Schema = z.object({
 
 const step2Schema = z.object({
   email: z.string().email("Enter a valid email address"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
+  password: z.string().min(4, "Password must be at least 4 characters"),
   phone: z.string().min(1, "Phone number is required"),
 });
 
