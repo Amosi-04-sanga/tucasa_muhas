@@ -184,6 +184,7 @@ const Profile = ({ isOpen, onClose, user }) => {
                 />
                 <h3 className="text-xl font-semibold text-gray-800">{userData.name}</h3>
                 <p className="text-gray-600">{userData.email}</p>
+                <p className="text-gray-600 text-sm"><span className="capitalize">{userData.status}</span> of Tucasa muhas</p>
                 {uploadError && (
                   <p className="mt-2 text-sm text-red-600">{uploadError}</p>
                 )}

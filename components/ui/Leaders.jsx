@@ -22,6 +22,7 @@ const displayData = React.useMemo(() => (leadersData && leadersData.length ? lea
     
           const response = await client.getEntries({ content_type: "leaders", include: 2 });
           setLeadersData(response.items || []);
+          console.log(response.items)
         };
         getitems();
       }, []);
@@ -87,8 +88,6 @@ const displayData = React.useMemo(() => (leadersData && leadersData.length ? lea
     <div
           className="text-center overflow-x-hidden">
    
-     
-
       <div
         ref={scrollRef}
         onMouseEnter={() => (pausedRef.current = true)}
@@ -136,7 +135,7 @@ const displayData = React.useMemo(() => (leadersData && leadersData.length ? lea
               <div className="mt-2 flex items-center gap-3">
                 {(
                   <Link
-                    href={`https://wa.me/${whatsappDigits}?text=${whatsappText}`}
+                href={`https://wa.me/${entry.fields.phoneNo}?text=Hello%2C%20I'm%20${name}`}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="Open WhatsApp chat"

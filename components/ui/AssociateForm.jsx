@@ -26,8 +26,10 @@ const step2Schema = z.object({
 
 const step3Schema = z.object({
   course: z.string().min(1, "course is required"),
-  year_of_study: z.string().min(1, "year of study is required"),
+  year_of_graduation: z.string().min(1, "year of graduation is required"),
 });
+
+
 
 
 
@@ -131,14 +133,15 @@ export default function AssociateForm() {
         ID.unique(),
         {
           userId: newAccount.$id,
+          status: 'associate',
           name,
-          email,
-          baptism_status,
-          course,
-          phone,
           gender,
           adress,
-          year_of_study,
+          email,
+          password,
+          phone,
+          profession,
+          year_of_graduation,
         }
       );
 
@@ -356,7 +359,7 @@ export default function AssociateForm() {
                     </label>
                     <input
                       type="text"
-                      placeholder="2025/2026"
+                      placeholder="2025"
                       {...register("year_of_graduation")}
                       className={`w-full rounded-lg border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 ${
                         errors.year_of_graduation ? "border-red-400" : "border-gray-300"

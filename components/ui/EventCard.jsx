@@ -12,18 +12,7 @@ export default function EventCard({ title, eventDate, posterUrl, href }) {
     : null;
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Prevent body scroll when modal is open
-  useEffect(() => {
-    if (isModalOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
 
-    return () => {
-      document.body.style.overflow = 'unset';
-    };
-  }, [isModalOpen]);
 
   return (
     <div className="bg-white w-[320px] h-[320px] rounded-xl drop-shadow-primary-light hover:shadow-xl transition-all duration-300 overflow-hidden flex-shrink-0 border border-gray-400 hover:border-gray-300">

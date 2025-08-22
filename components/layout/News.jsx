@@ -225,14 +225,14 @@ const News = () => {
         >
          {previousEvents.length > 0 &&
            previousEvents.slice(0, initialNewsLoad).map((content, index) => (
-             <FadeUp className="flex-shrink-0" key={index}>
+             <div className="flex-shrink-0" key={index}>
                <EventCard
                  title={content.fields.title}
                  eventDate={content.fields.date}
                  posterUrl={content?.fields?.poster?.fields?.file?.url || null}
                  href={`/events/${content.sys.id}`}
                />
-             </FadeUp>
+             </div>
            ))}
         </div>
       )}

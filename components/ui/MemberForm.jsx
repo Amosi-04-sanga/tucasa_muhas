@@ -105,7 +105,6 @@ export default function MemberForm() {
     console.log("registratio info:", data);
 
     const {
-      status = "Member",
       name,
       email,
       password,
@@ -137,6 +136,7 @@ export default function MemberForm() {
         ID.unique(),
         {
           userId: newAccount.$id,
+          status: 'member',
           name,
           email,
           baptism_status,

@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { createClient, Entry, Asset, EntrySkeletonType, EntryFieldTypes } from 'contentful';
 import { DocumentArrowDownIcon } from '@heroicons/react/24/outline';
 import { log } from 'console';
+import { FadeUp } from '@/components';
 
 // Types for the PDF documents
 type LessonSkeleton = EntrySkeletonType & {
@@ -119,7 +120,7 @@ const PDFCard = ({ entry }: { entry: Entry<LessonSkeleton> }) => {
     <div className="bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 border border-teal-100 hover:border-teal-300 overflow-hidden">
       {/* Card Header */}
       <div className="p-6">
-        <h3 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2 leading-tight">
+        <h3 className="text-xl uppercase font-bold text-gray-900 mb-3 line-clamp-2 leading-tight">
           {String(title)}
         </h3>
         
@@ -129,7 +130,7 @@ const PDFCard = ({ entry }: { entry: Entry<LessonSkeleton> }) => {
         </div>
         
         {/* Year and Quarter */}
-        <div className="flex items-center gap-2 text-sm text-gray-600 mb-4">
+        <div className="flex items-center gap-2 text-sm text-gray-600 ">
           <span className="font-medium">{String(year)}</span>
           {quarterVal ? (
             <>
@@ -264,7 +265,10 @@ const LessonsPage = () => {
         {documents.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {documents.map((doc) => (
-              <PDFCard key={doc.sys.id} entry={doc} />
+              <FadeUp key={doc.sys.id}>
+
+                <PDFCard  entry={doc} />
+              </FadeUp>
             ))}
           </div>
         ) : (

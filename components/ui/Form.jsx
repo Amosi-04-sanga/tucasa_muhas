@@ -27,17 +27,17 @@ const Form = () => {
 
   return (
     <div className="mt-0 pb-1 px-8 sm:px-16 md:px-24 lg:px-32 xl:px-40 ">
+        <FadeUp>
       <h1 className="text-center text-primary-dark pt-16 font-bold text-3xl">Contact us</h1>
 
       <div className="mt-4 mx-auto">
         <p className="mt-4">Meet the current leaders of TUCASA MUHAS, committed to guiding and serving the fellowship. You can easily reach them through WhatsApp or email for any inquiries, support, or fellowship matters.</p>
         
-        <FadeUp>
           <div>
           <Leaders/>
           </div>
-        </FadeUp>
       </div>
+        </FadeUp>
     </div>
   );
 };
