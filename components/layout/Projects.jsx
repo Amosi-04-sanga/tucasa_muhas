@@ -8,7 +8,7 @@ import { images } from "@/src/images";
 const Projects = () => {
  const {projects_bg} = images
   const [currentIndex, setCurrentIndex] = useState(0)
-  const project = ['Hope in ICT', 'Kai', 'Muhasso Loundry']
+  const project = ['Hope in ICT', 'KAI', 'Muhasso Laundry']
   return (
     <div className="relative mx-auto max-w-[500px] px-4 sm:px-16 pb-8">
       <img
