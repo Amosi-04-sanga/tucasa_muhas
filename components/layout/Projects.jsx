@@ -28,8 +28,8 @@ const Projects = () => {
                 <div key={index}>
                 <button
                   onClick={() => setCurrentIndex(index)}
-                  className={`block px-2 py-1 rounded-md text-black capitalize mt-2 cursor-pointer border-primary-light border-[1px] ${
-                    index === currentIndex && "bg-primary-light text-black text-sm"
+                  className={`block text-sm px-2 py-1 rounded-md text-black capitalize mt-2 cursor-pointer border-primary-light border-[1px] ${
+                    index === currentIndex && "bg-primary-light text-black"
                   }`}
                 >
                   {item}
