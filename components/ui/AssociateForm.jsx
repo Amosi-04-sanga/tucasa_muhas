@@ -177,7 +177,7 @@ export default function AssociateForm() {
   return (
     <main className="py-4 px-2 ">
       <FadeUp>
-      <div className="w-full max-w-md mx-auto">
+      <div className="w-full max-w-md mx-auto text-orange">
         {!submitted && (
           <div className="mb-1">
             <div className="w-full h-2 bg-blue-100 rounded-full overflow-hidden">
