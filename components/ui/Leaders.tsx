@@ -95,7 +95,7 @@ const Leaders = () => {
     <div className="text-center">
      <div
   ref={scrollRef}
-  className="relative mx-auto w-[85vw] mt-4 flex items-center gap-4 sm:gap-12 overflow-x-scroll hide-scrollbar"
+  className="relative mx-auto min-h-[380px] w-[85vw] mt-4 flex items-center gap-4 sm:gap-12 overflow-x-scroll hide-scrollbar"
 >
         {leadersData.map((person, index) => {
           const { name, position, email, phoneNo, photo } = person.fields;
