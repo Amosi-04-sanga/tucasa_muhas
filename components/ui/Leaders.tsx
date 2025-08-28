@@ -94,7 +94,7 @@ const Leaders = () => {
   return (
     <div className="text-center">
      <div
-  className="relative mx-auto min-h-[500px] w-[85vw] mt-4 flex items-center gap-4 sm:gap-12 overflow-x-scroll hide-scrollbar"
+  className="relative mx-auto min-h-[350px] w-[85vw] mt-4 flex items-center gap-4 sm:gap-12 overflow-x-scroll hide-scrollbar"
 >
         {leadersData.map((person, index) => {
           const { name, position, email, phoneNo, photo } = person.fields;
@@ -169,7 +169,6 @@ const Leaders = () => {
             </div>
           );
         })}
-        <div className="absolute -bottom-12 left-[50%] -translate-x-1/2 w-[120px] h-1 bg-gradient-to-r from-white via-blue-500 to-white" />
       </div>
       
     </div>
