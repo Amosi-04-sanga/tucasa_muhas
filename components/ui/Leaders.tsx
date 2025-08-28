@@ -94,8 +94,7 @@ const Leaders = () => {
   return (
     <div className="text-center">
      <div
-  ref={scrollRef}
-  className="relative mx-auto min-h-[380px] w-[85vw] mt-4 flex items-center gap-4 sm:gap-12 overflow-x-scroll hide-scrollbar"
+  className="relative mx-auto min-h-[500px] w-[85vw] mt-4 flex items-center gap-4 sm:gap-12 overflow-x-scroll hide-scrollbar"
 >
         {leadersData.map((person, index) => {
           const { name, position, email, phoneNo, photo } = person.fields;
@@ -104,7 +103,7 @@ const Leaders = () => {
           return (
             <div
               key={index}
-              className="cursor-pointer block relative py-4 px-4 flex-shrink-0 w-[200px] min-h-[280px] shadow-lg rounded-lg hover:scale-110 transition duration-200 text-left"
+              className="cursor-pointer block relative py-4 px-4 flex-shrink-0 w-[200px] min-h-[250px] shadow-lg rounded-lg hover:scale-110 transition duration-200 text-left"
             >
               <div className="rounded-full block mx-auto p-[2px]">
                 <div className="rounded-full bg-blue-400 mx-auto w-[100px] h-[100px] overflow-hidden relative">
