@@ -1,32 +1,28 @@
 "use client";
 import React, { useState } from "react";
-import { Fade } from "react-awesome-reveal";
-import { account, databases, storage, ID } from "../../lib/appwrite";
+import { account, databases, ID } from "../../lib/appwrite";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
 import { FadeUp } from "..";
 
 
-// Zod schemas (can remain even in JSX)
+// Zod schemas
 const step1Schema = z.object({
   name: z.string().min(1, "Full Name is required"),
-  gender: z.string().min(1, "gender is required"),
-  adress: z.string().min(1, "adress is required"),
-  baptism_status: z.string().min(1, "baptism status is required"),
+  gender: z.string().min(1, "Gender is required"),
+  adress: z.string().min(1, "Address is required"),
 });
 
 const step2Schema = z.object({
-  email: z.email("Enter a valid email address"),
+  email: z.string().email("Enter a valid email address"),
   password: z.string().min(4, "Password must be at least 4 characters"),
   phone: z.string().min(1, "Phone number is required"),
- // otherInfo: z.string().optional(),
 });
 
 const step3Schema = z.object({
-  course: z.string().min(1, "course is required"),
-  year_of_graduation: z.string().min(1, "year of graduation is required"),
+  profession: z.string().min(1, "Profession is required"),
+  year_of_graduation: z.string().min(1, "Year of graduation is required"),
 });
 
 
@@ -40,28 +36,28 @@ const allStepsSchema = step1Schema
 const steps = [
   {
     label: "Personal Info",
-    fields: ["Name", "gender", "adress"],
+    fields: ["name", "gender", "adress"],
     schema: step1Schema,
   },
   {
-    label: "credentials",
+    label: "Credentials",
     fields: ["email", "password", "phone"],
     schema: step2Schema,
   },
   {
-    label: "Other info",
-    fields: ["profession", "year of graduation"],
+    label: "Other Info",
+    fields: ["profession", "year_of_graduation"],
     schema: step3Schema,
   },
-  
 ];
 
 export default function AssociateForm() {
-  const router = useRouter();
   const [step, setStep] = useState(0);
   const [submitted, setSubmitted] = useState(false);
   const [submiting, setSubmiting] = useState(false);
   const [registered, setRegistered] = useState(false);
+  const [error, seterror] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   
   const methods = useForm({
@@ -90,18 +86,32 @@ export default function AssociateForm() {
   const onNext = async () => {
     if (step >= steps.length) return;
     const currentStepFields = steps[step].fields;
-    const valid = await trigger(currentStepFields );
-    if (valid) setStep((s) => s + 1);
+    const valid = await trigger(currentStepFields);
+    if (valid) {
+      seterror(false);
+      setErrorMessage("");
+      setStep((s) => s + 1);
+    }
   };
 
   const onBack = () => {
-    if (step > 0) setStep((s) => s - 1);
+    if (step > 0) {
+      seterror(false);
+      setErrorMessage("");
+      setStep((s) => s - 1);
+    }
   };
 
-  const onSubmit = async (data) => { 
+  const onSubmit = async (data) => {
+    // Reset error states
+    seterror(false);
+    setErrorMessage("");
     setSubmitted(true);
-    console.log("registratio info:", data);
+    
+    console.log("Registration info:", data);
+    console.log("Form validation passed, proceeding with submission...");
 
+    // Validate all required fields are present
     const {
       name,
       gender,
@@ -113,83 +123,174 @@ export default function AssociateForm() {
       year_of_graduation,
     } = data;
 
-    
+    // Additional validation
+    if (!name || !email || !password || !phone) {
+      const errorMsg = "Please fill in all required fields.";
+      seterror(true);
+      setErrorMessage(errorMsg);
+      setSubmitted(false);
+      return;
+    }
 
     try {
       setSubmiting(true);
-      const newAccount = await account.create(
-        ID.unique(),
+      console.log("Starting registration process...");
+      console.log("Data to be sent:", {
+        name,
+        gender,
+        adress,
         email,
-        password,
-        name
-      );
+        phone,
+        profession,
+        year_of_graduation,
+      });
 
-      // const session = await account.createEmailPasswordSession(email, password);
-
-      // Store extra info in your DB
-      await databases.createDocument(
-        "68668bb2002232c78c64",
-        "68668c13002021cd8a17",
-        ID.unique(),
-        {
-          userId: newAccount.$id,
-          status: 'associate',
-          name,
-          gender,
-          adress,
-          email,
+      // Create account in Appwrite Auth
+      console.log("Creating account with email:", email);
+      let newAccount;
+      try {
+        newAccount = await account.create(
+          ID.unique(),
+          email.trim(),
           password,
-          phone,
-          profession,
-          year_of_graduation,
+          name.trim()
+        );
+        console.log("Account created successfully:", newAccount.$id);
+      } catch (accountError) {
+        console.error("Account creation error:", accountError);
+        console.error("Error type:", typeof accountError);
+        console.error("Error keys:", Object.keys(accountError || {}));
+        
+        // Handle Appwrite error object structure
+        let errorMsg = "Failed to create account. ";
+        
+        if (accountError?.message) {
+          errorMsg += accountError.message;
+        } else if (accountError?.response?.message) {
+          errorMsg += accountError.response.message;
+        } else if (typeof accountError === "string") {
+          errorMsg += accountError;
+        } else if (accountError?.toString) {
+          errorMsg += accountError.toString();
+        } else {
+          errorMsg += "Email may already exist or invalid credentials.";
         }
-      );
+        
+        console.error("Final error message:", errorMsg);
+        throw new Error(errorMsg);
+      }
+
+      // Store extra info in Appwrite Database (DO NOT store password)
+      console.log("Creating document in database...");
+      try {
+        const documentData = {
+          userId: newAccount.$id,
+          status: "associate",
+          name: name.trim(),
+          gender: gender?.trim() || "",
+          adress: adress?.trim() || "",
+          email: email.trim(),
+          phone: phone?.trim() || "",
+          profession: profession?.trim() || "",
+          year_of_graduation: year_of_graduation?.trim() || "",
+        };
+        console.log("Document data to be sent:", documentData);
+        
+        const document = await databases.createDocument(
+          "68668bb2002232c78c64", // databaseId
+          "68668c13002021cd8a17", // collectionId
+          ID.unique(),
+          documentData
+        );
+        console.log("Document created successfully:", document.$id);
+        console.log("Full document:", document);
+      } catch (dbError) {
+        console.error("Database creation error:", dbError);
+        console.error("Error type:", typeof dbError);
+        console.error("Error keys:", Object.keys(dbError || {}));
+        
+        // Handle Appwrite error object structure
+        let errorMsg = "Account created but failed to save profile data. ";
+        
+        if (dbError?.message) {
+          errorMsg += dbError.message;
+        } else if (dbError?.response?.message) {
+          errorMsg += dbError.response.message;
+        } else if (typeof dbError === "string") {
+          errorMsg += dbError;
+        } else if (dbError?.toString) {
+          errorMsg += dbError.toString();
+        } else {
+          errorMsg += "Please contact support.";
+        }
+        
+        console.error("Final error message:", errorMsg);
+        throw new Error(errorMsg);
+      }
 
       setRegistered(true);
-      console.log("registered successfully");  
-      
-      // Automatically log in the user after registration
+      console.log("Registered successfully");
+
+      // Auto-login user
       try {
         await account.createEmailPasswordSession(email, password);
         console.log("User logged in successfully");
       } catch (loginError) {
         console.error("Auto-login failed:", loginError);
+        // Don't set error for login failure if registration succeeded
+      }
+
+      reset();
+
+      // Redirect
+      setTimeout(() => {
+        window.location.replace("/");
+      }, 800);
+    } catch (error) {
+      console.error("Registration error:", error);
+      console.error("Error type:", typeof error);
+      console.error("Error object:", error);
+      
+      // Handle different error object structures
+      let errorMsg = "Registration failed. Please check your information and try again.";
+      
+      if (error instanceof Error) {
+        errorMsg = error.message;
+      } else if (typeof error === "string") {
+        errorMsg = error;
+      } else if (error?.message) {
+        errorMsg = error.message;
+      } else if (error?.response?.message) {
+        errorMsg = error.response.message;
+      } else if (error?.toString) {
+        errorMsg = error.toString();
       }
       
-      reset();
-      
-      // Redirect to home page after successful registration (force full reload)
-      setTimeout(() => {
-        window.location.replace('/');
-      }, 500);
-    } catch (error) {
-      reset();
+      seterror(true);
+      setErrorMessage(errorMsg);
       setSubmiting(false);
-      throw new Error(error.message);
+      setSubmitted(false);
+      setRegistered(false);
     }
-
-
-
   };
 
   const progressPercents = [0, 33, 66];
 
   return (
-    <main className="py-4 px-2 ">
+    <main className="py-4 px-2 text-left">
       <FadeUp>
-      <div className="w-full max-w-md mx-auto text-orange">
-        {!submitted && (
-          <div className="mb-1">
-            <div className="w-full h-2 bg-blue-100 rounded-full overflow-hidden">
-              <div
-                className="h-2 bg-orange-300 rounded-full transition-all duration-500"
-                style={{ width: `${progressPercents[step]}%` }}
-              ></div>
+        <div className="w-full max-w-md mx-auto">
+          {!submitted && (
+            <div className="mb-1">
+              <div className="w-full h-2 bg-blue-100 rounded-full overflow-hidden">
+                <div
+                  className="h-2 bg-orange-300 rounded-full transition-all duration-500"
+                  style={{ width: `${progressPercents[step]}%` }}
+                ></div>
+              </div>
             </div>
-          </div>
-        )}
+          )}
 
-        { (
           <FormProvider {...methods}>
             <form
               onSubmit={handleSubmit(onSubmit)}
@@ -246,9 +347,10 @@ export default function AssociateForm() {
                     </label>
                     <input
                       type="text"
+                      placeholder="eg: DSM"
                       {...register("adress")}
                       className={`w-full rounded-lg border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 ${
-                        errors.phone ? "border-red-400" : "border-gray-300"
+                        errors.adress ? "border-red-400" : "border-gray-300"
                       }`}
                     />
                     {errors.adress && (
@@ -290,7 +392,7 @@ export default function AssociateForm() {
                 type="password"
                 required
                 className={`w-full rounded-lg border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 ${
-                  errors.email ? "border-red-400" : "border-gray-300"
+                  errors.password ? "border-red-400" : "border-gray-300"
                 }`}
                 id="password"
                 {...register("password")}
@@ -379,7 +481,28 @@ export default function AssociateForm() {
               {/* Success message */}
               {registered && (
                 <div className="mt-6 p-4 bg-green-100 border border-green-400 text-green-700 rounded-lg text-center">
-                  <p className="font-medium">Registered successfully! Redirecting to home page...</p>
+                  <p className="font-medium">
+                    Registered successfully! Redirecting to home page...
+                  </p>
+                </div>
+              )}
+
+              {error && (
+                <div className="mt-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+                  <p className="text-sm font-medium">
+                    {errorMessage || "Registration failed. Please check your information and try again."}
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      seterror(false);
+                      setErrorMessage("");
+                      setSubmitted(false);
+                    }}
+                    className="mt-2 text-sm underline hover:no-underline"
+                  >
+                    Try again
+                  </button>
                 </div>
               )}
 
@@ -400,20 +523,21 @@ export default function AssociateForm() {
                   <button
                     type="button"
                     onClick={onNext}
-                    className="px-4 py-2 rounded-lg bg-primary-dark text-white font-semibold hover:bg-[#10284A] transition duration-200"
+                    disabled={submiting}
+                    className="px-4 py-2 rounded-lg bg-primary-dark text-white font-semibold hover:bg-[#10284A] transition duration-200 disabled:opacity-50"
                   >
                     Next
                   </button>
                 ) : (
                   <button
                     type="submit"
-                    disabled={submiting}
+                    disabled={submiting || (registered && !error)}
                     className="px-4 py-2 rounded-lg bg-primary-dark text-white font-semibold cursor-pointer transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                   >
                     {submiting ? (
                       <>
                         <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                        Submitting
+                        Submitting...
                       </>
                     ) : (
                       "Submit"
@@ -423,8 +547,7 @@ export default function AssociateForm() {
               </div>
             </form>
           </FormProvider>
-        )}
-      </div>
+        </div>
       </FadeUp>
     </main>
   );

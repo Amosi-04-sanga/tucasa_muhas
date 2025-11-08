@@ -223,8 +223,15 @@ const Profile = ({ isOpen, onClose, user }) => {
                 </div>
               </div>
 
-              {/* Logout Button */}
-              <div className="pt-4 border-t border-gray-200">
+              
+            </div>
+          ) : (
+            <div className="text-center py-8">
+              <p className="text-gray-500">No user data found</p>
+            </div>
+          )}
+          {/* Logout Button */}
+          <div className="pt-4 border-t border-gray-200">
                 <button
                   onClick={handleLogout}
                   className="w-full bg-primary-dark cursor-pointer text-white py-3 px-4 rounded-lg font-semibold transition duration-200"
@@ -232,12 +239,6 @@ const Profile = ({ isOpen, onClose, user }) => {
                   Logout
                 </button>
               </div>
-            </div>
-          ) : (
-            <div className="text-center py-8">
-              <p className="text-gray-500">No user data found</p>
-            </div>
-          )}
         </div>
       </div>
     </div>

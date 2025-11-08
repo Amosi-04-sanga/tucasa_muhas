@@ -4,7 +4,6 @@ import { account, databases, ID } from "../../lib/appwrite";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
 import { FadeUp } from "..";
 
 // ✅ Zod schemas
@@ -50,12 +49,12 @@ const steps = [
 ];
 
 export default function LeaderForm() {
-  const router = useRouter();
   const [step, setStep] = useState(0);
   const [submitted, setSubmitted] = useState(false);
   const [submiting, setSubmiting] = useState(false);
   const [registered, setRegistered] = useState(false);
-  const [error, seterror] = useState(false)
+  const [error, seterror] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const methods = useForm({
     resolver: zodResolver(allStepsSchema),
@@ -86,15 +85,25 @@ export default function LeaderForm() {
     if (step >= steps.length) return;
     const currentStepFields = steps[step].fields;
     const valid = await trigger(currentStepFields); // ✅ Correct field names
-    if (valid) setStep((s) => s + 1);
+    if (valid) {
+      seterror(false); // Clear error when moving to next step
+      setErrorMessage(""); // Clear error message
+      setStep((s) => s + 1);
+    }
   };
 
   const onBack = () => {
-    if (step > 0) setStep((s) => s - 1);
+    if (step > 0) {
+      seterror(false); // Clear error when going back
+      setErrorMessage(""); // Clear error message
+      setStep((s) => s - 1);
+    }
   };
 
   const onSubmit = async (data) => {
     setSubmitted(true);
+    seterror(false);
+    setErrorMessage("");
     console.log("Registration info:", data);
 
     const {
@@ -112,21 +121,30 @@ export default function LeaderForm() {
 
     try {
       setSubmiting(true);
+      console.log("Starting registration process...");
 
       // ✅ Create account in Appwrite Auth
-      const newAccount = await account.create(
-        ID.unique(),
-        email,
-        password,
-        name
-      );
+      console.log("Creating account...");
+      let newAccount;
+      try {
+        newAccount = await account.create(
+          ID.unique(),
+          email,
+          password,
+          name
+        );
+        console.log("Account created successfully:", newAccount.$id);
+      } catch (accountError) {
+        console.error("Account creation error:", accountError);
+        throw new Error(
+          accountError.message || "Failed to create account. Email may already exist."
+        );
+      }
 
       // ✅ Store extra info in Appwrite Database
-      await databases.createDocument(
-        "68668bb2002232c78c64", // databaseId
-        "68668c13002021cd8a17", // collectionId
-        ID.unique(),
-        {
+      console.log("Creating document in database...");
+      try {
+        const documentData = {
           userId: newAccount.$id,
           status: "leader",
           name,
@@ -138,8 +156,24 @@ export default function LeaderForm() {
           course,
           year_of_study,
           position,
-        }
-      );
+        };
+        console.log("Document data:", documentData);
+        
+        const document = await databases.createDocument(
+          "68668bb2002232c78c64", // databaseId
+          "68668c13002021cd8a17", // collectionId
+          ID.unique(),
+          documentData
+        );
+        console.log("Document created successfully:", document.$id);
+      } catch (dbError) {
+        console.error("Database creation error:", dbError);
+        // Log the error - account was created but document wasn't
+        // User may need to contact support or use a different email
+        throw new Error(
+          dbError.message || "Account created but failed to save profile data. Please contact support."
+        );
+      }
 
       setRegistered(true);
       console.log("Registered successfully");
@@ -150,7 +184,8 @@ export default function LeaderForm() {
         console.log("User logged in successfully");
       } catch (loginError) {
         console.error("Auto-login failed:", loginError);
-        seterror(true);
+        // Don't set error for login failure if registration succeeded
+        // User can manually login later
       }
 
       reset();
@@ -161,12 +196,18 @@ export default function LeaderForm() {
       }, 800);
     } catch (error) {
       console.error("Registration error:", error);
-      seterror(true)
+      const errorMsg =
+        error.message ||
+        "Registration failed. Please check your information and try again.";
+      seterror(true);
+      setErrorMessage(errorMsg);
       setSubmiting(false);
+      setSubmitted(false);
+      setRegistered(false);
     }
   };
 
-  const progressPercents = [0, 33, 66];
+  const progressPercents = [33, 66, 100];
 
   return (
     <main className="py-4 px-2 text-left">
@@ -395,11 +436,13 @@ export default function LeaderForm() {
                 </div>
               )}
 
-                {
-                    error && (
-                      <p className="text-sm text-red-700 mt-4"> Email or phone number alrerady exit </p>
-                    )
-                  }
+              {error && (
+                <div className="mt-4 p-4 bg-red-100 border border-red-400 text-red-700 rounded-lg">
+                  <p className="text-sm font-medium">
+                    {errorMessage || "Registration failed. Please check your information and try again."}
+                  </p>
+                </div>
+              )}
 
               {/* Buttons */}
               <div className="flex justify-between mt-8">
@@ -419,15 +462,16 @@ export default function LeaderForm() {
                   <button
                     type="button"
                     onClick={onNext}
-                    className="px-4 py-2 rounded-lg bg-primary-dark text-white"
+                    disabled={submiting}
+                    className="px-4 py-2 rounded-lg bg-primary-dark text-white disabled:opacity-50"
                   >
                     Next
                   </button>
                 ) : (
                   <button
                     type="submit"
-                    disabled={submiting}
-                    className="px-4 py-2 rounded-lg bg-primary-dark text-white disabled:opacity-50"
+                    disabled={submiting || registered}
+                    className="px-4 py-2 rounded-lg bg-primary-dark text-white disabled:opacity-50 disabled:cursor-not-allowed"
                   >
                     {submiting ? "Submitting..." : "Submit"}
                   </button>
