@@ -27,7 +27,7 @@ const Timetable = () => {
                 <div>
                   <p className="py-2 px-2">Main campus Block M</p>
                   <p className="border-t border-primary-light px-2 pt-4">
-                    Chole hostel Behind block F
+                    Chole hostels Behind block F
                   </p>
                 </div>
               </td>
