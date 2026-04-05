@@ -53,7 +53,7 @@ export default function DayMessage() {
           </div>
           <div className="flex gap-4">
             <p>
-              <span className="italic">Chole hostel</span> <br /> 20:00-20:30Hrs <br /> Behind block F
+              <span className="italic">Chole hostels</span> <br /> 20:00-20:30Hrs <br /> Behind block F
             </p>
             <p>
               <span className="italic">Main campus</span> <br /> 19:30-20:00Hrs <br /> Block M
